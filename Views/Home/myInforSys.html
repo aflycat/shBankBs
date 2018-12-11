@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<!-- 编码格式 -->
+    <meta charset="UTF-8">
+    <title>上海银行</title>
+    <!-- 作者 -->
+    <meta name="author" content="author">
+    <!-- 网页描述 -->
+    <meta name="description" content="hello">
+    <!-- 关键字使用","分隔 -->
+    <meta name="keywords" content="a,b,c">
+    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+    <meta name="robots" content="none">
+    <!-- 收藏图标 -->
+    <!--<link rel="Shortcut Icon" href="favicon.ico">-->
+    <!-- 网页不会被缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 页面按原比例显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" href="../../Styles/Home/index.css">   
+    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+ 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+ 	<script src="../../Scripts/home/public.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+ 	 <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	<body>
+	<ul id="myTab" class="nav nav-tabs">
+		<li role="presentation" class="active">
+			<a href="#mem_infor">人员信息</a>
+		</li>
+		
+	</ul>
+	<div id="inforWrap">
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="mem_infor">
+				<div id="myTabContent" style="float:right ;">
+					<div class="top_deal_item">
+						<div class="left_deal">
+							<select class="form-control" style="width: 150px;float: left;margin-right: 15px;" onchange="searchChnage(this)">
+							  <option value="0">门禁系统</option>
+							  <option value="1">更衣柜系统</option>
+							  <option value="2">打印机系统</option>
+							  <option value="3">消费系统</option>
+							</select>
+							<input type="text" class="form-control timepicker" id="search_begin" style="width: 200px;" placeholder="开始时间">
+					    	<input type="text" class="form-control timepicker" id="search_end"  style="width: 200px;" placeholder="结束时间">
+							<button type="button" class="btn btn-primary" id="search" data-complete-text="加载中..." onclick="mem_search()">搜索</button>
+						</div>
+						
+					</div>
+					<div class="table_header">
+						<div class="header_content mj" >
+							<p>姓名</p>
+							<p>刷卡卡号</p>
+							<p>刷卡时间</p>
+							<p>事件</p>
+							<p>门禁点</p>
+						</div>
+						<div class="header_content gyg" style="display: none;">
+							<p>姓名</p>
+							<p>刷卡卡号</p>
+							<p>刷卡时间</p>
+							<p>事件</p>
+						</div>
+						<div class="header_content dyj" style="display: none;">
+							<p>姓名</p>
+							<p>工号</p>
+							<p>时间</p>
+							<p>打印机名称</p>
+							<p>打印色彩</p>
+							<p>纸张类型</p>
+							<p>纸张数量</p>
+							<p>是否双面</p>
+							<p>事件</p>
+						</div>
+						<div class="header_content xf" style="display: none;">
+							<p>姓名</p>
+							<p>工号</p>
+							<p>部门</p>
+							<p>刷卡卡号</p>
+							<p>刷卡时间</p>
+							<p>消费机号</p>
+							<p>消费金额</p>
+							<p>消费余额</p>
+							<p>消费方式</p>
+						</div>
+					</div>
+					<div class="table_content mj" ></div>
+					<div class="table_content gyg"  style="display: none;"></div>
+					<div class="table_content dyj"  style="display: none;"></div>
+					<div class="table_content xf"   style="display: none;"></div>
+				</div>
+				<div id="inforList"  style="float:left ;">
+					<div class="itemList">
+						<div class="itemOne">
+							<div class="panel panel-primary">
+								<div class="panel-heading">信息详情</div>
+								<div class="panel-body">
+									<div class="itemInfor">
+										<p>姓名:&nbsp;&nbsp;<span class="name "></span></p>
+										<p>性别:&nbsp;&nbsp;<span class="sex"></span></p>
+										<p>部门:&nbsp;&nbsp;<span class="department "></span></p>
+										<p>卡号:&nbsp;&nbsp;<span class="cardNo"></span></p>
+										<p>工号:&nbsp;&nbsp;<span class="workNo"></span></p>
+										<p>手机:&nbsp;&nbsp;<span class="phone"></span></p>
+										<p>邮箱:&nbsp;&nbsp;<span class="mail "></span></p>
+										<p>余额&nbsp;&nbsp; (<span class="xfStatus"></span>) :&nbsp;&nbsp;<span class="mon"></span></p>
+										<p>门禁权限&nbsp;&nbsp;(<span class="mjStatus"></span>) :&nbsp;&nbsp;<span class="mjtxt"></span></p>
+										<p>打印机权限&nbsp;&nbsp; (<span class="dyjStatus"></span>) :&nbsp;&nbsp;<span  class="dyjstr"></span></p>
+										<p>更衣柜权限&nbsp;&nbsp;(<span class="gygStatus"></span>)  :&nbsp;&nbsp;<span  class="gygname "></span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+
+			</div>
+
+			
+			
+			
+			
+		</div>
+		<div id="inforList"></div>
+	</div>
+	<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        	操作成功。
+    </div>
+    <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        	操作失败。
+    </div>
+	
+	
+</body>
+<script type="text/javascript">
+	var cardNo="";
+	$(function(){
+		var h=$(window).height();
+		$(".table_content").css({height:h-160+'px'})
+		$("#search_end").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").val(getTodayBegin());
+		$("#search_end").val(getTime());
+		loadMemInfor()
+	})
+	
+	function loadMemInfor(){
+		var data={
+			workNo:window.localStorage.userName
+		}
+		JQajaxo("post","/api/Event/get_infor_author",true,data,_success);
+		function _success(res){
+			var dat=res.HttpData.data[0];
+			$(".name").text(dat.name)
+			$(".sex").text(returnSex(dat.sex))
+			$(".department").text(dat.department)
+			$(".cardNo").text(dat.card)
+			$(".workNo").text(dat.workNo)
+			$(".phone").text(dat.phone)
+			$(".mail").text(dat.mail)
+			$(".mon").text(dat.mon)
+			$(".dyjstr").text(returnCan(dat.dyj))
+			$(".gygname").text(dat.gygname)
+			$(".mjtxt").text(dat.mjtxt)
+//			returnSta(type)
+			$(".xfStatus").text(returnSta(dat.xfStatus))
+			$(".mjStatus").text(returnSta(dat.mjStatus))
+			$(".dyjStatus").text(returnSta(dat.dyjStatus))
+			$(".gygStatus").text(returnSta(dat.gygStatus))
+			
+		}
+	}
+	var searchType=0;
+	function searchChnage(dom){
+		var val=$(dom).val();
+		searchType=val;
+		switch (searchType)
+		{
+			case "0":
+				$(".mj").show();
+				$(".gyg").hide();
+				$(".dyj").hide();
+				$(".xf").hide();
+				
+			break;
+			case "1":
+				$(".mj").hide();
+				$(".gyg").show();
+				$(".dyj").hide();
+				$(".xf").hide();
+			break;
+			case "2":
+				$(".mj").hide();
+				$(".gyg").hide();
+				$(".dyj").show();
+				$(".xf").hide();
+			break;
+			case "3":
+				$(".mj").hide();
+				$(".gyg").hide();
+				$(".dyj").hide();
+				$(".xf").show();
+			break;
+			
+		}
+	}
+	function mem_search(){
+		var data;
+		if(searchType=="2"){
+			data={
+				cardNo:window.localStorage.userName,
+				end:$("#search_end").val(),
+				start:$("#search_begin").val(),
+				sys:searchType
+			}
+		}else{
+			data={
+				cardNo:$(".cardNo").text(),
+				end:$("#search_end").val(),
+				start:$("#search_begin").val(),
+				sys:searchType
+			}
+		}
+		JQajaxo("post","/api/Event/get_mark_sys",true,data,_success);
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			console.log(dat)
+			$(".table_content").html("");
+			paddingCount($(".table_content"),$(".header_content"),lg);
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				if(searchType=="1"){
+					var html='<div class="table_line" id="'+i+'">'+
+								'<p>'+value.member+'</p>'+
+								
+								'<p>'+value.cardNo+'</p>'+
+								'<p>'+value.time.replace("T"," ")+'</p>'+
+								'<p>'+value.event+'</p>'+
+							'</div>';
+					$(".table_content.gyg").append(html)
+				}else if(searchType=="0"){
+					var html='<div class="table_line" id="'+i+'">'+
+								'<p>'+value.member+'</p>'+
+								'<p>'+value.cardNo+'</p>'+
+								'<p>'+value.time.replace("T"," ")+'</p>'+
+								'<p>'+value.event+'</p>'+
+								'<p>'+value.mjname+'</p>'+
+							'</div>';
+					$(".table_content.mj").append(html)
+				}else if(searchType=="2"){
+					var html='<div class="table_line" id="'+i+'">'+
+								'<p>'+value.member+'</p>'+
+								'<p>'+value.workno+'</p>'+
+								'<p>'+value.time.replace("T"," ")+'</p>'+
+ 								'<p>'+value.printername+'</p>'+
+								'<p>'+value.pageColor+'</p>'+
+								'<p>'+value.pageSize+'</p>'+
+								'<p>'+value.pageNum+'</p>'+
+								'<p>'+value.isDouble+'</p>'+
+								'<p>'+returnEvent(value.event)+'</p>'+
+							'</div>';
+					$(".table_content.dyj").append(html)
+				}else if(searchType=="3"){
+					var html='<div class="table_line" id="'+i+'">'+
+								'<p>'+value.member+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.department+'</p>'+
+								'<p>'+value.cardNo+'</p>'+
+								'<p title="'+value.time.replace("T"," ")+'">'+value.time.replace("T"," ")+'</p>'+
+								'<p>'+value.xfjh+'</p>'+
+								'<p>'+value.xfje+'</p>'+
+								'<p>'+value.rfye+'</p>'+
+								
+								'<p>'+value.event+'</p>'+
+							'</div>';
+					$(".table_content.xf").append(html)
+				}
+				
+			}
+
+		}
+	}
+	function returnDouble(bool){
+		if(bool){
+			return "是"
+		}else{
+			return "否"
+		}
+	}
+	function returnEvent(type){
+		if(type=="0"){
+			return "打印"
+		}else if(type=="1"){
+			return "复印"
+		}else{
+			return "扫描"
+		}
+	}
+	function returnSta(type){
+		if(type=="0"){
+			return "未授权"
+		}else if(type=="1"){
+			return "已授权"
+		}else if(type=="2"){
+			return "待撤权"
+		}else{
+			return "冻结"
+		}
+	}
+	function returnCan(bool){
+		if(bool){
+			return "可用"
+		}else{
+			return "冻结"
+		}
+	}
+	function returnSex(bool){
+		console.log(bool)
+		if(bool==0){
+			return "男"
+		}else{
+			return "女"
+		}
+	}
+</script>
+</html>

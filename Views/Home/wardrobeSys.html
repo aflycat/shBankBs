@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+	<!-- 编码格式 -->
+    <meta charset="UTF-8">
+    <title>上海银行</title>
+    <!-- 作者 -->
+    <meta name="author" content="author">
+    <!-- 网页描述 -->
+    <meta name="description" content="hello">
+    <!-- 关键字使用","分隔 -->
+    <meta name="keywords" content="a,b,c">
+    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+    <meta name="robots" content="none">
+    <!-- 收藏图标 -->
+    <!-- <link rel="Shortcut Icon" href="favicon.ico"> -->
+    <!-- 网页不会被缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 页面按原比例显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" href="../../Styles/Home/index.css">
+    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+ 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+ 	<script src="../../Scripts/home/public.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+ 	
+    <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	<body>
+	<ul id="myTab" class="nav nav-tabs">
+		<li role="presentation" class="active">
+			<a href="#wardrobe_mem">人员权限</a>
+		</li>
+		<li role="presentation" >
+			<a href="#wardrobe_eq">设备控制</a>
+		</li>
+		<li role="presentation">
+			<a href="#wardrobe_history">历史记录</a>
+		</li>
+	</ul>
+	<div id="inforWrap">
+		<div class="tab-content">
+			<div class="tab-pane fade  in active" id="wardrobe_mem">
+				<div id="myTabContent">
+					<div class="top_deal_item">
+						<div class="left_deal">
+							<input type="text" class="form-control" id="gyg_author_search_text" placeholder="请输入要搜索的内容">
+							<button type="button" class="btn btn-primary" id="search" data-complete-text="加载中..." onclick="gyg_author_search()">搜索
+								</button>
+						</div>
+						<div class="right_deal">
+							<button type="button" class="btn btn-primary" id="search" onclick="refresh()">刷新</button>
+						</div>
+					</div>
+					<div class="table_header">
+						<div class="header_content" id="wardrobe_ysq_header">
+							<p>姓名</p>
+							<p>性别</p>
+							<p>工号</p>
+							<p>卡号</p>
+							<p>部门</p>
+							<p>编号</p>
+							<p>操作</p>
+						</div>
+					</div>
+					<div class="table_content main_table" id="wardrobe_ysq">
+
+					</div>
+
+				</div>
+				<div id="inforList">
+					<div class="itemList">
+						<div class="itemOne">
+							<div class="panel panel-primary">
+								<div class="panel-heading">更衣柜系统(<span class="allNum">0</span>人)</div>
+								<div class="panel-body">
+									<div class="itemInfor">
+										<dl class="left">
+											<dt>已授权人数:</dt>
+											<dd class="ysq">0</dd>
+										</dl>
+										<dl class="right">
+											<dt>待授权人数:</dt>
+											<dd class="dsq">0</dd>
+										</dl>
+									</div>
+									<div class="itemInfor">
+										<dl class="left">
+											<dt>已撤权人数:</dt>
+											<dd class="ycq">0</dd>
+										</dl>
+										<dl class="right">
+											<dt>待撤权人数:</dt>
+											<dd class="dcq">0</dd>
+										</dl>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="itemOne" id="wardrobe_dsq">
+							<div class="panel panel-primary">
+								<div class="panel-heading">待授权</div>
+								<div class="panel-body">
+									<div class="table_header">
+										<div class="header_content">
+											<p>姓名</p>
+											<p>工号</p>
+											<p>卡号</p>
+											<p>性别</p>
+										</div>
+									</div>
+									<div class="table_content">
+				
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="itemOne" id="wardrobe_dcq">
+							<div class="panel panel-primary">
+								<div class="panel-heading">待撤权</div>
+								<div class="panel-body">
+									<div class="table_header">
+										<div class="header_content">
+											<p>姓名</p>
+											<p>工号</p>
+											<p>卡号</p>
+											<p>性别</p>
+										</div>
+									</div>
+									<div class="table_content">
+				
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="tab-pane fade" id="wardrobe_eq">
+				<div class="top_deal_item">
+					<div class="left_deal">
+					    <input type="text" class="form-control" id="gyg_eq_search" placeholder="请输入要搜索的内容" >
+					    <button type="button" class="btn btn-primary"  
+						   	data-complete-text="加载中..." onclick="gyg_eq_search()">搜索
+						</button>
+					</div>
+					<div class="right_deal">
+						
+					</div>
+				</div>
+				<div class="table_header">
+					<div class="header_content">
+						<p>名称</p>
+						<p>类型</p>
+						<p>使用状态</p>
+						<p>开关状态</p>
+						<p>操作</p>
+					</div>
+				</div>
+				<div class="table_content main_table">
+
+				</div>
+
+			</div>
+			<div class="tab-pane fade " id="wardrobe_history">
+				<div class="top_deal_item">
+					<div class="left_deal">
+						<select class="form-control" style="width: 150px;float: left;margin-right: 15px;" onchange="searchChnage(this)">
+						  <option value="0">时间</option>
+						  <option value="1">卡号</option>
+						  <option value="2">姓名</option>
+						</select>
+					    <input type="text" class="form-control textpicker" placeholder="请输入要搜索的内容" style="display: none;">
+					    <input type="text" class="form-control timepicker" id="search_begin" style="width: 200px;" placeholder="开始时间">
+					    <input type="text" class="form-control timepicker" id="search_end"  style="width: 200px;" placeholder="结束时间">
+					    <button type="button" class="btn btn-primary" id="search" 
+						   	data-complete-text="加载中..." onclick="access_his_search()">搜索
+						</button>
+					</div>
+					<div class="right_deal">
+						<a id="dlink" href="#" style="display: none;"></a>
+						<button type="button" class="btn btn-primary" id="search" onclick="exportExls()">导出</button>
+					</div>
+				</div>
+				<div class="table_header">
+					<div class="header_content">
+						<p>姓名</p>
+						<p>刷卡时间</p>
+						<p>刷卡卡号</p>
+						<p>事件</p>
+					</div>
+				</div>
+				<div class="table_content main_table">
+
+				</div>
+
+			</div>
+			
+			
+		</div>
+		<div id="inforList"></div>
+	</div>
+	<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        		操作成功。
+    </div>
+    <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        	操作失败。
+    </div>
+	<div class="modal fade" id="myModal_gyg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							
+							<span class="txt">
+								更衣柜选择
+							</span>
+							<span class="errorMsg"  style="font-size: 14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">更衣柜 <span style="color: red;">*</span></label>
+									    <div class="col-md-10">
+									     	 <input type="text" class="form-control" id="meeting_room_app" placeholder="更衣柜" onclick="showMeetingRoom()">
+									     	<div class="checkWrap" id="meeting_room_list">
+										      	
+									      	
+									      	</div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="gygDeal(this)"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="modal fade" id="myModal_gyg_del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						更衣柜
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label class=" col-md-4 control-label">
+									  确定进行更衣柜撤权？
+									</label>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" onclick="gygDele()">
+						确定
+					</button>
+				</div>
+			</div>
+		</div> 
+	</div>
+</body>
+<script type="text/javascript">
+	var searchType=0,sex;
+	var edictId=0,gygId=0,edictType=0,gygName="",oldGyg=0;
+	$(function(){
+		
+		var locak= loadThisAdmin(5)
+		if(locak!=1){
+			return
+		}
+		var h=$(window).height();
+		$(".main_table").css({height:h-170+'px'})
+		$('#myTab a').click(function (e) {
+		   e.preventDefault()
+		    var tabName=$(this).attr("href")
+		   $(this).tab('show')
+		    if(tabName=="#wardrobe_mem"){
+		   		loadSysNum(0,'gygStatus')
+				loadMemInfor(0);
+		    }
+		    if(tabName=="#wardrobe_eq"){
+		   		loadWareobeEq(0);
+		    }
+		})
+		$("#inforList").css({height:h-80+'px',overflow:"auto"});
+		
+		$('input, textarea').placeholder();
+		$("#search_end").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").val(getTodayBegin())
+		$("#search_end").val(getTime())
+		$('#gyg_author_search_text').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadMemInfor(0);
+			}
+		})
+		$('#gyg_eq_search').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadWareobeEq(0);9
+			}
+		})
+		loadSysNum(0,'gygStatus')
+		loadMemInfor(0);
+		loadWareobeEq(0);
+		$('.modal').on('show.bs.modal', function () {
+			   $(".errorMsg").text("");
+		})
+	})
+	function gyg_eq_search(){
+		loadWareobeEq(1)
+	}
+	function loadWareobeEq(deal){
+		if(deal==0){
+			JQajaxo("get","/api/Event/get_all_wardrobe",true,{},_success);
+		}else{
+			var data={
+				keyTxt:$("#gyg_eq_search").val()
+			}
+			JQajaxo("post","/api/Event/get_all_wardrobe_search",true,data,_success);
+		}
+		
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#wardrobe_eq .table_content"),$("#wardrobe_eq .header_content"),lg);
+			$("#wardrobe_eq .table_content").html("")
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var html='<div class="table_line" id="'+i+'">'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+ returnSex(value.type)+'</p>'+
+							'<p>'+ returnSta(value.status)+'</p>'+
+							'<p class="sta">'+returnDoor(value.nowSta)+'</p>'+
+							'<p><span class="edict"  onclick="controlEquip(1,'+i+','+value.id+')">开门</span></p>'+
+						'</div>';
+				$("#wardrobe_eq .table_content").append(html)
+			}
+		}
+	}
+	function controlEquip(deal,ind,id){
+//		set_wardrobe_control
+		JQajaxo("post","/api/Event/set_wardrobe_control",true,{id:id},_success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			if(dat==1){
+			$(".alert-success").show()
+				$("#wardrobe_eq #"+ind).find(".sta").text("开")
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+
+	}
+	var tbodyData=[];
+	function exportExls(){
+		var  colName=[
+			{label:"姓名",key:"member",type:"string"},
+			{label:"刷卡时间",key:"time",type:"time"},
+			{label:"刷卡卡号",key:"cardNo",type:"string"},
+			{label:"事件",key:"event",type:"string"},
+		]
+		var fileName="更衣柜历史记录"+getTime();
+		HtmlExportToExcel(tbodyData,colName,fileName)
+	}
+	function gyg_author_search(){
+		loadMemInfor(1)
+	}
+	function refresh(){
+			loadSysNum(0,'gygStatus')
+			loadMemInfor(0)
+	}
+	function searchChnage(dom){
+		var val=$(dom).val();
+		searchType=val;
+		switch (val)
+		{
+			case "1":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			case "2":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			
+			case "0":
+				$(".timepicker").show();
+				$(".typepicker").hide();
+				$(".textpicker").hide();
+			break;
+		}
+	}
+	function access_his_search(){
+		var data;
+        if(searchType==0){
+        	data={
+        		start:$("#search_begin").val(),
+        		end:$("#search_end").val(),
+        		type:0
+        	}
+        }
+        if(searchType==1){
+        	data={
+        		cardNo:$(".textpicker").val(),
+        		type:2
+        	}
+        }
+        if(searchType==2){
+        	data={
+        		name:$(".textpicker").val(),
+        		type:1
+        	}
+        }
+        JQajaxo("post","/api/Event/get_gyg_his",true,data,_success)
+        function _success(res){
+        	var dat=res.HttpData.data,lg=dat.length;
+        	tbodyData=dat;
+        	paddingCount($(".main_table"),$("#wardrobe_history .header_content"),lg)
+        	$("#wardrobe_history .table_content").html("");
+        	for(var i=0;i<lg;i++){
+        		var value=dat[i];
+
+        		var html='<div class="table_line">'+
+							'<p>'+value.member+'</p>'+
+							'<p>'+value.time.replace("T"," ")+'</p>'+
+							'<p>'+value.cardNo+'</p>'+
+							'<p>'+value.event+'</p>'+
+						'</div>';
+        		$("#wardrobe_history .table_content").append(html)
+        	}
+        }
+	}
+	function loadMemInfor(deal){
+		if(deal==0){
+			JQajaxo("get", "/api/Event/get_all_gyg", true,{}, _success)
+		}else{
+			var data={
+				keyWord:$("#gyg_author_search_text").val()
+			}
+			JQajaxo("post", "/api/Event/get_all_gyg_search", true,data, _success)
+		}
+		
+		function _success(res){
+			$("#wardrobe_ysq").html("")
+			$("#wardrobe_dcq .table_content").html("")
+			$("#wardrobe_dsq .table_content").html("")
+			var dat=res.HttpData.data,lg=dat.length,ysq=0,dsq=0,dcq=0;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				if(value.gygStatus==1){
+					ysq++;
+					var html='<div class="table_line">'+
+								'<p>'+value.name+'</p>'+
+								'<p>'+returnSex(value.sex)+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.cardNo+'</p>'+
+								'<p>'+value.department+'</p>'+
+								'<p>'+value.gygname+'</p>'+
+								'<p><span class="edict" onclick="gyg_deal(1,\''+value.cardNo+'\',\''+value.sex+'\',\''+value.gyg+'\',\''+value.gygname+'\',\''+value.name+'\',\''+value.mail+'\',\''+value.phone+'\')">编辑</span></p>'+
+							'</div>';
+					$("#wardrobe_ysq").append(html);
+				}
+				if(value.gygStatus==2){
+					dcq++;
+					var html='<div class="table_line" onclick="dele_gyg(\''+value.cardNo+'\',\''+value.gyg+'\')">'+
+								'<p>'+value.name+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.cardNo+'</p>'+
+								'<p>'+returnSex(value.sex)+'</p>'+
+							'</div>';
+					$("#wardrobe_dcq .table_content").append(html);
+				}
+				if(value.gygStatus==0){
+					dsq++;
+					var html='<div class="table_line" onclick="gyg_deal(0,\''+value.cardNo+'\',\''+value.sex+'\',\''+'\',\''+'\',\''+value.name+'\',\''+value.mail+'\',\''+value.phone+'\')">'+
+								'<p>'+value.name+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.cardNo+'</p>'+
+								'<p>'+returnSex(value.sex)+'</p>'+
+							'</div>';
+					$("#wardrobe_dsq .table_content").append(html);
+				}
+			}
+			paddingCount($("#wardrobe_ysq"),$("#wardrobe_ysq_header"),ysq)
+			paddingCount($("#wardrobe_dsq .table_content"),$("#wardrobe_dsq .header_content"),dsq)
+			paddingCount($("#wardrobe_dsq .table_content"),$("#wardrobe_dcq .header_content"),dcq)
+		}
+	}
+	function dele_gyg(card,gyg){
+		$("#myModal_gyg_del").modal("show");
+		edictId=card;
+		gygId=gyg;
+		edictType=2;
+	}
+	function gygDele(){
+		gygDeal()
+	}
+	var phoneNo,mailNo,nameNo;
+	function gyg_deal(deal,card,sexs,gyg,gygname,name,mail,phone){
+//		edictId=0,gygId=0,edictType=0,gygName="";
+		$("#myModal_gyg").modal("show");
+		edictType=deal;
+		edictId=card;
+		oldGyg=gyg;
+		phoneNo=phone;
+		mailNo=mail;
+		nameNo=name;
+		if(deal==0){
+			$("#myModal_gyg h4 .txt").text("更衣柜授权")
+		}else{
+			$("#myModal_gyg h4 .txt").text("修改更衣柜编号")
+		}
+		sex=sexs;
+		gygName=gygname;
+		$("#meeting_room_app").val(gygName)
+		$("#meeting_room_list .item").each(function(){
+			$(this).find("img").hide()
+		})
+	}
+//	myModal_gyg,myModal_gyg_del
+	function gygDeal(dom){
+		var gygNames=$("#meeting_room_app").val();
+		var data;
+		if(edictType==0){
+			data={
+				deal:0,
+				cardNo:edictId,
+				gyg:gygId,
+				oldGyg :""
+			}
+		}else if(edictType==2){
+			data={
+				deal:2,
+				cardNo:edictId,
+				gyg:gygId,
+				oldGyg :""
+			}
+		}else{
+			data={
+				deal:1,
+				cardNo:edictId,
+				gyg:gygId,
+				oldGyg :oldGyg
+			}
+		}
+		if(!data.gyg){
+			$(dom).parents(".modal-dialog").find(".errorMsg").text("请选择更衣柜");
+			return;
+		}
+		
+		JQajaxo("post", "/api/Event/upd_mem_gyg", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_gyg').modal('hide');
+			$("#myModal_gyg_del").modal("hide");
+			if(dat==1){
+				$(".alert-success").show();
+				loadMemInfor(0);
+//				gygNames
+//	var phoneNo,mailNo;
+				loadSysNum(0,'gygStatus');
+				var content=nameNo+",您的更衣柜编号已经更改为"+gygNames;
+				sms(phoneNo,content);
+				mail("",mailNo,"","","更衣柜编号变更通知",content);
+				
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function showMeetingRoom(){
+		
+		stopEvent(event);
+		var data;
+		if(sex==1){
+			data={
+				type:1
+			}
+		}else{
+			data={
+				type:0
+			}
+		}
+		JQajaxo("post", "/api/Event/get_unserd_gyg", true,data, _success);
+		function _success(res){
+			$("#meeting_room_list").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i]
+				var html='<div class="item" checkId="'+value.id+'"  onclick="changeMeetingRoom(this,\''+value.id+'\',\''+value.name+'\')">'+
+					      		 '<span>'+value.name+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      '</div>';
+				$("#meeting_room_list").append(html)
+			}
+			
+			$("#meeting_room_list").show();
+			$("#meeting_room_list").find(".item").each(function(){
+				var img=$(this).find("img");
+				var checkid=$(this).attr("checkId");
+				if(checkid==gygId){
+					$(this).find("img").show();
+				}else{
+					$(this).find("img").hide();
+				}
+			})
+		}
+
+	}
+	function changeMeetingRoom(dom,id,name){
+		stopEvent(event);
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		gygId=id;
+		$("#meeting_room_app").val(name)
+
+	}
+	function returnSex(sex){
+		var txt="";
+		if(sex==1){
+			txt="女"
+		}else{
+			txt="男"
+		}
+		return txt;
+	}
+	function returnSta(id){
+		if(id==1){
+			return "已分配";
+		}else{
+			return "未分配";
+		}
+	}
+	function returnDoor(id){
+		if(id==0){
+			return "未知";
+		}else if(id==1){
+			return "开";
+		}else{
+			return "关"
+		}
+	}
+//	elxs
+	
+</script>
+</html>

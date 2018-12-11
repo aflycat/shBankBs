@@ -1,0 +1,223 @@
+@font-face{
+    font-family: 'SourceHanSans-Bold';
+    src : url('../font/SourceHanSans-Bold.otf');
+}
+
+body,
+html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	color: #fff;
+	font-family: "Microsoft YaHei";
+}
+
+.main {
+	width: 100%;
+	height: 100%;
+	background: url(../img/screen/bgAll.png) no-repeat center center/100% 100%;
+}
+
+.total-title{
+	width: 100%;
+	height: 8%;
+	margin: 0 auto;
+	box-sizing: border-box;
+	font-size: 2.4rem;
+	font-weight: 600;
+	letter-spacing: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'SourceHanSans-Bold';
+}
+
+.meet-container{
+	width: 98%;
+	height: 524px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	position: relative;
+	top: 173px;
+}
+
+.left-pannel{
+	width: 40%;
+	height: 100%;
+	background: url(../img/screen/rectangle.png) no-repeat center center/100% 100%;
+	float: left;
+}
+
+.right-pannel{
+	width: 29%;
+	height: 100%;
+	background: url(../img/screen/rectangle.png) no-repeat center center/100% 100%;
+	float: left;
+	margin-left: 1%;
+}
+
+.container-title{
+	width: 100%;
+	height: 15%;
+	margin: 0 auto;
+	box-sizing: border-box;
+	border-bottom: 1px solid #C1C4CD;
+	font-size: 2.2rem;
+	font-weight: 600;
+	letter-spacing: 2px;
+	padding: 0 5%;
+	display: flex;
+	align-items: center;
+	font-family: 'SourceHanSans-Bold';
+}
+
+.container-table{
+	width: 100%;
+	height: 85%;
+	padding: 1% 0;
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+
+.container-table table{
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.container-table::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+
+.container-table::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.container-table::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.container-table table tr{
+	display: table;
+  width: 100%;
+  table-layout: fixed;
+	height: 12.5%;
+}
+
+.container-table table tr th {
+	font-weight: normal;
+	color: #c1c4cd;
+	font-size: 1.3rem;padding: 8px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #C1C4CD;
+}
+
+.container-table table tr td {
+	color: #fff;
+	font-size: 1.2rem;
+	box-sizing: border-box;word-break: keep-all;white-space:nowrap;
+	border-bottom: 1px solid #C1C4CD;
+}
+
+.container-table table tr td label{
+	width: 15px;
+	display: inline-block;
+}
+
+.begin-span{
+	background: #0d5392;
+	padding: 5px 10px;
+	letter-spacing: 2px;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.process-span{
+	background: #0f8dd9;
+	padding: 5px 10px;
+	letter-spacing: 2px;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.finish-span{
+	background: #405585;
+	padding: 5px 10px;
+	letter-spacing: 2px;
+	border-radius: 5px;
+	color: #C1C4CD;
+}
+
+.container-table tr:last-child td{
+	border-bottom-width: 0;
+}
+
+.container-ul{
+	width: 90%;
+	height: 83%;
+	padding: 1% 0;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.container-ul ul {
+	font-weight: normal;
+	color: #c1c4cd;
+	font-size: 1.3rem;
+	width: 22%;
+	height: 12.5%;
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+
+.container-ul ul:last-child {
+	width: 78%;
+}
+
+.container-ul ul li {
+	padding: 0;
+	color: #fff;
+	font-size: 1.2rem;
+	color: #C1C4CD;
+	height: 100%;
+	width: 100%;
+	text-decoration: none;
+	list-style: none;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.container-ul ul:last-child li{
+	width: 100%;
+	justify-content: flex-start;
+	color: #fff;
+	margin-left: 5%;
+}
+
+.container-img{
+	width: 74%;
+	height: 77%;
+	position: relative;
+	left: 13%;
+	top: 4%;
+}
+
+.container-img img{
+	width: 100%;
+	height: 100%;
+	display: none;
+}

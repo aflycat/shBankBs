@@ -1,0 +1,304 @@
+@charset "UTF-8";
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: 'SourceHanSans-Bold';
+  font-size: 16px;
+  color: #fff;
+  background: #000142;
+  background: url(../img/meetScreen.png) no-repeat center center/100% 100%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  user-select: none; }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+.main {
+  width: 100%;
+  height: 100%; }
+  .main .total-title {
+    width: 100%;
+    height: 12%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-size: 5rem;
+    color: #00F6FF;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1, 1.25);
+    font-family: '庞门正道标题体'; }
+  .main .meet-container {
+    width: 84%;
+    height: 69%;
+    margin: 0 auto;
+    position: absolute;
+    left: 8%;
+    bottom: 8%;
+    box-sizing: border-box; }
+    .main .meet-container .top-pannel {
+      width: 100%;
+      height: 23%;
+      margin-bottom: 2%;
+      font-family: '庞门正道标题体'; }
+      .main .meet-container .top-pannel .top-left-box {
+        width: 34%;
+        height: 94%;
+        float: left; }
+        .main .meet-container .top-pannel .top-left-box span {
+          width: 100%;
+          height: 30%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2.7rem;
+          transform: scale(1, 1.25);
+          color: white; }
+          .main .meet-container .top-pannel .top-left-box span:nth-child(1) {
+            font-size: 4rem;
+            height: 40%; }
+      .main .meet-container .top-pannel .top-center-box {
+        width: 31%;
+        height: 100%;
+        float: left;
+        margin-left: 2%;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .main .meet-container .top-pannel .top-center-box span {
+          width: 80%;
+          height: 30%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          border-bottom: 1px solid #00F6FF;
+          font-size: 3rem;
+          transform: scale(1, 1.25);
+          letter-spacing: 3px;
+          color: #E1E0E4; }
+      .main .meet-container .top-pannel .right-center-box {
+        width: 31%;
+        height: 94%;
+        float: right;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .main .meet-container .top-pannel .right-center-box img {
+          width: 92%;
+          height: auto; }
+    .main .meet-container .center-pannel {
+      width: 100%;
+      height: 28%;
+      background: url(../img/meetScreen_kuang.png) no-repeat center center/100% 100%;
+      padding: 2% 5%;
+      margin-bottom: 5%; }
+      .main .meet-container .center-pannel p {
+        width: 100%;
+        height: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: 1px solid #00F6FF;
+        font-size: 3rem;
+        transform: scale(1, 1.25);
+        letter-spacing: 3px;
+        color: #E1E0E4;
+        font-family: '庞门正道标题体';
+        margin-bottom: 3%; }
+      .main .meet-container .center-pannel .container-ul {
+        width: 100%;
+        height: 55%;
+        margin: 0 auto;
+        text-align: center; }
+        .main .meet-container .center-pannel .container-ul ul {
+          font-weight: normal;
+          color: #c1c4cd;
+          font-size: 1.3rem;
+          width: 100%;
+          height: 25%;
+          padding: 0;
+          margin: 0;
+          float: left; }
+          .main .meet-container .center-pannel .container-ul ul li {
+            width: 50%;
+            height: 100%;
+            padding: 0;
+            color: #fff;
+            font-size: 1.3rem;
+            color: #C1C4CD;
+            float: left;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center; }
+            .main .meet-container .center-pannel .container-ul ul li label {
+              width: 30%;
+              height: 100%;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              float: left; }
+            .main .meet-container .center-pannel .container-ul ul li span {
+              width: 70%;
+              height: 100%;
+              display: flex;
+              color: #19A0FF;
+              text-indent: 2rem;
+              justify-content: flex-start;
+              align-items: center;
+              float: left; }
+    .main .meet-container .bottom-pannel {
+      width: 100%;
+      height: 43%; }
+      .main .meet-container .bottom-pannel .container-title {
+        width: calc(100%);
+        height: 14%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        font-size: 3rem;
+        transform: scale(1, 1.25);
+        letter-spacing: 3px;
+        color: #E1E0E4;
+        padding: 0 5%;
+        font-family: '庞门正道标题体'; }
+      .main .meet-container .bottom-pannel .container-line {
+        width: 100%;
+        height: 1%;
+        border-bottom: 1px solid #00F6FF; }
+      .main .meet-container .bottom-pannel .container-thead-ul {
+        width: 93%;
+        height: 10%;
+        margin-left: 5%;
+        font-weight: normal;
+        padding: 0; }
+        .main .meet-container .bottom-pannel .container-thead-ul li {
+          width: 23%;
+          height: 100%;
+          padding: 0;
+          color: #fff;
+          font-size: 1.5rem;
+          color: #fff;
+          float: left;
+          list-style: none;
+          box-sizing: border-box;
+          border-bottom: 1px solid #C1C4CD;
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+          .main .meet-container .bottom-pannel .container-thead-ul li:first-child {
+            justify-content: flex-start;
+            width: 16%; }
+          .main .meet-container .bottom-pannel .container-thead-ul li:last-child {
+            justify-content: flex-end;
+            width: 15%; }
+      .main .meet-container .bottom-pannel .container-table {
+        width: 100%;
+        height: 75%;
+        box-sizing: border-box;
+        overflow-y: scroll; }
+        .main .meet-container .bottom-pannel .container-table table {
+          width: 93%;
+          height: 100%;
+          margin-left: 5%;
+          text-align: center; }
+          .main .meet-container .bottom-pannel .container-table table tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            height: calc(100% / 7); }
+            .main .meet-container .bottom-pannel .container-table table tr th {
+              font-weight: normal;
+              color: #fff;
+              font-size: 1.5rem;
+              padding: 12px 0;
+              box-sizing: border-box;
+              border-bottom: 1px solid #C1C4CD;
+              width: 23%; }
+              .main .meet-container .bottom-pannel .container-table table tr th:first-child {
+                text-align: left;
+                width: 16%; }
+              .main .meet-container .bottom-pannel .container-table table tr th:last-child {
+                text-align: right;
+                width: 15%; }
+            .main .meet-container .bottom-pannel .container-table table tr td {
+              color: #fff;
+              font-size: 1.2rem;
+              box-sizing: border-box;
+              word-break: keep-all;
+              white-space: nowrap;
+              border-bottom: 1px solid #C1C4CD;
+              width: 23%; }
+              .main .meet-container .bottom-pannel .container-table table tr td:first-child {
+                text-align: left;
+                width: 16%; }
+              .main .meet-container .bottom-pannel .container-table table tr td:last-child {
+                text-align: right;
+                width: 15%; }
+            .main .meet-container .bottom-pannel .container-table table tr label {
+              width: 15px;
+              display: inline-block; }
+          .main .meet-container .bottom-pannel .container-table table::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            width: 4px;
+            /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px; }
+          .main .meet-container .bottom-pannel .container-table table::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2); }
+          .main .meet-container .bottom-pannel .container-table table::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+            background: rgba(0, 0, 0, 0.1); }
+
+.font-check-box {
+  width: calc(100% + 4px) !important;
+  margin-left: -4px; }
+  .font-check-box td {
+    color: #19A0FF !important; }
+    .font-check-box td:first-child {
+      margin-left: -15px; }
+  .font-check-box:before {
+    content: '▶';
+    color: #00F6FF;
+    font-size: 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: -2rem;
+    margin-top: -2px; }
+
+.begin-span {
+  background: #0d5392;
+  padding: 5px 10px;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  color: #fff; }
+
+.process-span {
+  background: #0f8dd9;
+  padding: 5px 10px;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  color: #fff; }
+
+.finish-span {
+  background: #405585;
+  padding: 5px 10px;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  color: #C1C4CD; }
+
+/*# sourceMappingURL=meetScreen.css.map */

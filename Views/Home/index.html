@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- 编码格式 -->
+    <meta charset="UTF-8">
+    <title>上海银行</title>
+    <!-- 作者 -->
+    <meta name="author" content="author">
+    <!-- 网页描述 -->
+    <meta name="description" content="hello">
+    <!-- 关键字使用","分隔 -->
+    <meta name="keywords" content="a,b,c">
+    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- 用来防止别人在框架里调用你的页面 -->
+    <!--<meta http-equiv="Window-target" content="_top">-->
+    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+    <meta name="robots" content="none">
+    <!-- 收藏图标 -->
+    <!--<link rel="Shortcut Icon" href="favicon.ico">-->
+    <!-- 网页不会被缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 页面按原比例显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Styles/Home/index.css">
+    <script src="../../Scripts/plug/jquery-1.10.1.min.js"></script>
+ 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+ 	<script src="../../Scripts/home/public.js"></script>
+     <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+</head>
+
+<body style="height: 100%;width: 100%;">
+	<nav id="head" class="navbar navbar-default" role="navigation" >
+	    <div class="container-fluid">
+    	    <div class="navbar-header">
+    	    	<img class="nav-logo" src="../../Image/bank/logos-header.jpg" />
+    	    </div>
+    	    <div>
+    	        <ul class="nav navbar-nav navList">
+    	            <li id="6" class="active" pageLink=""><span>会议系统</span></li>
+    	            <li id="7" pageLink="victorSys.html"><span >访客系统</span></li>
+    	            <li id="8" pageLink="interSys.html"><span>资产管理</span></li>
+    	            <li id="1" pageLink="accessSys.html"><span>门禁系统</span></li>
+    	            <li id="3" pageLink="wardrobeSys.html"><span>更衣柜系统</span></li>
+    	            <li id="5" pageLink="printerSys.html"><span>打印机系统</span></li>
+    	            <li id="4" pageLink="consumSys.html"><span>消费系统</span></li>
+    	            <li id="inters" pageLink="/SHBank/index.html"><span>运营情况</span></li>
+    	            <li id="author" pageLink=""><span>卡权限审批</span></li>
+    	            <li id="menuSys" pageLink=""><span>餐单系统</span></li>
+    	            <li id="0" pageLink="cardSys.html"><span>管理员配置</span></li>
+    	        </ul>
+
+    	        <ul class="nav navbar-nav navbar-right login" id="inBank" style="display: none;">
+    	        	<li><span  class="userName" onclick="goPage('myInforSys.html',this)">用户名</span></li>
+    		        <li><span href="#" onclick="dropOut()">退出</span></li>
+    		    </ul>
+
+                <ul class="nav navbar-nav navbar-right login" id="outBank"  style="display: none;">
+                    <li><span  class="userName" >用户名</span></li>
+                    <li><span  class="changePsw" onclick="goPage('changePwd.html',this)">修改密码</span></li>
+                    <li><span href="#" onclick="dropOut()">退出</span></li>
+                </ul>
+
+    	    </div>
+	    </div>
+	</nav>
+	
+	<iframe id="pageWrap" src="meetingAdminOut.html" width="100%"  frameborder="no" border="0" scrolling="no"></iframe>
+</body>
+<script type="text/javascript">
+	$(function(){
+		reLogin();
+		adminAuthorLoad();
+		var h=$(window).height();
+		$("#pageWrap").css({height:(h-50)+'px'});
+		$(".nav.navbar-nav.navList li").each(function(){
+			$(this).click(function(){
+				$(this).addClass("active");
+				$(this).siblings().removeClass("active")
+				var url=$(this).attr("pageLink");
+				$(".login li").eq(0).removeClass("active")
+				$("#pageWrap").attr("src",url);
+			})
+		})
+		
+		
+	})
+	function dropOut(){
+		window.localStorage.userName="";
+		window.location.href="/Views/Home/login.html";
+	}
+	function goPage(url,dom){
+		$(".nav li").each(function(){
+			$(this).removeClass("active");
+		})
+		$(dom).parent().addClass("active");
+		$("#pageWrap").attr("src",url);
+		
+	}
+//	function loadAssecc(){
+//		$("#pageWrap").attr("src","accessApplicant.html");
+//	}
+	//获取管理员信息
+	function adminAuthorLoad(){
+		JQajaxo("post","/api/Event/get_mem_infor_work",false,{workNo:localStorage.userName},_success)
+        function _success(res){
+        	console.log(res)
+        	var dat=res.HttpData.data,lg=dat.length;
+        	$(".userName").text(dat[0].name);
+            var inOrOut=dat[0].type;
+            if(inOrOut==0){
+                /*行内人员*/
+                $("#inBank").show();
+                $("#outBank").remove();
+                $("#menuSys").attr("pageLink","menuSys.html");
+                if(dat[0].isLeader){
+                 $("#author span").text("卡权限审批")
+                 $("#author").attr("pageLink","accessApplicantLead.html")
+                }else{
+                 $("#author span").text("卡权限申请")
+                 $("#author").attr("pageLink","accessApplicant.html")
+                }
+                var inAdmin=[];
+                for(var i=0;i<lg;i++){
+                    inAdmin.push(dat[i].sysType)
+                }
+                if(inAdmin.indexOf(6)!=-1){
+                 $("#6").attr("pageLink","meetingAdmin.html");
+                 $("#pageWrap").attr("src","meetingAdmin.html");
+                }else{
+                 $("#6").attr("pageLink","meetingSys.html");
+                 $("#pageWrap").attr("src","meetingSys.html");
+                }
+                if(inAdmin.indexOf(0)!=-1){
+                  $("#0").show();
+                }else{
+                  $("#0").remove();
+                }
+                if(inAdmin.indexOf(8)!=-1){
+                 $("#8").show();
+                }else{
+                 $("#8").remove();
+                }
+                if(inAdmin.indexOf(1)!=-1){
+                 $("#1").show();
+                }else{
+                 $("#1").remove();
+                }
+                if(inAdmin.indexOf(3)!=-1){
+                 $("#3").show();
+                }else{
+                 $("#3").remove();
+                }
+                if(inAdmin.indexOf(5)!=-1){
+                 $("#5").show();
+                }else{
+                 $("#5").remove();
+                }
+                if(inAdmin.indexOf(4)!=-1){
+                 $("#4").show();
+                }else{
+                 $("#4").remove();
+                }
+            }else{
+                
+                /*行外人员*/
+                $("#outBank").show();
+                $("#inBank").remove();
+                $("#0").remove();
+                $("#1").remove();
+                $("#3").remove();
+                $("#4").remove();
+                $("#5").remove();
+                $("#8").remove();
+                $("#7").remove();
+                $("#inters").remove();
+                $("#author").remove();
+                var admin=[];
+                for(var i=0;i<lg;i++){
+                    admin.push(dat[i].sysType);
+                }
+                console.log(admin);
+                
+
+                if(admin.indexOf(10)!=-1){
+                    $("#menuSys").attr("pageLink","menuSysAdmin.html");
+                    $("#pageWrap").attr("src","menuSysAdmin.html");
+                }else{
+                    $("#menuSys").remove();
+                }
+                if(admin.indexOf(9)!=-1){
+                    $("#6").attr("pageLink","meetingAdminOut.html");
+                    $("#pageWrap").attr("src","meetingAdminOut.html");
+                }else{
+                    $("#6").remove();
+                }
+
+            }
+        	
+        }
+	}
+
+</script>
+ 
+</html>
+

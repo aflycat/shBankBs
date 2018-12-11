@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<!-- 编码格式 -->
+    <meta charset="UTF-8">
+    <title>上海银行</title>
+    <!-- 作者 -->
+    <meta name="author" content="author">
+    <!-- 网页描述 -->
+    <meta name="description" content="hello">
+    <!-- 关键字使用","分隔 -->
+    <meta name="keywords" content="a,b,c">
+    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+    <meta name="robots" content="none">
+    <!-- 收藏图标 -->
+    <!-- <link rel="Shortcut Icon" href="favicon.ico"> -->
+    <!-- 网页不会被缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 页面按原比例显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" href="../../Styles/Home/index.css">
+    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+ 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+ 	<script src="../../Scripts/home/public.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+   <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	<body>
+		<ul id="myTab" class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#assecc_list_le">申请列表</a></li>
+			<li role="presentation"><a href="#assecc_list_app">权限审批</a></li>
+		</ul>
+		<div id="inforWrap">
+			<div  class="tab-content">
+				<div class="tab-pane fade  in active" id="assecc_list_le">
+					<div class="top_deal_item">
+						<div class="left_deal">
+						    <input type="text" class="form-control" id="search_plan_txt"   placeholder="请输入要搜索的内容" />
+						    <button type="button" class="btn btn-primary" id="search" onclick="search_plan_txt()">搜索</button>
+						</div>
+						<div class="right_deal">
+							<button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#myModal_new">新增</button>
+						</div>
+					</div>
+					
+					<div class="table_header">
+						<div class="header_content">
+						  <p>申请人</p>
+						  <p>部门</p>
+					      <p>系统</p>
+					      <p>申请时间</p>
+					      <p>申请详情</p>
+					      <p>审批人</p>
+					      <p>状态</p>
+						</div>
+					</div>
+					<div class="table_content" id="assc_plan_data">
+						
+					</div>
+				</div>
+				<div class="tab-pane fade " id="assecc_list_app">
+					<div class="top_deal_item">
+						<div class="left_deal">
+						    <input type="text" class="form-control" id="search_plan_app"   placeholder="请输入要搜索的内容" />
+						    <button type="button" class="btn btn-primary" id="search" onclick="search_plan_app()">搜索</button>
+						</div>
+						
+					</div>
+					
+					<div class="table_header">
+						<div class="header_content">
+						  <p>申请人</p>
+						  <p>部门</p>
+					      <p>系统</p>
+					      <p>申请时间</p>
+					      <p>申请详情</p>
+					      <p>操作</p>
+						</div>
+					</div>
+					<div class="table_content" id="">
+						
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="modal fade" id="myModal_appli" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							会议审批
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class="radio-inline col-md-2">
+										</label>
+									    <label class="radio-inline col-md-2" >
+										  	<input type="radio" name="agree" id="agree" value="1" checked="checked">同意
+										</label>
+									     <label class="radio-inline col-md-2">
+										  	<input type="radio" name="agree" id="noagree" value="0" >不同意
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!--<div class="row reason" style="display: none;">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										原因<span style="color: red;">*</span>
+										</label>
+										<div class="col-md-10">
+									        <input type="text" class="form-control" id="reason" placeholder="原因" >
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>-->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="ass_appicant()"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							权限申请
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">申请人 <span style="color: red;">*</span></label>
+									    <div class="col-md-10">
+									      <input type="text" disabled="disabled"  class="form-control" id="ass_mem" placeholder="申请人">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">部门 <span style="color: red;">*</span></label>
+									    <div class="col-md-10">
+									      <input type="text" disabled="disabled"  class="form-control" id="ass_mem_dep" placeholder="部门">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">系统 <span style="color: red;">*</span></label>
+									    <div class="col-md-10">
+									     	<input type="text" class="form-control" id="meeting_room_app_sys" placeholder="系统" onclick="showMeetingRoomSys()">
+									     	<div class="checkWrap" id="meeting_room_list_sys">
+										      	<!--<div class="item" checkId="0" onclick="changeNotice(0,'系统管理员',this)">
+										      		 <span>系统管理员</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>-->
+									      		<div class="item" checkId="1" onclick="changeNotice(1,'门禁系统',this)">
+										      		 <span>门禁系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<!--<div class="item" checkId="2" onclick="changeNotice(2,'梯控系统',this)">
+										      		 <span>梯控系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="3" onclick="changeNotice(3,'更衣柜系统',this)">
+										      		 <span>更衣柜系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="4" onclick="changeNotice(4,'消费系统',this)">
+										      		 <span>消费系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="5" onclick="changeNotice(5,'打印机系统',this)">
+										      		 <span>打印机系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="6" onclick="changeNotice(6,'会议系统',this)">
+										      		 <span>会议系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="7" onclick="changeNotice(7,'访客系统',this)">
+										      		 <span>访客系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="8" onclick="changeNotice(8,'资产管理',this)">
+										      		 <span>资产管理</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>-->
+
+									      	</div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										  申请信息 <span style="color: red;">*</span>
+										</label>
+										<div class="col-md-10">
+									        <input type="text" class="form-control" name="otherMem" id="subTxt" value="" placeholder="申请详情"/>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="createNewMeeting()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        		操作成功。
+    </div>
+    <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        	操作失败。
+    </div>
+		
+	</body>
+<script type="text/javascript">
+	//加载系统
+	var sys,depart,memName,edictId;
+	$(function(){
+		var h=$(window).height();
+		$(".table_content").css({height:h-170+'px'});
+		
+		$('#myTab a').click(function (e) {
+		   e.preventDefault()
+		   $(this).tab('show')
+		 	loadAuthorList(0);
+			loadAuthorApp();
+		   
+		})
+//		$('#myModal_new').on('show.bs.modal', function () {
+		  // 执行一些动作...
+		  JQajaxo("post","/api/Event/get_mem_infor_pc",false,{workNo:window.localStorage.userName},_success);
+			function _success(res){
+				var dat=res.HttpData.data[0];
+				depart=dat.department;
+				memName=dat.name;
+				$("#ass_mem_dep").val(depart);
+				$("#ass_mem").val(memName);
+				
+			}
+		  
+//		})
+		$('#search_plan_txt').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadAuthorList(0);
+			}
+		})
+		$('#search_plan_app').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadAuthorApp(0);
+			}
+		})
+		loadAuthorList(0);
+		loadAuthorApp(0);
+	})
+	function search_plan_app(){
+		loadAuthorApp(1);
+	}
+	function loadAuthorApp(deal){
+		if(deal==0){
+			var data={
+				dep:depart
+			}
+		
+			JQajaxo("post", "/api/Event/get_author_list_loeader", true,data, _success);
+		}else{
+			var data={
+				dep:depart,
+				keyTxt:$("#search_plan_app").val()
+			}
+		
+			JQajaxo("post", "/api/Event/get_author_list_loeader_search", true,data, _success);
+		}
+		
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#assecc_list_app .table_content"),$("#assecc_list_app .header_content"),lg)
+			$("#assecc_list_app .table_content").html("");
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var sta="",staC="";
+				var lead="暂无"
+				
+				var html='<div class="table_line">'+
+						  '<p>'+value.name+'</p>'+
+						  '<p>'+value.dep+'</p>'+
+					      '<p>'+returnSys(value.sysId)+'</p>'+
+					      '<p>'+value.subTime.replace("T"," ")+'</p>'+
+					      '<p title="'+value.subAuth+'">'+value.subAuth+'</p>'+
+					      '<p><span class="edict" onclick="app_author('+value.id+')">审批</span></p>'+
+						'</div>';
+				$("#assecc_list_app .table_content").append(html);
+			}
+		}
+	}
+	function search_plan_txt(){
+		loadAuthorList(1);
+//		
+	}
+	function createNewMeeting(){
+		var data={
+			workNo:localStorage.userName,
+			subAuth:$("#subTxt").val(),
+			sys:sys,
+			subTime:getTime()
+		}
+		JQajaxo("post", "/api/Event/set_author_app", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$("#myModal_new").modal("hide")
+			if(dat==1){
+				$(".alert-success").show();
+				loadAuthorList(0)
+			}else{
+				$(".alert-danger").show();
+			}
+			setTimeout(function(){
+				$(".alert").hide();
+				
+			},2000)
+			
+		}
+	}
+	function loadAuthorList(deal){
+//		get_author_list
+		if(deal==0){
+			JQajaxo("post", "/api/Event/get_author_list", true,{workNo:localStorage.userName}, _success);
+		}else{
+			var data={
+				workNo:localStorage.userName,
+				keyTxt:$("#search_plan_txt").val()
+			}
+			JQajaxo("post", "/api/Event/get_author_list_search", true,data, _success);
+		}
+		
+		function  _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#assc_plan_data"),$("#assecc_list_le .header_content"),lg)
+			$("#assc_plan_data").html("");
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var sta="",staC="";
+				var lead="暂无"
+				if(value.result==0){
+					sta="不同意";
+					staC="noagree";
+					lead=value.leaName;
+				}else if(value.result==1){
+					sta="同意"
+					staC="agree";
+					lead=value.leaName;
+				}else{
+					sta="审批中"
+					staC="ing";
+				}
+				var html='<div class="table_line">'+
+						  '<p>'+value.aplName+'</p>'+
+						  '<p>'+value.dep+'</p>'+
+					      '<p>'+returnSys(value.sysId)+'</p>'+
+					      '<p>'+value.subTime.replace("T"," ")+'</p>'+
+					      '<p title="'+value.subAuth+'">'+value.subAuth+'</p>'+
+					      '<p>'+lead+'</p>'+
+					      '<p class="'+staC+'">'+sta+'</p>'+
+						'</div>';
+				$("#assc_plan_data").append(html);
+			}
+		}
+	}
+	function app_author(id){
+		$("#myModal_appli").modal("show");
+		edictId=id;
+	}
+	function ass_appicant(){
+		var val = $('input[name="agree"]:checked').val();
+		var data={
+			id:edictId,
+			leadNo:localStorage.userName,
+			res:val
+		}
+		JQajaxo("post", "/api/Event/set_pro_author", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$("#myModal_appli").modal("hide")
+			if(dat==1){
+				$(".alert-success").show();
+				loadAuthorList(0);
+				loadAuthorApp();
+				
+			}else{
+				$(".alert-danger").show();
+			}
+			setTimeout(function(){
+				$(".alert").hide();
+				
+			},2000)
+			
+		}
+	}
+	function showMeetingRoomSys(){
+		stopEvent(event);
+		$("#meeting_room_list_sys").show();
+		
+	}
+	function changeNotice(id,txt,dom){
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		sys=id;
+		$("#meeting_room_app_sys").val(txt);
+	}
+	function changeNotice(id,txt,dom){
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		sys=id;
+		$("#meeting_room_app_sys").val(txt);
+	}
+	
+	function returnSys(id){
+				var  txt;
+				switch (id)
+				{
+					case 0:
+						txt="系统管理员"
+					break;
+					case 1:
+						txt="门禁系统"
+					break;
+					case 2:
+						txt="梯控系统"
+					break;
+					case 3:
+						txt="更衣柜系统"
+					break;
+					case 4:
+						txt="消费系统"
+					break;
+					case 5:
+						txt="打印机系统"
+					break;
+					case 6:
+						txt="会议系统"
+					break;
+					case 7:
+						txt="访客系统"
+					break;
+					case 8:
+						txt="资产管理"
+					break;
+				}
+			return txt;
+	}
+</script>
+</html>

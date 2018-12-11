@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GWService.api.jquery</name>
+    </assembly>
+    <members>
+        <member name="T:GWService.Api.Test.Controllers.DbController">
+            <summary>
+            自定义数据库接口，控制器名为Db,请求时不区分大小写
+            </summary>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DbController.SelectData(System.String)">
+            <summary>
+            查询设备配置表
+            </summary>
+            <param name="tableName">表名</param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DbController.updateEquipGroup(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            更新数据
+            </summary>
+            <param name="obj">
+            </param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DbController.insertEquipGroup(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            插入数据
+            </summary>
+            <param name="obj">
+            </param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DbController.deleteEquipGroup(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="obj">
+            </param>
+        </member>
+    </members>
+</doc>

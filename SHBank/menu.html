@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>餐厅餐单</title>
+		<link rel="stylesheet" href="css/menu.css">
+		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
+
+	</head>
+	<body>
+		<div id="menuWrap">
+			<p class="imgEye" id="top"></p>
+			<div class="logoWrap">
+				<div class="logoTop">
+					<img src="img/menu/logo.png" alt="">
+				</div>
+				<div class="logoTit">
+					<p>今日菜单</p>
+				</div>
+				<div class="logoBot">
+					<img src="img/menu/logoBo.png" alt="">
+				</div>
+			</div>
+			<div class="menuWrap">
+				<div class="break menuList" >
+					<div class="menuTit">
+						早餐
+					</div>
+					<div class="menuDet">
+						
+						
+					</div>
+				</div>
+				<div class="lunch menuList">
+					<div class="menuTit">
+						午餐
+					</div>
+					<div class="menuDet">
+						
+						
+					</div>
+				</div>	
+				<div class="dinner menuList" style="border-bottom: 0 none;">
+					<div class="menuTit">
+						晚餐
+					</div>
+					<div class="menuDet">
+						
+
+					</div>
+				</div>
+			</div>
+			<p class="imgEye" id="bot"></p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			var myDate=new Date();
+			var years=myDate.getFullYear();
+			var mon=(myDate.getMonth()+1)<10?("0"+(myDate.getMonth()+1)):(myDate.getMonth()+1);
+			var day=myDate.getDate()<10?("0"+myDate.getDate()):(myDate.getDate());
+			var dateStr=years+"-"+mon+"-"+day;
+			console.log(dateStr);
+			JQajaxo("post", "/api/Event/get_menu_today", true, {time:dateStr}, _success)
+			function _success(res){
+				console.log(res);
+				var dat=res.HttpData.data,lg=dat.length;
+				var brea="",lunch="",dinner="";
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+					var type=dat[i].type;
+					var str=dat[i].name.split("，");
+
+					for(var m=0;m<str.length;m++){
+						var html='<span>'+str[m]+'</span>';
+						$(".menuWrap .menuList").eq(i).find(".menuDet").append(html);
+					}
+
+				}
+				// var breakArr=brea.split("，");
+				// var lunchArr=lunch.split("，");
+				// var dinnerArr=dinner.split("，");
+
+			}
+		})
+		function JQajaxo(_type, _url, _asycn, _data, _success) {
+		    var ajaxs = $.ajax({
+		        type: _type,
+		        url: _url,
+		        timeout: 5000,
+		        async: _asycn,
+		        data: _data,
+		        headers:{
+					Authorization:window.localStorage.ac_appkey+"-"+window.localStorage.ac_infokey,
+				},
+		        success: _success
+		        
+		        
+		    });
+		}
+	</script>
+</html>

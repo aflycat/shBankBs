@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+    	<title>上海银行 </title>
+    	<!--<link rel="stylesheet" href="http://at.alicdn.com/t/font_600686_c57llrkentvjkyb9.css">-->
+    	<script type="text/javascript" src="../../Scripts/plug/jquery-1.10.1.min.js"></script>
+    	<script type="text/javascript" src="../../Scripts/home/public.js"></script>
+    	<script type="text/javascript" src="../../Scripts/home/md5.js"></script>
+    	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;padding: 0;border: none 0;
+		}
+		.loginWrap{
+			width: 600px;height: 180px;position: absolute;
+			margin-left: -300px;margin-top: -150px;
+			top: 45%;left: 45%;
+			text-align: center;padding: 40px 0;
+		}
+		.imgWrap{
+			width: 50%;border-right: 1px solid #eee;
+			box-sizing: border-box;
+			height: 100%;float: left;
+		}
+		.imgWrap img{
+			width: 100%;
+			height: auto;
+		}
+		.inpuWrap{
+			width: 45%;height: 100%;float: right;
+			padding-top: 10px;
+		}
+		.inpConten{
+			width: 100%;
+			color: #666;
+			border-bottom: 1px solid #eee;
+			margin-bottom: 20px;
+			
+			overflow: hidden;
+		}
+		.inpIcon{
+			float: left;
+			width: 16%;
+		}
+		.inpIcon img{
+			width: 28px;
+			height: 28px;
+		} 
+		.inp{
+			width: 84%;
+			float: right;
+		}
+		.inp input{
+			height: 36px;
+			width: 100%;
+			color: #333;
+			outline: none;
+			border: none 0;
+			background: #fff;
+			text-indent: 10px;
+			line-height: 36px;
+		}
+		.btn p{
+			    font-size: 16px;
+			    color: white;
+			    width: 100%;
+			    padding: 10px 0;
+			    border: 0;
+			    background-color: rgb(48,121,237);
+			    cursor: pointer;
+		}
+		.error{
+			height: 15px;
+			line-height: 15px;
+			color: red;
+		}
+	</style>
+	<body>
+		<div class="loginWrap">
+			<div class="imgWrap">
+				<img src="/Image/bank/logo.png" alt="" />
+			</div>
+			<div class="inpuWrap">
+				<p class="error"></p>
+				<div class="inpConten">
+					<div class="inpIcon">
+						<img src="../../Image/bank/username.png"/>
+					</div>
+					<div class="inp">
+						<input type="text" name="userName" id="userName" value="" placeholder="请输入用户名"/>
+					</div>
+				</div>
+				<div class="inpConten">
+					<div class="inpIcon">
+						<img src="../../Image/bank/userpass.png"/>
+					</div>
+					<div class="inp">
+						<input type="password" name="userPass" id="userPass" value="" placeholder="请输入密码"/>
+					</div>
+				</div>
+				<div class="btn">
+					<p>登陆</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			$('input, textarea').placeholder();
+			document.onkeydown=function(e){
+				var theEvent = window.event || e;
+			    var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+			    if (code == 13) {
+			       login()
+			    }
+			}
+			$(".btn").click(function(){
+				login()
+			})
+		})
+		function login(){
+			var userName=$("#userName").val(),
+					userPass=$("#userPass").val();
+				if(userName==""){
+					
+					$(".error").text("请输入用户名")
+					return;
+				}else if(userPass==""){
+					
+					$(".error").text("请输入密码")
+					return;
+				}else{
+					var resData={
+	            		userName :userName,
+	            		userPass :hex_md5(userPass).toUpperCase()
+	            	}
+					$.ajax({
+						type:"post",
+						url:"/api/server/getkey",
+						async:true,
+						data:{
+							username:'qaz12wsx34',
+							userpwd:'wanwsx123'
+						},success:function(res){
+							if(res.HttpData.code==200){
+								window.localStorage.ac_appkey=res.HttpData.data.appkey;
+								window.localStorage.ac_infokey=res.HttpData.data.infokey;
+								JQajaxo("post", "/api/Event/login_sh_bank", true, resData, _success)
+							}
+							function _success(res){
+								if(res.HttpData=="1"){
+									window.localStorage.userName=userName;
+									window.location.href="/Views/Home/index.html";
+								}else if(res.HttpData=="0"){
+									
+									$(".error").text("用户名或密码错误")
+								}else{
+									$(".error").text("用户名不存在")
+									
+								}
+							}
+						}
+						
+					});
+				}
+		}
+	</script>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+	    <!-- 编码格式 -->
+	    <meta charset="UTF-8">
+	    <title>上海银行</title>
+	    <!-- 作者 -->
+	    <meta name="author" content="author">
+	    <!-- 网页描述 -->
+	    <meta name="description" content="hello">
+	    <!-- 关键字使用","分隔 -->
+	    <meta name="keywords" content="a,b,c">
+	    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+	    <meta http-equiv="Pragma" content="no-cache">
+	    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+	    <meta name="robots" content="none">
+	    <!-- 收藏图标 -->
+	    <!-- <link rel="Shortcut Icon" href="favicon.ico"> -->
+	    <!-- 网页不会被缓存 -->
+	    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <!-- 页面按原比例显示 -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+	    <!--<link rel="stylesheet" type="text/css" href="../../Styles/Plugin/select2.min.css"/>-->
+	    <!--<link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-select.min.css"/>-->
+	    <link rel="stylesheet" href="../../Styles/Home/index.css">
+	    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+	 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	 	<!--<script type="text/javascript" src="../../Scripts/home/select2.min.js"></script>-->
+	 	<!--<script type="text/javascript" src="../../Scripts/home/bootstrap-select.min.js"></script>-->
+	 	<script src="../../Scripts/home/public.js"></script>
+	    <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	</head>
+	<body>
+		<ul id="myTab" class="nav nav-tabs">
+			<li role="presentation" class="active">
+				<a href="#card_set">权限管理</a>
+			</li>
+			<li role="presentation">
+				<a href="#mem_set">人员录入</a>
+			</li>
+		</ul>
+		<div id="inforWrap">
+			<div  class="tab-content">
+				 
+				<div class="tab-pane fade  in active" id="card_set">
+					<!--<div id="myTabContent">-->
+						<div class="top_deal_item">
+							<div class="left_deal">
+							    <input type="text" class="form-control" id="admin_author_search_text" placeholder="请输入要搜索的内容">
+							    <button type="button" class="btn btn-primary"  
+								   	data-complete-text="加载中..." onclick="admin_author_search()">搜索
+								</button>
+							</div>
+							<div class="right_deal">
+								<button type="button" class="btn btn-primary" id="search" onclick="addAdmin(0)">添加</button>
+							</div>
+						</div>
+						<div class="table_header">
+							<div class="header_content">
+							  <p>姓名</p>
+						      <p>部门</p>
+						      <p>工号</p>
+						      <p>系统</p>
+						      <!--<p>登录名</p>-->
+						      <p>操作</p>
+							</div>
+						</div>
+						<div class="table_content"></div>
+				</div>
+				<div class="tab-pane fade " id="mem_set">
+					<!--<div id="myTabContent">-->
+						<div class="top_deal_item">
+							<div class="left_deal">
+							    <input type="text" class="form-control" id="mem_search_text" placeholder="请输入要搜索的内容">
+							    <button type="button" class="btn btn-primary"  
+								   	data-complete-text="加载中..." onclick="mem_search_text()">搜索
+								</button>
+							</div>
+							<div class="right_deal">
+								<button type="button" class="btn btn-primary"  data-toggle="modal" onclick="showMemModal()" >添加</button>
+							</div>
+						</div>
+						<div class="table_header">
+							<div class="header_content">
+							  <p>账户</p>
+							  <p>姓名</p>
+						      <p>性别</p>
+						      <p>部门</p>
+						      <p>手机</p>
+						      <p>邮箱</p>
+						      <p>操作</p>
+							</div>
+						</div>
+						<div class="table_content">
+							
+						</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+	        <button type="button" class="close" data-dismiss="alert"
+	                aria-hidden="true">
+	            &times;
+	        </button>
+	        		操作成功。
+	    </div>
+	    <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+	        <button type="button" class="close" data-dismiss="alert"
+	                aria-hidden="true">
+	            &times;
+	        </button>
+	        	操作失败。
+	    </div>
+	<div class="modal fade" id="myModal_admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							
+							<span class="txt">新增管理员</span>
+							<span class="errorMsg" style="font-size: 14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">工号 <span style="color: red;">*</span></label>
+									    <div class="col-md-10">
+									     	<input type="text" class="form-control" id="meeting_room_app_workNo" placeholder="工号" onclick="showMeetingRoomworkNo()">
+									     	<div class="checkWrap" id="meeting_room_list_workNo">
+										      
+									      	
+									      	</div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">系统 <span style="color: red;">*</span></label>
+									    <div class="col-md-10">
+									     	<input type="text" class="form-control" id="meeting_room_app_sys" placeholder="系统" onclick="showMeetingRoomSys()">
+									     	<div class="checkWrap" id="meeting_room_list_sys">
+										      	<div class="item" checkId="0" onclick="changeNotice('0','系统管理员',this)">
+										      		 <span>系统管理员</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+									      		<div class="item" checkId="1" onclick="changeNotice('1','门禁系统',this)">
+										      		 <span>门禁系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<!--<div class="item" checkId="2" onclick="changeNotice(2,'梯控系统',this)">
+										      		 <span>梯控系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>-->
+										      	<div class="item" checkId="3" onclick="changeNotice('3','更衣柜系统',this)">
+										      		 <span>更衣柜系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="4" onclick="changeNotice('4','消费系统',this)">
+										      		 <span>消费系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="5" onclick="changeNotice('5','打印机系统',this)">
+										      		 <span>打印机系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="6" onclick="changeNotice('6','会议系统',this)">
+										      		 <span>会议系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="7" onclick="changeNotice('7','访客系统',this)">
+										      		 <span>访客系统</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="8" onclick="changeNotice('8','资产管理',this)">
+										      		 <span>资产管理</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="9" onclick="changeNotice('9','会议管理',this)">
+										      		 <span>会议管理(行外)</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="10" onclick="changeNotice('10','菜单管理',this)">
+										      		 <span>菜单管理(行外)</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+
+									      	</div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="admin_add(this)"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_admin_del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" >
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							删除管理员
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-4 control-label">
+										  确定删除管理员？
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="deleteAdmin()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_mem_del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" >
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							人员删除
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-4 control-label">
+										  确定删除该人员？
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="deleteMem()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_mem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							
+							<span class="txt">新增人员</span>
+							<span class="errorMsg" style="font-size: 14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-4 control-label">账户<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text"  class="form-control" id="set_work" placeholder="邮箱">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-4 control-label">姓名<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text"  class="form-control" id="set_name" placeholder="姓名">
+									    </div>
+									</div>
+								</form>
+							</div>
+							
+						</div>
+						<div class="row">
+							
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="topic" class="col-md-4 control-label">性别<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <div  class="form-control"  id="type" style="color: #999;">性别</div>
+									      <div class="checkWrap" id="meet_type_check">
+									      	<div class="item" checkId="0">
+									      		 <span>男</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item" checkId="1">
+									      		<span>女</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	
+									      </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-4 control-label">邮箱<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text"  class="form-control" id="set_mail" placeholder="邮箱">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-4 control-label">部门<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" disabled="disabled" class="form-control" id="set_dep" placeholder="部门" value="行外人员">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="topic" class="col-md-4 control-label">手机<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" maxlength="200" id="set_tel" placeholder="手机">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="add_mem()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+<script type="text/javascript">
+	var workNo,userName,workName,sys,edictType,edictId=0,memEdictType=0;
+	var phoneNo,mailNo,nameNo,sysNo,sexType;
+	$(function(){
+		var locak= loadThisAdmin(0)
+		if(locak!=1){
+			return
+		}
+		var h=$(window).height();
+		$(".table_content").css({height:h-170+'px'})
+		$('input, textarea').placeholder();
+		$('#myTab a').click(function (e) {
+		   e.preventDefault()
+		   $(this).tab('show')
+		})
+		
+		
+		$('#admin_author_search_text').bind('input propertychange', function() {
+			if($(this).val()==""){
+				adminSet(0);
+			}
+		})
+		$('#mem_search_text').bind('input propertychange', function() {
+			if($(this).val()==""){
+				memSet(0);
+			}
+		})
+		// $("#myModal_mem_del").modal("show")
+		$("#type").click(function(event){
+			event.stopPropagation();
+			$(".typeNotice").show();
+			$(this).siblings(".checkWrap").show();
+		})
+		$("#meet_type_check .item").each(function(){
+			$(this).click(function(event){
+				stopEvent(event)
+				$(this).find("img").show();
+				$(this).siblings().find("img").hide();
+				$("#type").text($(this).find("span").text());
+				$("#type").css({"color":"#555"})
+				sexType=$(this).attr("checkId");
+			})
+		})
+		$('.modal').on('show.bs.modal', function () {
+		  $(".errorMsg").text('');
+		})
+
+		adminSet(0);
+		memSet(0);
+
+	})
+	function mem_search_text(){
+		memSet(1)
+	}
+
+	function memSet(deal){
+		if(deal==0){
+			JQajaxo("get","/api/Event/get_all_outbank",false,{},_success);
+		}else{
+			var data={
+				keyWord :$("#mem_search_text").val()
+			}
+			JQajaxo("post","/api/Event/get_all_outbank_search",false,data,_success);
+		}
+		
+		function _success(res){
+			console.log(res);
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#mem_set .table_content"),$("#mem_set .header_content"),lg)
+			$("#mem_set .table_content").html("");
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var html='<div class="table_line">'+
+							'<p>'+value.workNo+'</p>'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+returnSex(value.sex)+'</p>'+
+							'<p>'+value.department+'</p>'+
+							'<p>'+value.phone+'</p>'+
+							'<p>'+value.mail+'</p>'+
+							'<p><span class="edict" onclick="edict_mem(\''+value.workNo+'\',\''+value.name+'\',\''+value.sex+'\',\''+value.mail+'\',\''+value.phone+'\')">编辑</span><span class="delete" onclick="delete_mem(\''+value.workNo+'\')">删除</span></p>'+
+						'</div>';
+				$("#mem_set .table_content").append(html)
+			}
+		}
+	}
+	function showMemModal(){
+		memEdictType=0;
+		$("#myModal_mem").modal("show");
+		$("#set_work").prop("disabled",false);
+	}
+	function edict_mem(workNo,name,sex,mail,phone){
+		console.log(workNo,name,sex,mail,phone);
+		$("#set_work").val(workNo);
+		$("#set_work").prop("disabled",true);
+		$("#set_name").val(name);
+		$("#set_tel").val(phone);
+		$("#set_mail").val(mail);
+		sexType=sex;
+		memEdictType=1;
+		$("#meet_type_check .item").each(function() {
+			var id=$(this).attr("checkId");
+			if(id==sexType){
+				$(this).find('img').show();
+				$("#type").text($(this).find("span").text());
+				$("#type").css({"color":"#555"});
+			}else{
+				$(this).find('img').hide();
+			}
+		});
+		$("#myModal_mem").modal("show");
+
+	}
+	function delete_mem(workNo){
+		console.log(workNo);
+		var data={
+			workNo :workNo 
+		};
+		JQajaxo("post","/api/Event/del_outbank_mem",false,data,_success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			if(dat==1){
+				$(".alert-success").show();
+				memSet(0);
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function add_mem(){
+		var data={
+			workNo:$("#set_work").val(),
+			name:$("#set_name").val(),
+			sex:sexType,
+			department:$("#set_dep").val(),
+			phone:$("#set_tel").val(),
+			mail:$("#set_mail").val()
+		}
+		console.log(data);
+		if(!data.workNo){
+			$("#myModal_mem .errorMsg").text('账户不能为空');
+			return ;
+		}else if(!data.name){
+			$("#myModal_mem .errorMsg").text('姓名不能为空');
+			return ;
+		}else if(!data.sex){
+			$("#myModal_mem .errorMsg").text('请选择性别');
+			return ;	
+		}else if(!data.mail){
+			$("#myModal_mem .errorMsg").text('邮箱不能为空');
+			return ;
+		}else if(!data.phone){
+			$("#myModal_mem .errorMsg").text('手机号不能为空');
+			return ;
+		}
+		if(memEdictType==0){
+			JQajaxo("post","/api/Event/add_outbank_mem",false,data,_success);
+		}else{
+			JQajaxo("post","/api/Event/upd_outbank_mem",false,data,_success);
+		}
+		
+		function _success(res){
+			var dat=res.HttpData.data;
+			$("#myModal_mem").modal("hide")
+			if(dat==1){
+				$(".alert-success").show();
+				memSet(0);
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function admin_author_search(){
+		adminSet(1);
+
+	}
+
+	//加载员工工号
+	function showMeetingRoomworkNo(){
+		stopEvent(event);		
+		JQajaxo("get", "/api/Event/get_mem_infor", true,{}, _success);
+		function _success(res){
+			$("#meeting_room_list_workNo").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i]
+				var html='<div class="item"  checkId="'+value.workNo+'"  onclick="changeMeetingRoomWork(this,\''+value.workNo+'\',\''+value.name+'\',\''+value.phone+'\',\''+value.mail+'\')">'+
+					      		 '<span>'+value.name+'--'+value.workNo+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      '</div>';
+				$("#meeting_room_list_workNo").append(html)
+			}
+			$("#meeting_room_list_workNo").show();
+			$("#meeting_room_list_workNo").find(".item").each(function(){
+				var img=$(this).find("img");
+				var checkid=$(this).attr("checkId");
+				if(checkid==workNo){
+					$(this).find("img").show();
+				}else{
+					$(this).find("img").hide();
+				}
+			})
+		}
+
+	}
+	function changeMeetingRoomWork(dom,id,name,phone,mail){
+		stopEvent(event);
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		$("#meeting_room_app_workNo").attr("mail",mail);
+		$("#meeting_room_app_workNo").attr("phone",phone);
+		workNo=id;
+		$("#meeting_room_app_workNo").val(name+'--'+id)
+		
+
+	}
+	//加载系统
+	function showMeetingRoomSys(){
+		stopEvent(event);
+
+		$("#meeting_room_list_sys").show();
+		
+	}
+	function changeNotice(id,txt,dom){
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		sys=id;
+		$("#meeting_room_app_sys").val(txt);
+	}
+
+	function addAdmin(deal,username,type,workno,name,id,mail,phone){
+		$("#myModal_admin").modal("show");
+		if(deal==1){
+			$("#meeting_room_app").val(username);
+			$("#meeting_room_app_workNo").val(name+'--'+workno);
+			$("#meeting_room_app_sys").val(returnSys(parseInt(type)));	
+			$("#meeting_room_app").prop("disabled",true)
+			$("#meeting_room_app_workNo").prop("disabled",true)
+			$("#meeting_room_list_sys .item").each(function(){
+				var checkId=$(this).attr("checkId");
+				if(checkId==type){
+					$(this).find("img").show()
+				}else{
+					$(this).find("img").hide()
+				}
+			})
+		}else{
+			$("#meeting_room_app").prop("disabled",false);
+			$("#meeting_room_app_workNo").prop("disabled",false);
+			$("#meeting_room_app").val("");
+			$("#meeting_room_app_workNo").val("");
+			$("#meeting_room_app_sys").val("");
+			$("#meeting_room_list_sys .item").each(function(){
+				$(this).find("img").hide()
+			})
+		}
+		$('.modal').on('show.bs.modal', function () {
+			   $(".errorMsg").text("");
+		})
+		$("#meeting_room_app_workNo").attr("mail",mail);
+		$("#meeting_room_app_workNo").attr("phone",phone);
+		workName=name;
+		edictType=deal;
+		userName=username;
+		workNo=workno;
+		sys=type;
+		edictId=id;
+		sysNo=type;
+//		var workNo,userName,sys,edictType;
+//		0新增1编辑
+	}
+	function admin_add(dom){
+		var data,url;
+		var cardStr=$("#meeting_room_app_workNo").val();
+		var sysStr=$("#meeting_room_app_sys").val();
+		var mails=$("#meeting_room_app_workNo").attr("mail");
+		var phone=$("#meeting_room_app_workNo").attr("phone");
+		if(edictType==0){
+			data={
+				type:sys,
+				workNo:workNo
+			}
+			url="/api/Event/add_admin";
+			if(!data.workNo){
+				$(dom).parents(".modal-dialog").find(".errorMsg").text("请选择卡号")
+				return;
+			}else if(!data.type){
+				$(dom).parents(".modal-dialog").find(".errorMsg").text("请选择系统")
+				return;
+			}
+		}else{
+			data={
+				id:edictId,
+				type:sys
+			}
+			url="/api/Event/edict_admin";
+		}
+		JQajaxo("post", url, true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_admin').modal('hide');
+//			$('#myModal_dyj_del').modal('hide');
+			if(dat==1){
+				$(".alert-success").show();
+				adminSet(0);
+				var content;
+				var name=cardStr.split("--")[0];
+				if(edictType==0){
+					content=name+"您已经被授权为："+sysStr+"管理员";
+				}else{
+					content=name+"您的管理员权限已经被修改为："+sysStr+"管理员";
+				}
+				sms(phone,content)
+				mail("",mails,"","","管理员权限变更通知",content)
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function adminSet(deal){
+		if(deal==0){
+			JQajaxo("get", "/api/Event/get_admin_infor", true,{}, _success);
+		}else{
+			var data={
+				keyWord:$("#admin_author_search_text").val() 
+			}
+			JQajaxo("post", "/api/Event/get_admin_infor_search", true,data, _success);
+		}
+		
+		function _success(res){
+			$("#card_set .table_content").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($(".table_content"),$("#card_set .header_content"),lg)
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var html='<div class="table_line">'+
+						      '<p>'+value.name+'</p>'+
+						      '<p>'+value.department+'</p>'+
+						      '<p>'+value.workNo+'</p>'+
+						      '<p>'+returnSys(value.type)+'</p>'+
+//						      '<p>'+value.username+'</p>'+
+						      '<p><span class="edict" onclick="addAdmin(1,\''+value.username+'\',\''+value.type+'\',\''+value.workNo+'\',\''+value.name+'\',\''+value.id+'\',\''+value.mail+'\',\''+value.phone+'\')">编辑</span><span class="delete" onclick="deletethis(\''+value.id+'\')">删除</span></p>'+
+					     '</div>';
+				$("#card_set .table_content").append(html);	     
+			}
+		}
+	}
+//	myModal_admin_del,deleteAdmin
+	function deletethis(id){
+		$("#myModal_admin_del").modal("show");
+		edictId=id;
+	}
+	function deleteAdmin(){
+		var data={
+			id:edictId
+		}
+		JQajaxo("post", "/api/Event/del_admin_infor", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_admin_del').modal('hide');
+			if(dat==1){
+				$(".alert-success").show();
+				adminSet(0);
+				
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function returnSex(sex){
+		var txt="";
+		if(sex==1){
+			txt="女"
+		}else{
+			txt="男"
+		}
+		return txt;
+	}
+	function returnSys(id){
+				var  txt;
+				switch (id)
+				{
+					case 0:
+						txt="系统管理员"
+					break;
+					case 1:
+						txt="门禁系统"
+					break;
+//					case 2:
+//						txt="梯控系统"
+//					break;
+					case 3:
+						txt="更衣柜系统"
+					break;
+					case 4:
+						txt="消费系统"
+					break;
+					case 5:
+						txt="打印机系统"
+					break;
+					case 6:
+						txt="会议系统"
+					break;
+					case 7:
+						txt="访客系统"
+					break;
+					case 8:
+						txt="资产管理"
+					break;
+					case 9:
+						txt="会议管理"
+					break;
+					case 10:
+						txt="菜单管理"
+					break;
+				}
+			return txt;
+	}
+
+</script>
+</html>

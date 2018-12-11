@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <!-- 编码格式 -->
+	    <meta charset="UTF-8">
+	    <title>上海银行</title>
+	    <!-- 作者 -->
+	    <meta name="author" content="author">
+	    <!-- 网页描述 -->
+	    <meta name="description" content="hello">
+	    <!-- 关键字使用","分隔 -->
+	    <meta name="keywords" content="a,b,c">
+	    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+	    <!--<meta http-equiv="Pragma" content="no-cache">-->
+	    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+	    <meta name="robots" content="none">
+	    <!-- 收藏图标 -->
+	    <!--<link rel="Shortcut Icon" href="favicon.ico">-->
+	    <!-- 网页不会被缓存 -->
+	    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <!-- 页面按原比例显示 -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+	    <!--<link rel="stylesheet" href="//at.alicdn.com/t/font_765234_tteodb5xeg.css">-->
+	    <link rel="stylesheet" href="../../Styles/Home/index.css">
+	    <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+	    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+	 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	 	<script src="../../Scripts/home/public.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+	 	<!--<script type="text/javascript" src="../../Scripts/home/Common.js"></script>-->
+	    <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	</head>
+	<body>
+		<ul id="myTab" class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#meeting_plan">会议安排</a></li>
+			<li role="presentation" ><a href="#meeting_mark">会议记录</a></li>
+			
+		</ul>
+		<div id="inforWrap">
+			<div  class="tab-content">
+				<div class="tab-pane fade in active" id="meeting_plan" style="overflow: auto;">
+					<div class="top_deal_item">
+						<div class="left_deal">
+						    <input type="text" class="form-control" id="search_plan_txt"   placeholder="请输入要搜索的内容" />
+						    <button type="button" class="btn btn-primary" id="search" onclick="search_plan_txt()">搜索</button>
+						</div>
+						<ul class="center_deal">
+							<li >会议管理员</li>
+						</ul>
+						<div class="right_deal">
+							<button type="button" class="btn btn-primary" id="openListMe">展开会议浏览</button>
+							<button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#myModal">会议申请</button>
+						</div>
+					</div>
+					<div class="meetting_list"  style="border-bottom: 1px dashed #eee;">
+						<div class="table_header">
+							<div class="nolist header_content ">
+							  <p>申请人</p>
+						      <p>会议主题</p>
+						      <p>会议类型</p>
+						      <p style="width: 16%;">会议内容</p>
+						      <p style="width: 14%;">开始时间</p>
+						      <p style="width: 14%;">结束时间</p>
+						      <p>联系人</p>
+						      <p>会议室</p>
+						      <p>会议状态</p>
+						      <p>操作</p>
+							</div>
+						</div>
+						<div class="table_content" id="meeting_plan_data"></div>
+					</div>
+					<div class="meet_date">
+						<div class="table_header">
+							<div class="header_content">
+								<p>会议室</p>
+							    <p>星期一(<span></span>)</p>
+							    <p>星期二(<span></span>)</p>
+							    <p>星期三(<span></span>)</p>
+							    <p>星期四(<span></span>)</p>
+							    <p>星期五(<span></span>)</p>
+							    <p>星期六(<span></span>)</p>
+							    <p>星期日(<span></span>)</p>
+							</div>
+						</div>
+						<div class="table_content"></div>
+					</div>
+				</div>
+				<div class="tab-pane fade  " id="meeting_mark">
+					<div class="top_deal_item">
+						<div class="left_deal">
+							<select class="form-control" style="width: 150px;float: left;margin-right: 15px;" onchange="searchChnage(this)">
+							  <option value="4">时间</option>
+							  <option value="0">申请人</option>
+							  <option value="1">联系人</option>
+							  <option value="2">会议室</option>
+							  <option value="3">会议类型</option>
+							</select>
+						    <input type="text" class="form-control textpicker" placeholder="请输入要搜索的内容" style="display: none;">
+						    <input type="text" class="form-control timepicker" id="search_begin" style="width: 200px;" placeholder="开始时间">
+						    <input type="text" class="form-control timepicker" id="search_end"  style="width: 200px;" placeholder="结束时间">
+						    <select class="form-control typepicker" style="width: 150px;float: left;margin-right: 15px;display: none;">
+							  <option value="0">培训</option>
+							  <option value="1">一级</option>
+							  <option value="2">二级</option>
+							  <option value="4">三级</option>
+							  <option value="3">其他</option>
+							</select>
+						    <button type="button" class="btn btn-primary" id="search_meet_his" 	data-complete-text="加载中..." onclick="get_earch_his()">搜索</button>
+						</div>
+						<div class="right_deal">
+							<a id="dlink" href="#" style="display: none;"></a>
+							<button type="button" class="btn btn-primary"  	data-complete-text="加载中..."  onclick="exportExls()">导出</button>
+						</div>
+					</div>
+					<div class="table_header">
+						<div class="header_content">
+							<p>申请人</p>
+					        <p>会议主题</p>
+					        <p>会议类型</p>
+					        <p style="width:14%;">会议内容</p>
+					        <p style="width:12%;">开始时间</p>
+					        <p style="width:12%;">结束时间</p>
+					        <p>联系人</p>
+					        <p>会议室</p>
+					        <p>会议状态</p>
+					        <p style="width:12%;">操作</p>
+						</div>
+					</div>
+					<div class="table_content">
+						
+					</div>
+				</div>
+				
+
+			</div>
+		</div>
+		<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            		操作成功。
+        </div>
+        <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            	操作失败。
+        </div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							会议申请
+							<span id="errorMsg_addNew" style="margin-left: 15px;color: red;font-size: 14px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-4 control-label">申请人 <span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" disabled="disabled" class="form-control" id="applicant" placeholder="申请人">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="topic" class="col-md-4 control-label">会议主题<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" maxlength="200" id="topic" placeholder="会议主题,200字以内">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="contact" class="col-md-4 control-label">联系人<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="contact" placeholder="联系人">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="contactPhone" class="col-md-4 control-label">联系电话<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="contactPhone" placeholder="联系电话">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row typeNotice" style="display: none;">
+							
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group" style="margin-bottom: 0;">
+										<label class=" col-md-2 control-label">
+										  一级会议
+										</label>
+										<div class="col-md-10" >
+									       <span style="margin-bottom: 0;" id="helpBlock" class="help-block">党委会议，行长办公会议，行长专题办公会议，行长办公会议扩大会议，务虚会议，季度、年度行务会议，年度述职报告会议等高层决策会议、全行性会议</span>
+									    </div>
+									</div>
+									<div class="form-group"  style="margin-bottom: 0;">
+										<label class=" col-md-2 control-label">
+										  二级会议
+										</label>
+										<div class="col-md-10">
+									      <span style="margin-bottom: 0;" id="helpBlock" class="help-block">行长室下设各专业委员会会议，职工代表大会，团员代表大会，条线会议等专业性会议。</span>
+									    </div>
+									</div>
+									<div class="form-group"  style="margin-bottom: 0;">
+										<label class=" col-md-2 control-label">
+										  三级会议
+										</label>
+										<div class="col-md-10">
+									      <span  style="margin-bottom: 0;" id="helpBlock" class="help-block">由分行部门召集的其他会议等</span>
+									    </div>
+									</div>
+									
+								</form>
+								
+								
+							</div>
+							
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="type" class="col-md-4 control-label">会议类型<span style="color: red;">*</span></label>
+									    <div class="col-md-8" style="position: relative;">
+									      <div  class="form-control"  id="type" style="color: #999;">会议类型</div>
+									      <div class="checkWrap" id="meet_type_check">
+									      	<div class="item" checkId="1">
+									      		 <span>一级</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item" checkId="2">
+									      		<span>二级</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item" checkId="4">
+									      		<span>三级</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item" checkId="0">
+									      		<span>培训</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item" checkId="3">
+									      		<span>其他</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="meetingContent" class="col-md-4 control-label">会议内容</label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" maxlength="200" id="meetingContent" placeholder="会议内容,200字以内">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="begintime" class="col-md-4 control-label">开始时间<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="begintime" placeholder="开始时间">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="endTime" class="col-md-4 control-label">结束时间<span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="endTime" placeholder="结束时间">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="depart" class="col-md-2 control-label">参会人员</label>
+									    <div class="col-md-10" style="position: relative;" >
+									      
+										    <div class="mulWrap" id="meet_mem_dep" >人员</div>
+									      	
+									        <div class="memSelect" id="addMemApp" style="display: none;z-index: 999">
+									        	<ul class="selectHeader">
+											    	<li class="active" data-ul="#deparSele">部门选择</li>
+													<li class="" data-ul="#groupSele">分组选择</li>
+											    </ul>
+											    <ul class="selectItem active" id="deparSele">
+										      		
+											    </ul>
+											    <ul class="selectItem" id="groupSele" >
+											      		
+											    </ul>
+											   
+										      	
+									        </div>
+									      	
+									    </div>
+									</div>
+								</form>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										  其他人员
+										</label>
+										<div class="col-md-10">
+									        <input type="text" class="form-control" name="otherMem" id="otherMem" value="" placeholder="其他人员"/>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-4 control-label">
+										  <input type="checkbox" id="hasVip">行领导
+										</label>
+										<div class="col-md-8">
+									      <div   class="mulWrap" id="leader" style="background: #eee;"  onclick="showLeader()">
+									      </div>
+									      <div class="checkWrap" id="meet_leader">
+									      	
+									      </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group" style="position: relative;">
+										<label class=" col-md-4 control-label">
+										   通知方式
+										</label>
+										<div class="col-md-8">
+									      	<div class="mulWrap" id="meet_notice">
+									      	通知方式
+									      	</div>
+										    <div class="checkWrap" id="meet_notice_check">
+										      	<div class="item" checkId="0" onclick="changeNotice(0,'短信',this)">
+										      		 <span>短信</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	</div>
+										      	<div class="item" checkId="1" onclick="changeNotice(1,'邮件',this)">
+										      		 <span>邮件</span>
+										      		 <img src="../../Image/bank/gou.png"/>
+										      	 </div>
+										    </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										  会议服务
+										</label>
+										<div class="col-md-10">
+									        <div class="mulWrap meet_server" id="">
+									      	会议服务
+									      	</div>
+										    <div class="checkWrap meet_server_check" id="">
+										      	
+										    </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										  会议备注
+										</label>
+										<div class="col-md-10">
+									        <input type="text" class="form-control" name="remark" id="remark" value="" placeholder="会议备注"/>
+									    </div>
+									</div>
+								</form>
+							</div>
+							
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="createNewMeeting()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							资料上传
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">文件上传</label>
+									    <div class="col-md-10">
+									    	<input type="file" multiple="multiple"  id="uploadInput" style="margin-top: 5px;">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label"></label>
+									    <div class="col-md-10" id="fileUplist">
+									     	
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="uploadFile()"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_down" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							资料下载
+						</h4>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">资料列表:</label>
+									    <div class="col-md-10" id="fileDown" style="padding-top: 8px;">
+									     	<p>暂无</p>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-2 control-label">会议签到:</label>
+									    <div class="col-md-10" id="fileDown" style="padding-top: 8px;">
+									     	<p><a href="#" onclick="exPortsMark()">导出</a></p>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							会议详情
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12 reason_de" style="display: none;">
+								<div class="form-group " >
+										<label class=" col-md-3 control-label">
+										  未通过原因
+										</label>
+										<div class="col-md-9" id="reason_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  申请人
+										</label>
+										<div class="col-md-9" id="app_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议主题
+										</label>
+										<div class="col-md-9" id="topic_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议类型
+										</label>
+										<div class="col-md-9" id="type_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议内容
+										</label>
+										<div class="col-md-9" id="content_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  开始时间
+										</label>
+										<div class="col-md-9" id="start_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  结束时间
+										</label>
+										<div class="col-md-9" id="end_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  联系人
+										</label>
+										<div class="col-md-9" id="cont_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  联系方式
+										</label>
+										<div class="col-md-9" id="tel">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议室
+										</label>
+										<div class="col-md-9" id="room_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  参会人员
+										</label>
+										<div class="col-md-9" id="oname">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  其他人员
+										</label>
+										<div class="col-md-9" id="othermem">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  行领导
+										</label>
+										<div class="col-md-9" id="vname">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议服务
+										</label>
+										<div class="col-md-9" id="sertxt">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  通知方式
+										</label>
+										<div class="col-md-9" id="notify">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议备注
+										</label>
+										<div class="col-md-9" id="remarks">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  技术支持
+										</label>
+										<div class="col-md-9" id="techMan">
+										无
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  物业支持
+										</label>
+										<div class="col-md-9" id="propMan">
+										无
+									    </div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+	</body>
+
+
+<script type="text/javascript">
+	//		JQajaxo(_type, _url, _asycn, _data, _success);
+	var meetType,depart=[],workNoMem=[],memName=[],leader,notice=[],noticeName=[],serverId=[],serverName=[],MeetRoomEdict=false,serverEdict=false,edicId=0;
+	var meetingId,meetingName;
+	var techPopId,propPopId;
+	var file=null;
+	var flag=true;
+	var groupName,edictGroupId,edictType=0,groupIdArr=[],groupNaArr=[];
+	$(function(){
+		$(".selectHeader li").each(function(index, el) {
+			$(this).click(function(event) {
+				stopEvent(event)
+				var dataUrl=$(this).attr("data-ul");
+				$(this).addClass('active');
+				$(this).siblings().removeClass('active');
+				$(".selectItem").removeClass('active');
+				$(dataUrl+".selectItem").addClass('active');
+			});
+		});
+		$(".selectItem").delegate('.sec_tit', 'click', function(event) {
+			stopEvent(event)
+			$(this).siblings('.thr').toggle();
+				var imgShow=$(this).siblings('.thr').css("display");
+				if(imgShow=="none"){
+					$(this).find("img").attr("src","../../Image/bank/slide_up.png");
+				}else{
+					$(this).find("img").attr("src","../../Image/bank/slide_down.png");
+				}
+		});
+
+		// $("#myModal_appli").modal("show")
+		var h=$(window).height();
+		$(".table_content").css({height:(h-170)+'px'})
+
+		$(".meet_date .table_content").css({height:(h-210)/2+'px'})
+		$(".meet_date").hide();
+
+		$("#meet_app_list .table_content").css({height:(h-170)+'px'});
+
+		$("#meet_app_date .table_content").css({height:(h-210)/2+'px'});
+
+
+		/*控制会议安排显示切换*/
+		$("#openListMe").click(function(){
+			var txt=$(this).text();
+			if(txt=="展开会议浏览"){
+				$(this).text("关闭会议浏览")
+				$(".meet_date").show();
+				$("#meeting_plan_data").css({height:(h-210)/2+'px'});
+
+			}else{
+				$(this).text("展开会议浏览")
+				$(".meet_date").hide();
+				$("#meeting_plan_data").css({height:(h-170)+'px'});
+			}
+		})
+
+
+		/*点击table进行切换*/
+		$('#myTab a').click(function (e) {
+
+		   e.preventDefault();
+		   $(this).tab('show');
+		   groupIdArr=[],groupNaArr=[];
+		   $("#memShow").html("")
+		   $("#meet_mem_dep").html("")
+		   var tabName=$(this).attr("href")
+		    if(tabName=="#meeting_plan"){
+		   		loadMeetingPlan(1);
+		   		loadMeetingRoom();
+		   		loadGroupMem("/api/Event/get_all_depart",$("#deparSele"),"post",0);
+				loadGroupMem("/api/Event/get_memgroup",$("#groupSele"),"get",1);
+		    }
+		   serverId=[],serverName=[];
+		   $(".meet_server_check").hide();
+		   $(".meet_server").html("");
+		})
+
+
+		$('input, textarea').placeholder();
+		
+		$("#begintime").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#endTime").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_end").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		var time=getTime();
+		$("#search_begin").val(getTodayBegin());
+		$("#search_end").val(time);
+		$("#begintime").val(time);
+		$("#endTime").val(time);
+		$("#type").click(function(event){
+			event.stopPropagation();
+			
+			$(".typeNotice").show();
+			$(this).siblings(".checkWrap").show();
+		})
+		$("#meet_type_check .item").each(function(){
+			$(this).click(function(event){
+				stopEvent(event);
+				$(this).find("img").show();
+				$(this).siblings().find("img").hide();
+				$("#type").text($(this).find("span").text());
+				meetType=$(this).attr("checkId");
+			})
+		})
+		$("#memShow").click(function(event) {
+			$("#addMem").show();
+		});
+/*加载所有的部门addMemApp*/
+		$("#meet_mem_dep").click(function(event){
+			stopEvent(event);
+			$("#addMemApp").show();
+		})
+		
+
+		
+
+
+		$(".meet_server_point").click(function(event) {
+			stopEvent(event)
+			$(".meet_server_check_point").show();
+		});
+		$("#meet_mem").click(function(event){
+			stopEvent(event)
+			$("#meet_member_check").show();
+		})
+		
+		$("#hasVip").click(function(){
+			var check=$(this).prop("checked");
+			if(check){
+				flag=false;
+				$("#leader").css({"background":"#fff"})
+			}else{
+				flag=true;
+				$("#leader").css({"background":"#eee"})
+				$("#leader").html("");
+				leaderId=[];
+				leaderName=[];
+			}
+			
+		})
+		$("#meet_notice").click(function(){
+			stopEvent(event)
+			$("#meet_notice_check").show();
+		})
+		$(".meet_server").click(function(){
+			stopEvent(event);
+			JQajaxo("post","/api/Event/get_meet_serve",true,{},_success)
+			function _success(res){
+				$(".meet_server_check").html("")
+				var dat=res.HttpData.data,lg=dat.length;
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+					var html='<div class="item" checkId="'+value.id+'" onclick="changeServer('+value.id+',\''+value.text+'\',this)">'+
+					      		 '<span>'+value.text+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      	 '</div>';
+					$(".meet_server_check").append(html);
+				}
+				$(".meet_server_check").show();
+				imgShowControl($(".meet_server_check"),serverId);
+			}
+		})
+		$('#myModal').on('show.bs.modal', function () {
+			$("#errorMsg_addNew").text("")
+		 	JQajaxo("post","/api/Event/get_mem_infor_pc",true,{workNo :localStorage.userName},_success);
+		 	function _success(res){
+		 		var dat=res.HttpData.data[0];
+		 		$("#applicant").val(dat.name);
+		 		$("#contact").val(dat.name);
+		 		$("#contactPhone").val(dat.phone);
+
+		 	}
+		})
+		$('#myModal_appli').on('show.bs.modal', function () {
+			   $("#errorMsg_meet_app").text("");
+		})
+
+		
+		//会议审批设置
+		var d=getMonDate();
+		var arr=[];
+		for(var i=0; i<7; i++)
+		{	
+			var dates=d.getFullYear()+'-'+((d.getMonth()+1<10)?("0"+(d.getMonth()+1)):(d.getMonth()+1))+'-'+(d.getDate()<10?("0"+(d.getDate())):(d.getDate()));
+			$("#meeting_plan .meet_date  .header_content p").eq(i+1).find("span").text(dates);
+			d.setDate(d.getDate()+1);
+		}
+
+		$('#search_plan_txt').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadMeetingPlan(1);
+			}
+		})
+
+		$("#uploadInput").change(function(){
+			var files=document.getElementById("uploadInput").files;
+			var lg=files.length;
+			for(var i=0;i<lg;i++){
+				var name=files[i].name;
+				$("#fileUplist").append('<p>'+name+'</p>');
+			}
+		})
+		$('.modal').on('show.bs.modal', function () {
+			$(".errorMsg").text('');
+		})
+		loadMeetingPlan(1);
+		loadMeetingRoom();
+		loadMeetingAdmin();
+		loadMemGroup();/*加载人员分组*/
+		// loadOutBank();
+		// loadInBank();
+		loadGroupMem("/api/Event/get_all_depart",$("#deparSele"),"post",0);
+		loadGroupMem("/api/Event/get_memgroup",$("#groupSele"),"get",1);
+
+		
+	})
+	function loadSupportMem(target,deal){
+		JQajaxo("get","/api/Event/get_memgroup",true,{},_success);
+		function _success(res){
+			target.html("");
+				var dat=res.HttpData.data,lg=dat.length;
+				console.log(dat);
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+						var str= loadMemByGroupMem(value.id,deal);
+			      		var html='<li class="sec">'+
+					      			'<p class="sec_tit">'+
+					      				// '<input type="checkbox" name="" id="" value="" onclick="selectAll(this)" />'+
+					      				'<span id="">'+value.groupName+'</span>'+
+					      				'<img src="../../Image/bank/slide_up.png">'+
+					      			'</p>'+
+					      			'<ul class="thr">'+
+					      				str+
+					      			'</ul>'+
+					      		'</li>';					
+					target.append(html)	
+				}
+		}
+	}
+	function loadMemByGroupMem(id,deal){	
+		var str="";
+		var data={
+			id:id
+		}
+		JQajaxo("post", "/api/Event/get_memgroup_list", false,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				str+='<li workNo="'+value.workNo+'">'+
+	      					'<p  names="'+value.name+'" workNo="'+value.workNo+'" class="thr_tit" onclick="this_mem(this,\''+value.name+'\',\''+value.workNo+'\',event,'+deal+',\''+value.phone+'\',\''+value.mail+'\')"><input type="checkbox" disabled="disabled" />'+value.name+'</p>'+
+	      				'</li>';
+			}
+			
+		}
+		return str;
+	}
+	var techPopPhNo,propPopPhNo,techPopMaNo,propPopMaNo;
+	function this_mem(dom,name,work,event,deal,phone,mail){
+		stopEvent(event);
+		var check=$(dom).find("input").prop("checked");
+
+		if(check){
+			$(dom).find("input").prop("checked",false);
+			$(dom).parents(".memSelect").siblings('input').val("");
+		}else{
+			$(dom).find("input").prop("checked",true);	
+			$(dom).parents(".memSelect").siblings('input').val(name);
+			if(deal==0){
+				techPopId=work;
+				techPopPhNo=phone;
+				techPopMaNo=mail;
+
+			}else{
+				propPopId=work;
+				propPopPhNo=phone;
+				propPopMaNo=mail;
+
+			}
+		}
+
+		$(dom).parent().siblings('li').find('input').prop("checked",false);
+
+		$(dom).parents(".sec").siblings('.sec').each(function(index, el) {
+			$(this).find("input").prop("checked",false);
+		})
+
+
+	}
+
+	function loadGroupMem(url,target,type,deal){
+		JQajaxo(type,url,true,{},_success);
+		function _success(res){
+			target.html("");
+				var dat=res.HttpData.data,lg=dat.length;
+				console.log(dat);
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+					if(deal==0){
+						var str= loadMemByDepart(value.department);
+			      		var html='<li class="sec">'+
+					      			'<p class="sec_tit">'+
+					      				'<input type="checkbox" name="" id="" value="" onclick="selectAll(this)" />'+
+					      				'<span id="">'+value.department+'</span>'+
+					      				'<img src="../../Image/bank/slide_up.png">'+
+					      			'</p>'+
+					      			'<ul class="thr">'+
+					      				str+
+					      			'</ul>'+
+					      		'</li>';
+					}else{
+						var str= loadMemByGroup(value.id);
+			      		var html='<li class="sec">'+
+					      			'<p class="sec_tit">'+
+					      				'<input type="checkbox" name="" id="" value="" onclick="selectAll(this)" />'+
+					      				'<span id="">'+value.groupName+'</span>'+
+					      				'<img src="../../Image/bank/slide_up.png">'+
+					      			'</p>'+
+					      			'<ul class="thr">'+
+					      				str+
+					      			'</ul>'+
+					      		'</li>';
+					}
+					
+					target.append(html)	
+				}
+		}
+	}
+	function selectAll(dom){
+		var check=$(dom).prop("checked");
+		stopEvent(event)
+		console.log(check);
+		if(check){
+		// 	/*部门全选*/
+			$(dom).parent("p").siblings('ul').find('li p').each(function(index, el) {
+				$(this).find('input').prop({
+					checked: true
+					
+				})
+				var workno=$(this).attr("workNo");
+				var name=$(this).attr("names");
+				
+
+				
+				if(groupIdArr.indexOf(workno)==-1){
+					groupIdArr.push(workno);
+				}
+				if(groupNaArr.indexOf(name)==-1){
+					groupNaArr.push(name);
+				}
+
+			});
+		}else{
+		// 	/*部门不全选*/
+			$(dom).parent("p").siblings('ul').find('li p').each(function(index, el) {
+				$(el).find('input').prop({
+					checked: false
+					
+				})
+				var workno=$(this).attr("workNo");
+				var name=$(this).attr("names");
+				groupIdArr.remove(workno);
+				groupNaArr.remove(name);
+			});
+		}
+		loadMemItem($("#meet_mem_dep"))
+		console.log(groupIdArr,groupNaArr);
+		// loadMemItem(memName,$("#meet_mem_dep"));
+		allCheck();
+	}
+	function addMjGroupPonit(dom){
+		var data={
+			parentId:edictGroupId,
+			workNo :groupIdArr.toString()
+		}
+		console.log(data);
+		JQajaxo("post","/api/Event/add_memgroup_item",true,data,_success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_group_point').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				 getList(edictGroupId,"","")
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	// function loadInBank(){
+	// 	JQajaxo("post","/api/Event/get_all_depart_nobank",true,{},_success);
+	// 		function _success(res){
+	// 			$("#inBank").html("");
+	// 			var dat=res.HttpData.data,lg=dat.length;
+	// 			for(var i=0;i<lg;i++){
+	// 				var value=dat[i];
+	// 				var str= loadMemByDepart(value.department);
+
+	// 	      		var html='<li class="sec">'+
+	// 			      			'<p class="sec_tit">'+
+	// 			      				'<span id="">'+value.department+'</span>'+
+	// 			      				'<img src="../../Image/bank/slide_up.png">'+
+	// 			      			'</p>'+
+	// 			      			'<ul class="thr">'+
+	// 			      				str+
+	// 			      			'</ul>'+
+	// 			      		'</li>';
+	// 				$("#inBank").append(html)	
+	// 			}
+	// 		}
+	// }
+	function loadMemByDepart(depart){	
+		console.log(depart);
+		var str="";
+		var data={
+			department:"'"+depart+"'"
+		}
+		JQajaxo("post", "/api/Event/get_mem_dep_mul", false,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				str+='<li workNo="'+value.workNo+'">'+
+	      					'<p  names="'+value.name+'" workNo="'+value.workNo+'" class="thr_tit" onclick="this_mem_sel(this,\''+value.name+'\',\''+value.workNo+'\',event)"><input type="checkbox" disabled="disabled" />'+value.name+'</p>'+
+	      				'</li>';
+			}
+			
+		}
+		return str;
+	}
+	function loadMemByGroup(id){	
+		var str="";
+		var data={
+			id:id
+		}
+		JQajaxo("post", "/api/Event/get_memgroup_list", false,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				str+='<li workNo="'+value.workNo+'">'+
+	      					'<p  names="'+value.name+'" workNo="'+value.workNo+'" class="thr_tit" onclick="this_mem_sel(this,\''+value.name+'\',\''+value.workNo+'\',event)"><input type="checkbox" disabled="disabled" />'+value.name+'</p>'+
+	      				'</li>';
+			}
+			
+		}
+		return str;
+	}
+	// var groupName,edictGroupId,edictType=0,groupIdArr=[],groupNaArr=[];
+	function this_mem_sel(dom,name,work,event){
+		stopEvent(event)
+		var check=$(dom).find('input').prop("checked");
+		if(check){
+			$(dom).find('input').prop("checked",false);
+			groupIdArr.remove(work);
+			groupNaArr.remove(name);
+		}else{
+			$(dom).find('input').prop("checked",true);
+			if(groupIdArr.indexOf(work)==-1){
+				groupIdArr.push(work);
+			}
+			if(groupNaArr.indexOf(name)==-1){
+				groupNaArr.push(name);
+			}
+			
+		}
+		allCheck();
+		loadMemItem($("#memShow"));
+		loadMemItem($("#meet_mem_dep"));
+		
+
+	}
+	function loadMemItem(targ){
+		targ.html("");
+		for(var i=0;i<groupNaArr.length;i++){
+			var value=groupNaArr[i];
+			var workNo=groupIdArr[i];
+			var html='<p><span class="content">'+value+'</span><span class="closed" onclick="deleMem(\''+value+'\',\''+workNo+'\',this)">x</span></p>';
+			targ.append(html);
+		}
+	}
+
+	function deleMem(name,work,dom){
+		stopEvent(event)
+		$(dom).parent().remove();
+		groupIdArr.remove(work);
+		groupNaArr.remove(name);
+
+		$("#inBank .thr li").each(function(index, el) {
+			var works=$(this).attr("workNo");
+			if(work==works){
+				$(this).find('input').prop("checked",false)
+			}
+		});
+		$("#outBank .selectOne").each(function(index, el) {
+			var works=$(this).attr("workNo");
+			if(work==works){
+				$(this).find('input').prop("checked",false)
+			}
+		});
+		$(".thr").each(function(index, el) {
+			$(this).find("li").each(function(index, el) {
+				var workNo=$(this).attr("workno");
+				if(work==workNo){
+					$(this).find("input").prop("checked",false)
+				}
+			});
+
+		});
+		// allCheck();
+	}
+	function allCheck(){
+		$("#addMemApp .sec .thr").each(function(index, el) {
+			$(this).find("li").each(function(index, el) {
+				var workNo=$(this).attr("workno");
+				console.log(groupIdArr.indexOf(workNo));
+				if(groupIdArr.indexOf(workNo)!=-1){
+					$(this).find("input").prop("checked",true)
+				}else{
+					$(this).find("input").prop("checked",false)
+				}
+			});
+			var lg=$(this).find('input:not(:checked)').length;
+			var haslg=$(this).find('input').length;
+
+			if(lg==0&&haslg>0){
+				$(this).siblings('p').find('input').prop("checked",true)
+			}else{
+				$(this).siblings('p').find('input').prop("checked",false)
+			}
+
+			
+
+		});
+	}
+	// function loadOutBank(){
+	// 	 JQajaxo("get","/api/Event/get_all_outbank",true,{},_success)
+	// 	 function _success(res){
+	// 	 	var dat=res.HttpData.data,lg=dat.length;
+	// 	 	$("#outBank").html("")
+	// 	 	for(var i=0;i<lg;i++){
+	// 	 		var value=dat[i];
+	// 	 		var html='<li class="selectOne" workNo="'+value.workNo+'">'+
+	// 			      		'<p names="'+value.name+'" workno="'+value.workNo+'" class="thr_tit" onclick="this_mem_sel(this,\''+value.name+'\',\''+value.workNo+'\')"><input type="checkbox" disabled="disabled">'+value.name+'</p>'+
+	// 			      	'</li>';
+	// 			$("#outBank").append(html);
+	// 	 	}
+	// 	 }
+	// }
+	function addMjPoint(){
+		$("#myModal_group_point").modal("show");
+	}
+	function deletMjGroup(){
+		$("#myModal_group_dele").modal("show");
+	}
+	function mjGroupDele(){
+		var data={
+			id:edictGroupId
+		};
+		JQajaxo("post", "/api/Event/del_memgroup", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_group_dele').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				loadMemGroup();
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function edictMjGroup(){
+		$("#myModal_group").modal("show");
+		$("#myModal_group .txt").text("编辑分组");
+		$("#groupName").val(groupName);
+		edictType=1;
+	}
+	function addMjGroup(){
+		$("#myModal_group").modal("show");
+		$("#myModal_group .txt").text("添加分组");
+		$("#groupName").val("");
+		edictType=0;
+	}
+
+	function mjGroup(){
+		if(edictType==0){
+			var data={
+				name:$("#groupName").val()
+			}
+			JQajaxo("post", "/api/Event/add_memgroup", true,data, _success);
+			
+		}else{
+			var data={
+				name:$("#groupName").val(),
+				id:edictGroupId
+			}
+			JQajaxo("post", "/api/Event/upd_memgroup", true,data, _success);
+			
+		}
+		if(!data.name){
+			$("#myModal_group .errorMsg").text("分组名称不能为空");
+			return;
+		}
+		console.log(data);
+		
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_group').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				loadMemGroup();
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function loadMemGroup(){
+		JQajaxo("get", "/api/Event/get_memgroup", true,{}, _success);
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			$("#group_le").html("");
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var html='<p class="list-group-item" onclick="getList('+value.id+',this,\''+value.groupName+'\')">'+value.groupName+'</p>';
+				$("#group_le").append(html)
+			}
+		}
+	}
+	function getList(id,dom,name){
+		groupName=name;
+		edictGroupId=id;
+		$(dom).css({background:"#f5f5f5",color:"#337ab7"}).siblings().css({background:"#fff",color:"#333"});
+		JQajaxo("post", "/api/Event/get_memgroup_list", true,{id :id}, _success);
+		function _success(res){
+			console.log(res);
+			$("#group_ri").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#group_ri"),$("#mem_group .header_content"),lg)
+			// oldmjPoint=[];
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+
+			// 	oldmjPoint.push(value.mjId);
+				var html='<div class="table_line">'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+value.department+'</p>'+
+							'<p >'+value.workNo+'</p>'+
+							'<p><span class="delete" onclick="deleteMjPoint('+value.id+')">删除</span></p>'+
+						'</div>';
+				$("#group_ri").append(html);
+			}
+		}
+	}
+	function deleteMjPoint(id){
+		var data={
+			id:id
+		}
+		JQajaxo("post", "/api/Event/del_memgroup_item", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			if(dat==1){
+				$(".alert-success").show()
+				 getList(edictGroupId,"","")
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function exPortsMark(){
+		//导出会议签到
+		JQajaxo("post","/api/Event/get_meet_mark",true,{id:edicId},_success);
+		function _success(res){
+			var dat=res.HttpData.data[0].signIn.split(",");//实际签到人员
+			var nameTxt=res.HttpData.data[0].nametxt.split(",");//应签到人员名字%工号
+			var thisMem=[];
+			var isClude=[],noClude=[];
+			var nameArr=[],workArr=[];
+			for(var i=0;i<dat.length;i++){
+				workArr.push(dat[i].split("'")[0])
+			}
+			for(var i=0;i<workArr.length;i++){
+
+					var name=nameTxt[i].split("%")[0];
+					var work=nameTxt[i].split("%")[1];
+					var ind=workArr.indexOf(work);
+					var obj;
+					if(ind==-1){
+						var obj={
+							name:dat[i].split("'")[1],
+							workNo:dat[i].split("'")[0].toString(),
+							time:dat[i].split("'")[2]
+						}
+						noClude.push(obj)
+					}
+					
+
+			}
+			for(var i=0;i<nameTxt.length;i++){
+				if(nameTxt[i]){
+					var name=nameTxt[i].split("%")[0];
+					var work=nameTxt[i].split("%")[1];
+					var ind=workArr.indexOf(work);
+					var obj;
+					if(ind!=-1){
+						var obj={
+							name:dat[ind].split("'")[1],
+							workNo:dat[ind].split("'")[0],
+							time:dat[ind].split("'")[2]
+						}
+						
+					}else{
+						var obj={
+							name:nameTxt[i].split("%")[0],
+							workNo:nameTxt[i].split("%")[1],
+							time:"未签到"
+						}
+					}
+					isClude.push(obj)
+					
+				}
+			}
+			var  colName=[
+					{label:"姓名",key:"name",type:"string"},
+					{label:"工号",key:"workNo",type:"string"},
+					{label:"签到时间",key:"time",type:"string"}
+				]
+			var fileName="会议签到"+getTime();
+			var data=[isClude,noClude];
+
+			HtmlExportToExcel(isClude,colName,fileName,1,noClude)
+			}
+		}
+
+
+	var adminTel=[],adminEmail=[];
+	function loadMeetingAdmin(){
+		JQajaxo("post","/api/Event/get_sys_admin",true,{sys:6},_success)
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				adminTel.push(value.phone);
+				adminEmail.push(value.mail);
+				var html='<li><span>'+value.name+'</span>--'+value.phone+' </li>'
+				$(".center_deal").append(html)
+			}
+		}
+	}
+	var tbodyData=[];
+	function exportExls(){
+		var  colName=[
+			{label:"申请人",key:"name",type:"string"},
+			{label:"会议主题",key:"topic",type:"string"},
+			{label:"会议类型",key:"type",type:"list",res:["培训","一级","二级","其他","三级"]},
+			{label:"会议内容",key:"meetingContent",type:"string"},
+			{label:"开始时间",key:"begintime",type:"time"},
+			{label:"结束时间",key:"endTime",type:"time"},
+			{label:"联系人",key:"contact",type:"string"},
+			{label:"会议室",key:"roomname",type:"string"},
+			{label:"会议状态",key:"result",type:"list",res:["审批中","未通过","通过","会议结束"]}
+		]
+		
+		var fileName="会议记录"+getTime();
+		HtmlExportToExcel(tbodyData,colName,fileName)
+	}
+	function uploadFile(){
+		var files=document.getElementById("uploadInput").files;
+		var lg=files.length;
+		var formData=new FormData();
+		for(var i=0;i<lg;i++){
+			var name=files[i].name;
+			formData.append("file",files[i]);
+		}
+		$.ajax({
+		            type: 'post',
+		            url: 'http://10.7.1.192:9000/api/file/upload',
+		            data: formData,
+		            cache: false,
+		            processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+		            contentType: false, // 不设置Content-type请求头
+		            success: function (dt) {
+		            	var dat=JSON.parse(dt).Message;
+		            	var name=dat.replace(/\[|]|"/g,"");
+		            	var data={
+		            		id:edicId,
+		            		name:name
+		            	}
+		            	 JQajaxo("post","/api/Event/upd_file_name",true,data,_success)
+		            	 function _success(res){
+		            	 	var dat=res.HttpData.data;
+							$('#myModal_upload').modal('hide');
+							if(dat==1){
+								$(".alert-success").show()
+							}else{
+								$(".alert-danger").show()
+							}
+							setTimeout(function(){
+								$(".alert").hide()
+							},2000)
+		            	 }   	
+		            }
+		         });
+	}
+	
+	
+	
+	function search_plan_txt(){
+		var data={
+			workNo:window.localStorage.userName,
+			keyWord:$("#search_plan_txt").val()
+		}
+		loadMeetingPlan(0,data,"/api/Event/get_meet_plan_search")
+
+	}
+	var searchType=4;
+	function searchChnage(dom){
+		var val=$(dom).val();
+		searchType=val;
+		switch (val)
+		{
+			case "0":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			case "1":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			case "2":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			case "3":
+				$(".timepicker").hide();
+				$(".typepicker").show();
+				$(".textpicker").hide();
+			break;
+			case "4":
+				$(".timepicker").show();
+				$(".typepicker").hide();
+				$(".textpicker").hide();
+			break;
+		}
+	}
+	function get_earch_his(){
+        var data;
+        if(searchType==0){
+        	data={
+        		keyTxt:$(".textpicker").val(),
+        		type:1,
+        		workNo:window.localStorage.userName
+        	}
+        }
+        if(searchType==1){
+        	data={
+        		keyTxt:$(".textpicker").val(),
+        		type:3,
+        		workNo:window.localStorage.userName
+        	}
+        }
+        if(searchType==2){
+        	data={
+        		keyTxt:$(".textpicker").val(),
+        		type:4,
+        		workNo:window.localStorage.userName
+        	}
+        }
+        if(searchType==3){
+        	data={
+        		meetType:$(".typepicker").val(),
+        		type:2,
+        		workNo:window.localStorage.userName
+        	}
+        }
+        if(searchType==4){
+        	data={
+        		startTime:$("#search_begin").val(),
+        		endTime:$("#search_end").val(),
+        		type:0,
+        		workNo:window.localStorage.userName
+        	}
+        }
+        JQajaxo("post","/api/Event/get_meeting_search",true,data,_success)
+        function _success(res){
+        	var dat=res.HttpData.data,lg=dat.length;
+        	tbodyData=dat;
+        	paddingCount($(".table_content"),$("#meeting_mark .header_content"),lg)
+        	$("#meeting_mark .table_content").html("");
+        	for(var i=0;i<lg;i++){
+        		var value=dat[i];
+        		var sta="",staC="";
+        		var dealHtml='<span class="edict" onclick="upload('+value.id+')">上传资料</span><span class="edict" onclick="download('+value.id+')">下载资料</span>'
+        		if(value.result==0){
+        			sta="审批中";
+        			staC="ing";
+        		}else if(value.result==1){
+        			sta="未通过"
+        			staC="noagree"
+        		}else if(value.result==2){
+        			var time=getTime();
+        			
+        			var reg= CompareDate(time,value.begintime.replace("T"," "))
+        			staC="ing"
+        			if(reg){
+        				sta="进行中"
+        			}else{
+        				sta="未开始"
+        			}
+        		}else if(value.result==3){
+        			sta="结束"
+        			staC="finished"
+        		}
+        		var html='<div class="table_line">'+
+							'<p>'+value.name+'</p>'+
+					        '<p>'+value.topic+'</p>'+
+					        '<p>'+returnMeetingType(value.type)+'</p>'+
+					        '<p style="width:14%;" title="'+value.meetingContent+'">'+value.meetingContent+'</p>'+
+					        '<p style="width:12%;">'+value.begintime.replace("T"," ")+'</p>'+
+					        '<p style="width:12%;">'+value.endTime.replace("T"," ")+'</p>'+
+					        '<p>'+value.contact+'</p>'+
+					        '<p>'+value.roomname+'</p>'+
+					        '<p class="'+staC+'">'+sta+'</p>'+
+					        '<p style="width:12%;">'+dealHtml+'</p>'+
+						'</div>';
+        		$("#meeting_mark .table_content").append(html)
+        	}
+        }
+	}
+	function upload(id){
+		$("#myModal_upload").modal("show")
+		myModal_upload;
+		edicId=id;
+	}
+	
+	function download(id){
+		edicId=id;
+		$("#myModal_down").modal("show");
+		JQajaxo("post","/api/Event/get_file_name",true,{id:id},_success)
+		function _success(res){
+			var dat=res.HttpData.data[0].record;
+			$("#fileDown").html("")
+			if(dat){
+				dat=dat.split(",");
+				for(var i=0;i<dat.length;i++){
+					var value=dat[i];
+					var html='<p><a download="'+value+'" target="_blank" href="http://10.7.1.192:9001/'+value+'">'+value+'</a></p>';
+					$("#fileDown").append(html)
+				}
+				
+			}
+		}
+	}
+	
+	
+	var appTel,appEmail;
+	var otherMem,otherEmail,beginTimeNo,endTimeNo,roomNo,appName,contenNo,topicNo,notifyNo,vphone,vmail,vflag;
+
+	function hideMulCheck(dom){
+		$(dom).find('.checkWrap').hide()
+		$(dom).find('.memSelect').hide();
+
+		$(".typeNotice").hide()
+	}
+
+	function loadMeetingPlan(deal,datas,urls){
+		var data={
+			workNo:window.localStorage.userName
+		}
+		var url="/api/Event/get_all_appMet"
+		if(deal==0){
+			data=datas;
+			url=urls;
+		}
+		
+		JQajaxo("post",url,true,data,_success)
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			console.log(res);
+			$("#meeting_plan_data").html("");
+			for(var i=0;i<lg;i++){
+				var arr=dat[i];
+				var normalC="normal",statusC="ing"
+				var roomName="暂无";
+				// var deal="";
+				var sta="";
+				var html="";
+				var now=getTime();
+				if(arr.result=="2"){
+					statusC="agree"
+					var ret= CompareDate(now,arr.begintime.replace("T"," "));
+					if(ret){
+						sta="进行中";
+					}else{
+						sta="未开始";
+						
+					}
+				}else if(arr.result=="1"){
+					statusC="noagree"
+					sta=returnMeetingApp(arr.result);
+				}else{
+					sta=returnMeetingApp(arr.result);
+				}
+				if(arr.roomname){
+					roomName=arr.roomname
+				}
+				var isLoad= CompareDate(now,arr.endTime.replace("T"," "));
+				
+				if(isLoad&&arr.result=="2"){
+				}else{
+					var html='<div class="table_line">'+
+						     '<p>'+arr.name+' </p>'+
+						     '<p>'+arr.topic+' </p>'+
+						     '<p >'+returnMeetingType(arr.type)+' </p>'+
+						     '<p style="width: 16%;" title="'+arr.meetingContent+'"><span>'+arr.meetingContent+'</span> </p>'+
+						     '<p style="width: 14%;">'+arr.begintime.replace("T"," ")+' </p>'+
+						     '<p style="width: 14%;">'+arr.endTime.replace("T"," ")+' </p>'+
+						     '<p>'+arr.contact+' </p>'+
+						     '<p>'+roomName+' </p>'+
+						     '<p class="'+statusC+'">'+sta+' </p>'+
+						     '<p><span class="edict" onclick="lookMore(\''+arr.name+'\',\''+arr.topic+'\',\''+arr.type+'\',\''+arr.meetingContent+'\',\''+arr.begintime+'\',\''+arr.endTime+'\',\''+arr.contact+'\',\''+arr.contactPhone+'\',\''+roomName+'\',\''+arr.oName+'\',\''+arr.otherMem+'\',\''+arr.vName+'\',\''+arr.sertxt+'\',\''+arr.notify+'\',\''+arr.remark+'\',\''+arr.result+'\',\''+arr.reason+'\',\''+arr.hasVip+'\',\''+arr.propPop+'\',\''+arr.propPopPh+'\',\''+arr.techPop+'\',\''+arr.techPopPh+'\')">详情</span></p>'+
+					     '</div>';
+					if(arr.result=="0"){
+						$("#meeting_plan_data").prepend(html);
+					}else{
+						$("#meeting_plan_data").append(html);
+					}
+				}
+				
+				
+			}
+			var leg=$("#meeting_plan_data").find(".table_line").length;
+			paddingCount($("#meeting_plan_data"),$("#meeting_plan .nolist.header_content"),leg)
+		
+		}
+	}
+	function lookMore(app_de,topic_de,type_de,content_de,start_de,end_de,cont_de,tel,room,oname,othermem,vname,sertxt,notify,remark,res,reason,hasV,prop,propPh,tech,techPh){
+		var nArr="";
+		if(notify.indexOf("1")!=-1){
+			nArr+="邮件"
+		}
+		if(notify.indexOf("0")!=-1){
+			nArr+="短信"
+		}
+		if(res==1){
+			$(".reason_de").show()
+			$("#reason_de").text(reason)
+		}else{
+			$(".reason_de").hide()
+		}
+		$("#app_de").text(app_de);
+		$("#topic_de").text(topic_de);
+		$("#type_de").text(returnMeetingType(type_de));
+		$("#content_de").text(content_de);
+		$("#start_de").text(start_de.replace("T"," "));
+		$("#end_de").text(end_de.replace("T"," "));
+		$("#cont_de").text(cont_de);
+		$("#tel").text(tel);
+		$("#room_de").text(room);
+		$("#oname").text(deleLast(oname));
+		$("#othermem").text(othermem);
+		$("#techMan").text(tech+"--"+techPh);
+		$("#propMan").text(prop+"--"+propPh);
+		
+		if(vname=="null"||!hasV){
+			$("#vname").text("无")
+		}else{
+			$("#vname").text(deleLast(vname));
+		}
+		$("#sertxt").text(deleLast(sertxt));
+		$("#notify").text(nArr);
+		$("#remarks").text(remark);
+		$("#myModal_detail").modal("show")
+	}
+	function meetingOver(){
+		var data={
+			id:edictId
+		}
+		JQajaxo("post", "/api/Event/set_meet_finished", true,data, _success)
+		function _success(res){
+			var dat=res.HttpData.data;
+			$("#myModal_finished").modal("hide")
+			if(dat==1){
+				$(".alert-success").show()
+				loadMeetingPlan(1);
+				propmsm(edictId);
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	
+	function loadMeetingRoom(){
+		JQajaxo("post", "/api/Event/get_room_infor", true,{isAll:"all"}, _success)
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			var d=getMonDate();
+			var arrDate=[];
+			
+			$("#meeting_plan .meet_date .table_content").html("");
+			for(var i=0; i<7; i++)
+			{	
+				var dates=d.getFullYear()+'-'+((d.getMonth()+1<10)?("0"+(d.getMonth()+1)):(d.getMonth()+1))+'-'+(d.getDate()<10?("0"+(d.getDate())):(d.getDate()));
+				arrDate.push(dates)
+				d.setDate(d.getDate()+1);
+			}
+			for(var i=0;i<lg;i++){
+				var arr=dat[i];
+				var html='<div class="table_line" id='+arr.id+'>'+
+						      '<div  class="meetOne" style="line-height: 195px;">'+arr.name+'</div>'+
+						      '<div id="'+arrDate[0]+'" class="meetOne" date="'+arrDate[0]+'"></div>'+
+						      '<div id="'+arrDate[1]+'" class="meetOne" date="'+arrDate[1]+'"></div>'+
+						      '<div id="'+arrDate[2]+'" class="meetOne" date="'+arrDate[2]+'"></div>'+
+						      '<div id="'+arrDate[3]+'" class="meetOne" date="'+arrDate[3]+'"></div>'+
+						      '<div id="'+arrDate[4]+'" class="meetOne" date="'+arrDate[4]+'"></div>'+
+						      '<div id="'+arrDate[5]+'" class="meetOne" date="'+arrDate[5]+'"></div>'+
+						      '<div id="'+arrDate[6]+'" class="meetOne" date="'+arrDate[6]+'"></div>'+
+				      	'</div>';
+				
+				$("#meeting_plan .meet_date .table_content").append(html);
+			}
+			loadAllMeeting()//加载课表信息
+			
+		}
+		
+	}
+	function loadAllMeeting(){
+		JQajaxo("get", "/api/Event/get_all_agree_meeting", true,{}, _success)
+		function _success(res){
+			console.log(res)
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var time1=value.begintime.split("T")[1];
+				var time2=value.endTime.split("T")[1];
+				var  staC="";
+				if(value.result==3){
+					staC="finished"
+				}
+				var html2='<div class="meet_date_item '+staC+'">'+
+							'<h6>'+time1+'至'+time2+'</h6>'+
+						'</div>';
+				var date=value.begintime.split("T")[0];
+				var room=value.room;
+				if(room){
+				    $("#meeting_plan #"+room).find("#"+date).append(html2);
+				}
+				
+			}
+			
+		}
+	}
+
+
+	
+	
+	
+	
+	function changeDepart(dom,event){
+		stopEvent(event)
+		var shows=$(dom).siblings("ul").css("display");
+		$(dom).siblings("ul").toggle();
+		if(shows=="none"){
+			$(dom).find("img").attr("src","../../Image/bank/slide_down.png")
+		}else{
+			$(dom).find("img").attr("src","../../Image/bank/slide_up.png")
+		}		
+	}
+
+	function imgShowControl($dom,arr){
+		$dom.find(".item").each(function(){
+			var img=$(this).find("img");
+			var checkid=$(this).attr("checkId");
+			if(arr.indexOf(checkid)!=-1){
+				$(this).find("img").show();
+			}else{
+				$(this).find("img").hide();
+			}
+		})
+	}
+	function showLeader(){
+		stopEvent(event);
+		if(flag){
+			return ;
+		}
+		JQajaxo("get", "/api/Event/get_leader", true,{}, _success);
+		function _success(res){
+			$("#meet_leader").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i]
+				var html='<div class="item" checkId="'+value.workNo+'" onclick="changeLeader(this,\''+value.name+'\',\''+value.workNo+'\')">'+
+					      		 '<span>'+value.name+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      '</div>';
+				$("#meet_leader").append(html)
+			}
+			$("#meet_leader .item").each(function(){
+				var id=$(this).attr("checkId");
+				if(leaderId.indexOf(id)!=-1){
+					$(this).find("img").show();
+				}
+			})
+			$("#meet_leader").show();
+		}
+	}
+	var leaderName=[],leaderId=[];
+	function changeLeader(dom,name,workId){
+		stopEvent(event);
+		var show=$(dom).find("img").css("display");
+		if(show=="none"){
+			$(dom).find("img").show();
+			leaderName.push(name);
+			leaderId.push(workId);
+		}else{
+			$(dom).find("img").hide();
+			leaderName.remove(name);
+			leaderId.remove(workId);
+		}
+		addLeaderItem();
+
+	}
+	function addLeaderItem(nameArr){
+		
+		var lg=leaderName.length;
+		$("#leader").html("");
+		for(var i=0;i<lg;i++){
+			var name=leaderName[i];
+			var workId=leaderId[i];
+			var html='<p><span class="content">'+name+'</span><span class="closed" onclick="deleLeader(this,\''+workId+'\',\''+name+'\')">x</span></p>'
+			$("#leader").append(html);
+		}
+	}
+	function deleLeader(dom,id,name){
+		$(dom).parent().remove();
+		leaderId.remove(id);
+		leaderName.remove(name);
+	}
+	function changeServer(id,name,dom){
+		stopEvent(event)
+//		serverId=[],serverName=[]
+		var show=$(dom).find("img").css("display");
+		if(show=="none"){
+			$(dom).find("img").show();
+			serverId.push(id);
+			serverName.push(name);
+		}else{
+			$(dom).find("img").hide();
+			serverId.remove(id);
+			serverName.remove(name);
+		}
+		loadServerItem(serverName,$(".meet_server"));//加部门item
+	}
+	function loadServerItem(data,targ){
+		var lg=data.length;
+		targ.html("");
+		for(var i=0;i<lg;i++){
+			var name=data[i];
+			var id=serverId[i];
+			if(name){
+				var html='<p><span class="content">'+name+'</span><span class="closed" onclick="deleServer(this,'+id+',\''+name+'\')">x</span></p>';
+			}
+			
+			targ.append(html);
+		}
+	}
+	
+	function deleServer(dom,id,name,idArr,nameArr){
+		stopEvent(event)
+		$(dom).parent().remove();
+		serverId.remove(id);
+		serverName.remove(name);
+		$(".meet_server_check .item").each(function(){
+			var id=$(this).attr("checkId")
+			if(serverId.indexOf(id)==-1){
+				$(this).find("img").hide()
+			}
+		})
+	}
+	function deleNotice(dom,id,name){
+		stopEvent(event)
+		$(dom).parent().remove();
+		notice.remove(id);
+		noticeName.remove(name);
+		$("#meet_notice_check .item").each(function(){
+			var id=$(this).attr("checkId")
+			if(notice.indexOf(id)==-1){
+				$(this).find("img").hide()
+			}
+		})
+	}
+	function changeNotice(id,name,dom){
+		stopEvent(event)
+		var show=$(dom).find("img").css("display");
+		if(show=="none"){
+			$(dom).find("img").show();
+			notice.push(id);
+			noticeName.push(name);
+		}else{
+			$(dom).find("img").hide();
+			notice.remove(id);
+			noticeName.remove(name);
+		}
+		loadNoticeItem(noticeName,$("#meet_notice"));//加部门item
+	}
+	function loadNoticeItem(data,targ){
+		var lg=data.length;
+		targ.html("");
+		for(var i=0;i<lg;i++){
+			var name=data[i];
+			var id=notice[i];
+			var html='<p><span class="content">'+name+'</span><span class="closed" onclick="deleNotice(this,'+id+',\''+name+'\')">x</span></p>';
+			targ.append(html);
+		}
+	}
+	function showMeetingRoom(){
+//		,meeting_room_app
+		stopEvent(event);
+		JQajaxo("post", "/api/Event/get_room_infor", true,{isAll:"all"}, _success);
+		function _success(res){
+			$("#meeting_room_list").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			for(var i=0;i<lg;i++){
+				var value=dat[i]
+				var html='<div class="item" checkId="'+value.id+'"  onclick="changeMeetingRoom(this,\''+value.id+'\',\''+value.name+'\')">'+
+					      		 '<span>'+value.name+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      '</div>';
+				$("#meeting_room_list").append(html)
+			}
+			
+			$("#meeting_room_list").show();
+			$("#meeting_room_list").find(".item").each(function(){
+				var img=$(this).find("img");
+				var checkid=$(this).attr("checkId");
+				if(checkid==meetingId){
+					$(this).find("img").show();
+				}else{
+					$(this).find("img").hide();
+				}
+			})
+		}
+
+	}
+	function changeMeetingRoom(dom,id,name){
+		stopEvent(event);
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		meetingId=id;
+		$("#meeting_room_app").val(name)
+
+	}
+	function imgShowControl($dom,arr){
+		$dom.find(".item").each(function(){
+			var img=$(this).find("img");
+			var checkid=$(this).attr("checkId");
+			if(arr.indexOf(checkid)!=-1){
+				$(this).find("img").show();
+			}else{
+				$(this).find("img").hide();
+			}
+		})
+	}
+	
+	
+	function notieProp(roomId,roomName,beiginTime,endTime){
+		JQajaxo("post","/api/Event/get_meeting_room_name",true,{roomId:roomId},_success);
+		function _success(res){
+			var dat=res.HttpData.data[0];
+			var phone=dat.propPhone;
+			var mail=dat.propMail;
+			var content="有新的会议室使用："+roomName+"开始时间："+beiginTime+"结束时间："+endTime;
+			sms(phone,content);
+			mail("",mail,"","","会议管理系统通知","新的会议室使用通知"content)
+		}
+	}
+	function createNewMeeting(){
+//		var type,depart=[],workNoMem=[],memName=[],leader,notice=[],noticeName=[],serverId=[],serverName=[];
+		var data={
+			memberId :window.localStorage.userName,
+			others :groupIdArr.toString(),
+			begintime :$("#begintime").val(),
+			endTime :$("#endTime").val(),
+			meetType :meetType,
+			contact :$("#contact").val(),
+			contactPhone :$("#contactPhone").val(),
+			service :serverId.toString(),
+			content :$("#meetingContent").val(),
+			topic :$("#topic").val(),
+			isLeader:$("#hasVip").prop("checked"),
+			mark :leaderId.toString(),
+			otherMem:$("#otherMem").val(),
+			remark:$("#remark").val(),
+			notify :notice.toString()
+		}
+		
+		if(!data.isLeader){
+			data.mark="";
+		}
+		if(!data.topic){
+			$("#errorMsg_addNew").text("会议主题不能为空");
+			return;
+		}else if(!data.meetType){
+			$("#errorMsg_addNew").text("请选择会议类型");
+			return;
+		}else if(!data.contact){
+			$("#errorMsg_addNew").text("联系人不能为空");
+			return;
+		}else if(!data.contactPhone){
+			$("#errorMsg_addNew").text("联系人手机号不能为空");
+			return;
+		}
+		JQajaxo("post", "/api/Event/add_meet", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				loadMeetingPlan();
+				
+				var app=$("#applicant").val();
+				var top=$("#topic").val();
+				var startTime=$("#begintime").val();
+				var endTime=$("#endTime").val();
+				var content=$("#meetingContent").val();
+				var meetContent="申请人："+app+",开始时间："+startTime+",结束时间："+endTime+",会议主题："+top;
+				var smsC="您有一个新的待审批会议申请:申请人:"+app+"会议开始时间："+startTime+"会议结束时间："+endTime+"会议主题："+top;
+				sms(adminTel.toString(),smsC);
+				mail("",adminEmail.toString(),"","","会议管理系统通知","新的会议申请:"+meetContent)
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	
+
+	function returnMeetingType(id){
+		txt=""
+		var ind=parseInt(id);
+		switch (ind)
+		{
+			case 0:
+				txt="培训"
+			break;
+			case 1:
+				txt="一级"
+			break;
+			case 2:
+				txt="二级"
+			break;
+			case 3:
+				txt="其他"
+			break;
+			case 4:
+				txt="三级"
+			break;
+		}
+		return txt
+	}
+	function returnMeetingApp(id){
+		txt=""
+		switch (id)
+		{
+			case 0:
+				txt="审批中"
+			break;
+			case 1:
+				txt="未通过"
+			break;
+			case 2:
+				txt="同意"
+			break;
+			case 3:
+				txt="结束"
+			break;
+			
+		}
+		return txt
+	}
+	function returnMeetingSta(bool){
+		txt="";
+		if(bool){
+			txt="结束"
+		}else{
+			txt="正常"
+		}
+		return txt
+	}
+	
+</script>
+
+</html>

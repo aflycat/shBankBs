@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+	<script type="text/javascript" src="Scripts/plug/jquery-1.10.1.min.js" ></script>
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
+<script type="text/javascript">  
+document.write(returnCitySN["cip"]+','+returnCitySN["cname"])  
+</script>
+</head>
+<body>
+
+</body>
+<!-- <script type="text/javascript">
+	$(function(){
+		var data={
+		Sender:"",
+		SendTo:"zhengchy@bosc.cn",
+		CopyTo:"",
+		HiddenTo:"",
+		Title:"测试邮箱",
+		Content:"这个是测试邮件内容",
+	}
+	console.log(data)
+	$.ajax({
+		type:"post",
+		url:"http://168.7.1.192:9000/api/msg/mail",
+		async:true,
+		data: data,
+		success:function(res){
+			console.log(res)
+			var dat=JSON.parse(res).Status;
+			if(dat==0){
+				console.log("邮件发送成功")
+			}else{
+				console.log("邮件发送失败")
+			}
+		}
+	});
+	})
+	
+</script> -->
+</html>

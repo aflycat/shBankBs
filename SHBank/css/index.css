@@ -1,0 +1,254 @@
+body,
+html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: transparent;
+	background: #102230;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.main {
+	width: 98%;
+	height: 100%;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.left-pannel{
+	width: 31%;
+	height: 100%;
+	float: left;
+	box-sizing: border-box;
+}
+
+.right-pannel{
+	width: 69%;
+	height: 100%;
+	float: right;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.container{
+	width: 100%;
+	height: 76%;
+	box-sizing: border-box;
+}
+
+.bottom-pannel{
+	width: 100%;
+	height: 33.1%;
+	box-sizing: border-box;
+	padding-left: 3%;
+	position: absolute;
+	background: #102230;
+	bottom: 0;
+	right: 0;
+}
+
+.bottom-pannel .half-pannel{
+	width: 49%;
+	height: 100%;
+	float: left;
+	box-sizing: border-box;
+}
+
+.bottom-pannel .half-pannel:last-child{
+	width: 49%;
+	float: right;
+}
+
+.three-pannel{
+	width: 100%;
+	height: calc(100% / 3);
+	box-sizing: border-box;
+}
+
+.three-pannel-title{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 18%;
+	font-size: 15px;
+	font-weight: 600;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+.three-pannel-title:before{
+	content:"";
+	width: 8px;
+	height: 30px;
+	background-color:#087298;
+	margin-right: 8px;
+}
+
+.panelContent{
+	width: 100%;
+	height: 82%;
+	box-sizing: border-box;
+	border-color: #245A6C;
+	text-align: center;
+}
+
+.panelContent-table{
+	width: 100%;
+	height: 82%;
+	box-sizing: border-box;
+	border-color: #245A6C;
+	text-align: center;
+	border-top: 1px solid #245A6C;
+	border-left: 1px solid #245A6C;
+	border-bottom: 1px solid transparent;
+	border-right: 1px solid transparent;
+}
+
+.panelContent-title{
+	width: 100%;
+	height: 15%;
+	color: #fff;
+	font-weight: 600;
+	font-size: 14px;
+	background: rgba(33, 48, 69, 1);
+}
+
+.panelContent-title li{
+	height: 100%;
+	text-decoration: none;
+	float: left;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #245A6C;
+	border-right: 1px solid #245A6C;
+}
+
+.center-box{
+	width: 100%;
+	height: 85%;
+	border-bottom: 1px solid #245A6C;
+	overflow: hidden;
+}
+
+.panelContent-main{
+	width: 100%;
+	height: 100%;
+	color: #C1C4CD;
+	font-weight: 500;
+	font-size: 12px;
+}
+
+.panelContent-main li{
+	width: 100%;
+	height: 20%;
+	text-decoration: none;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.panelContent-main li span{
+	width:25%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #245A6C;
+	border-right: 1px solid #245A6C;
+}
+
+.panelContent-main li label{
+	width: 25%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #245A6C;
+	border-right: 1px solid #245A6C;
+}
+
+.panelContent-main li font{
+	width: 25%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #245A6C;
+	border-right: 1px solid #245A6C;
+}
+
+.actDynPopupTitle {
+	position: absolute;
+	top: 0;
+	padding-left: 55px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+	width: 100%;
+	margin: 0;
+	line-height: 40px;
+	color: #fff;
+}
+
+.actDynPopupContent {
+	position: absolute;
+	top: 40px;
+	left: 55px;
+	right: 10px;
+	bottom: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.actDynPopupContent .ContentStyle {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: left;
+	flex: 0.6
+}
+
+.actDynPopupContent .ContentStyle1 {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	flex: 0.4
+}
+
+.actDynPopupContent .Control a {
+	text-decoration: none;
+	background: #2f435e;
+	color: #f2f2f2;
+	padding: 5px 28px 5px 28px;
+	font-size: 16px;
+	font-family: 微软雅黑, 宋体, Arial, Helvetica, Verdana, sans-serif;
+	border-radius: 3px;
+	-webkit-transition: all linear 0.30s;
+	-moz-transition: all linear 0.30s;
+	transition: all linear 0.30s;
+}
+
+.actDynPopupContent .Control a:hover {
+	background: #385f9e;
+}
+
+.actDynPopupContent p {
+	font-size: 14px;
+	color: white;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	margin: 0;
+}

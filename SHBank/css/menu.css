@@ -1,0 +1,115 @@
+*{margin: 0;padding: 0;}
+body,html{
+	font-size: 32px;
+}
+#menuWrap{
+	width: 1880px;
+	height: 1040px;
+	padding: 20px;
+	background: url(../img/menu/bg.png) no-repeat center center;
+	background-size: 100% 100%;
+	position: relative;
+}
+#menuWrap .imgEye{
+	position: absolute;
+	width: 96%;
+	height: 10px;
+	z-index: 10;
+	left: 50%;
+	margin-left:-49%;
+}
+#top{
+	background:  url(../img/menu/eye.png) no-repeat center center;
+	background-size: 100% 100%;
+	top: 10px !important;
+	
+}
+#bot{
+	background:  url(../img/menu/botEye.png) no-repeat center center;
+	background-size: 100% 100%;
+	bottom: 20px !important;
+	
+}
+#menuWrap .logoWrap{
+	height: 30%;
+	/*border:1px solid red;*/
+}
+
+#menuWrap .logoWrap .logoTop{
+	height: 30%;
+	width: 100%;
+	overflow: hidden;
+}
+#menuWrap .logoWrap .logoTop img{
+	margin:  0 auto;
+	display:block;
+	height: auto;
+	width: auto;
+	margin-top: 10px;
+}
+#menuWrap .logoWrap .logoTit{
+	height: 33%;
+	width: 100%;
+	text-align: center;
+
+}
+#menuWrap .logoWrap .logoTit p{
+	display: inline-block;
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+	font-size: 2.5rem;
+	color: #fff;
+	letter-spacing: 30 !important;
+	text-indent: 30 !important;
+}
+#menuWrap .logoWrap .logoBot{
+	height: 33%;
+	width: 100%;
+}
+#menuWrap .logoWrap .logoBot img{
+	margin:  0 auto;
+	display:block;
+	height: auto;
+	width: auto;
+}
+#menuWrap .menuWrap{
+	height: 70%;
+	
+}
+#menuWrap .menuWrap .menuList{
+	height: 30%;
+	width: 80%;
+	margin: 0 auto;
+	border-bottom: 1px solid #f5f5f5;
+}
+#menuWrap .menuWrap .menuList .menuTit{
+	color: #cc9d41;
+	font-size: 1.5rem;
+	float: left;
+	width: 15%;
+	height: 100%;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+}
+
+
+#menuWrap .menuWrap .menuList .menuDet{
+	color: #fff;
+	font-size: 1rem;
+	float: left;
+	width: 85%;
+	height: 100%;
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#menuWrap .menuWrap .menuList .menuDet span{
+	padding: 10px 10px;
+	width: auto;
+
+
+}

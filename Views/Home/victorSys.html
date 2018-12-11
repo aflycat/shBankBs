@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 编码格式 -->
+    <meta charset="UTF-8">
+    <title>上海银行</title>
+    <!-- 作者 -->
+    <meta name="author" content="author">
+    <!-- 网页描述 -->
+    <meta name="description" content="hello">
+    <!-- 关键字使用","分隔 -->
+    <meta name="keywords" content="a,b,c">
+    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+    <meta name="robots" content="none">
+    <!-- 收藏图标 -->
+    <!--<link rel="Shortcut Icon" href="favicon.ico">-->
+    <!-- 网页不会被缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 页面按原比例显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Styles/Home/index.css">
+    <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+ 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+ 	<script src="../../Scripts/home/public.js"></script>
+ 	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+</head>
+	<body>
+		<ul id="myTab" class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#visitor_today">今日访客</a></li>
+			<li role="presentation"><a href="#visitor_history">历史访客</a></li>
+		</ul>
+		<div id="inforWrap">
+			<div  class="tab-content">
+				<div class="tab-pane fade  in active" id="visitor_today">
+					<div class="top_deal_item">
+						<div class="left_deal">
+						    <input type="text" class="form-control" id="visi_today_search" placeholder="请输入要搜索的内容">
+						    <button type="button" class="btn btn-primary" id="search" 
+							   	data-complete-text="加载中..." onclick="visi_today_search()">搜索
+							</button>
+						</div>
+						<div class="right_deal">
+							<button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#myModal_new">访客申请</button>
+						</div>
+					</div>
+					<div class="table_header">
+						<div class="header_content">
+						  <p>编号</p>
+					      <p>来访人</p>
+					      <p style="width: 10%;">预约时间</p>
+					      <p  style="width: 12%;">来访人电话</p>
+					      <p style="width: 12%;">来访原因</p>
+					      <p>来访楼层</p>
+					      <p>随访人数</p>
+					      <p>被访人</p>
+					      <p style="width: 10%;">到访时间</p>
+					      <p>状态</p>
+					      <p>操作</p>
+						</div>
+					</div>
+					<div class="table_content">
+						
+					</div>
+				</div>
+				<div class="tab-pane fade" id="visitor_history">
+					<div class="top_deal_item">
+						<div class="left_deal">
+							<select class="form-control" style="width: 150px;float: left;margin-right: 15px;" onchange="searchChnage(this)">
+							  <option value="0">时间</option>
+							  <option value="1">来访人</option>
+							  <option value="2">被访人</option>
+							</select>
+						    <input type="text" class="form-control textpicker" placeholder="请输入要搜索的内容" style="display: none;">
+						    <input type="text" class="form-control timepicker" id="search_begin" style="width: 200px;" placeholder="开始时间">
+						    <input type="text" class="form-control timepicker" id="search_end"  style="width: 200px;" placeholder="结束时间">
+						    <button type="button" class="btn btn-primary" id="search" 
+							   	data-complete-text="加载中..." onclick="visitor_his_search()">搜索
+							</button>
+						</div>
+						<div class="right_deal">
+							<a id="dlink" href="#" style="display: none;"></a>
+							<button type="button" class="btn btn-primary" id="search" onclick="exportExls()">导出</button>
+						</div>
+					</div>
+					<div class="table_header">
+						<div class="header_content">
+							<p>编号</p>
+							<p>来访人</p>
+							<p>证件号</p>
+							<p>预约时间</p>
+							<p>来访人电话</p>
+							<p>来访原因</p>
+							<p>来访楼层</p>
+							<p>随访人数</p>
+							<p>被访人</p>
+							<p>到访时间</p>
+							<p>状态</p>
+						</div>					
+					</div>
+					<div class="table_content">
+						
+					</div>
+					
+				</div>
+	
+			</div>
+		</div>
+		<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            		操作成功。
+        </div>
+        <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            	操作失败。
+        </div>
+		<div class="modal fade" id="myModal_time" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							到访
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="begintime" class="col-md-2 control-label">到访时间</label>
+									    <div class="col-md-5">
+									      <input type="text" class="form-control" id="time" placeholder="到访时间">
+									    </div>
+									</div>
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="updateVisitor()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal_new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							访客申请
+							<span id="errorMsg_add" style="font-size:14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="applicant" class="col-md-4 control-label">来访人 <span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text"  class="form-control" id="name" placeholder="来访人">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="contact" class="col-md-4 control-label">联系电话 <span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="phone" placeholder="来访人电话">
+									    </div>
+									</div>
+								</form>
+							</div>
+							
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="topic" class="col-md-4 control-label">预约时间 <span style="color: red;">*</span></label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="vi_time" placeholder="预约时间">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="contactPhone" class="col-md-4 control-label">来访原因 <span style="color: red;">*</span></label>
+									    <div class="col-md-8"  style="position: relative;">
+									      <input type="text" class="form-control" id="event" placeholder="来访原因">
+									      <div class="checkWrap" id="meet_type_check">
+									      	<div class="item" >
+									      		 <span>客户交流</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item" >
+									      		<span>业务交流</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      	<div class="item">
+									      		<span>其他</span>
+									      		<img src="../../Image/bank/gou.png"/>
+									      	</div>
+									      </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="meetingContent" class="col-md-4 control-label">来访楼层 </label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="floor" placeholder="来访楼层">
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="meetingContent" class="col-md-4 control-label">随访人数 </label>
+									    <div class="col-md-8">
+									      <input type="text" class="form-control" id="followUp" placeholder="随访人数">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="meetingContent" class="col-md-2 control-label">证件号 </label>
+									    <div class="col-md-10">
+									      <input type="text" class="form-control" id="license" placeholder="来访人证件">
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <label for="depart" class="col-md-4 control-label">被访人 <span style="color: red;">*</span></label>
+									    <div class="col-md-8" style="position: relative;" >
+									     <input type="" name="meet_mem_dep" class="form-control" id="meet_mem_dep" value="" />
+									      
+									      <div class="checkWrap" id="meet_mem_check">
+									      	
+									      </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<form class="form-horizontal">
+									<div class="form-group">
+									    <div class="col-md-12" style="position: relative;" >
+									      <input class="mulWrap form-control" id="meet_mem" />
+									      
+									      <div class="checkWrap" id="meet_member_check">
+									      </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="createNewVictor()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+<script type="text/javascript">
+	var edictId=0,depart,workNoMem,memName,searchType=0;
+	$(function(){
+		$("#myModal_new").on('shown.bs.modal',function(){
+			JQajaxo("post","/api/Event/get_mem_infor_pc",true,{workNo:window.localStorage.userName},_success);
+			function _success(res){
+				var dat=res.HttpData.data[0];
+				depart=dat.department;
+				memName=dat.name;
+				workNoMem=dat.workNo;
+				$("#meet_mem_dep").val(depart);
+				$("#meet_mem").val(memName);
+				loadMemByDepart()
+			}
+		})
+		var h=$(window).height();
+		$(".table_content").css({height:h-170+'px'})
+		$('#myTab a').click(function (e) {
+		   e.preventDefault()
+		   $(this).tab('show')
+		});
+		loadTodayVisitor(1)
+		$('input, textarea').placeholder();
+//		$("#myModal_new").modal("show");
+		$("#time").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#time").val(getTime());
+		$("#vi_time").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#vi_time").val(getTime());
+		
+		$("#search_end").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_end").val(getTime());
+		$("#search_begin").val(getTodayBegin());
+		$("#meet_mem_dep").click(function(event){
+			stopEvent(event)
+			JQajaxo("post","/api/Event/get_all_depart",true,{},_success);
+			function _success(res){
+				$("#meet_mem_check").html("")
+				var dat=res.HttpData.data,lg=dat.length;
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+					var html='<div class="item" checkId="'+value.department+'" onclick="changeDepart(this,event)">'+
+					      		 '<span>'+value.department+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      	 '</div>';
+					$("#meet_mem_check").append(html)
+				}
+				$("#meet_mem_check").show();
+				$("#meet_mem_check .item").each(function(){
+					var id=$(this).attr("checkId");
+					if(id==depart){
+//						changeDepart($(this),event)
+						
+						$(this).find("img").show()
+					}else{
+						$(this).find("img").hide()
+					}
+				})
+//				imgShowControl($("#meet_mem_check"),depart)
+			}
+		})
+		
+		$("#meet_mem").click(function(event){
+			stopEvent(event)
+			$("#meet_member_check").show();
+		});
+		$('#visi_today_search').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadTodayVisitor(1);
+			}
+		});
+		$('#myModal_new').on('show.bs.modal', function () {
+			   $("#errorMsg_add").text("");
+		})
+		$("#event").click(function(event){
+			event.stopPropagation();
+			
+			$(".typeNotice").show();
+			$(this).siblings(".checkWrap").show();
+		})
+	})
+	$("#meet_type_check .item").each(function(){
+			$(this).click(function(event){
+//				stopEvent(event)
+//				$(this).find("img").show();
+//				$(this).siblings().find("img").hide();
+				$("#event").val($(this).find("span").text());
+			})
+	})
+	var tbodyData=[];
+	function exportExls(){
+		var  colName=[
+			{label:"编号",key:"id",type:"string"},
+			{label:"来访人",key:"name",type:"string"},
+			{label:"证件号",key:"license",type:"string"},
+			{label:"预约时间",key:"time",type:"time"},
+			{label:"来访人电话",key:"phone",type:"string"},
+			{label:"来访原因",key:"event",type:"string"},
+			{label:"来访楼层",key:"floor",type:"string"},
+			{label:"随访人数",key:"followUp",type:"string"},
+			{label:"被访人",key:"memname",type:"string"},
+			{label:"到访时间",key:"visitTime",type:"time"},
+			{label:"状态",key:"status",type:"bool",res:["未到访","已到访"]}
+		]
+		var fileName="访客记录"+getTime();
+		HtmlExportToExcel(tbodyData,colName,fileName)
+	}
+	function changeDepart(dom,event){
+			var name= $(dom).attr("checkId");
+			stopEvent(event)
+			if(depart!=name){
+				depart=$(dom).attr("checkId");
+				$(dom).find("img").show();
+				$(dom).siblings().find("img").hide();
+				$("#meet_mem_dep").val(depart);
+				$("#meet_mem").html("");
+				workNoMem="",memName="";
+				$("#meet_mem").val("");
+				loadMemByDepart();	
+			}
+		}
+	function loadMemByDepart(){
+		var data={
+			department:"'"+depart+"'"
+		}
+		JQajaxo("post", "/api/Event/get_mem_dep_mul", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			$("#meet_member_check").html("");
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var html='<div class="item" checkId="'+value.workNo+'" onclick="changeMem(this,event,\''+value.workNo+'\',\''+value.name+'\')">'+
+					      		 '<span>'+value.name+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      '</div>';
+				$("#meet_member_check").append(html);
+			}
+			$("#meet_member_check .item").each(function(){
+				var id=$(this).attr("checkId");
+				if(id==workNoMem){
+					$(this).find("img").show();
+				}else{
+					$(this).find("img").hide();
+				}
+			})
+		}
+	}
+	function visitor_his_search(){
+		var data;
+        if(searchType==0){
+        	data={
+        		start:$("#search_begin").val(),
+        		end:$("#search_end").val(),
+        		type:0,
+        		workNo:localStorage.userName
+        	}
+        }
+        if(searchType==1){
+        	data={
+        		keyWord:$(".textpicker").val(),
+        		type:1,
+        		workNo:localStorage.userName
+        	}
+        }
+        if(searchType==2){
+        	data={
+        		keyWord:$(".textpicker").val(),
+        		type:2,
+        		workNo:localStorage.userName
+        	}
+        }
+        JQajaxo("post","/api/Event/get_his_vic_search",true,data,_success)
+        function _success(res){
+        	var dat=res.HttpData.data,lg=dat.length;
+        	tbodyData=dat;
+        	paddingCount($(".table_content"),$("#visitor_history .header_content"),lg)
+        	$("#visitor_history .table_content").html("");
+        	for(var i=0;i<lg;i++){
+        		var value=dat[i];
+        		var time=""
+        		if(value.visitTime){
+        			time=value.visitTime.replace("T"," ")
+        		}
+        		var html='<div class="table_line">'+
+							'<p>'+value.id+'</p>'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+value.license+'</p>'+
+							'<p>'+value.time.replace("T"," ")+'</p>'+
+							'<p>'+value.phone+'</p>'+
+							'<p>'+value.event+'</p>'+
+							'<p>'+value.floor+'</p>'+
+							'<p>'+value.followUp+'</p>'+
+							'<p>'+value.memname+'</p>'+
+							'<p>'+time+'</p>'+
+							'<p>'+returnVisSta(value.status)+'</p>'+
+						'</div>';
+        		$("#visitor_history .table_content").append(html)
+        	}
+        }
+	}
+	function returnVisSta(bool){
+			var txt=''
+			if(bool){
+				txt='已到访'
+			}else{
+				txt='未到访'
+			}
+			return txt
+		}
+	function searchChnage(dom){
+		var val=$(dom).val();
+		searchType=val;
+		switch (val)
+		{
+			
+			case "1":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			case "2":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			
+			case "0":
+				$(".timepicker").show();
+				$(".typepicker").hide();
+				$(".textpicker").hide();
+			break;
+		}
+	}
+	function imgShowControl($dom,arr){
+		$dom.find(".item").each(function(){
+			var img=$(this).find("img");
+			var checkid=$(this).attr("checkId");
+			if(arr.indexOf(checkid)!=-1){
+				$(this).find("img").show();
+			}else{
+				$(this).find("img").hide();
+			}
+		})
+	}
+	
+	
+	
+	function changeMem(dom,envent,workNo,name){
+		stopEvent(event)
+		$(dom).find("img").show();
+		$(dom).siblings().find("img").hide();
+		workNoMem=workNo,memName=name;
+		$("#meet_mem").val(memName);
+	}
+
+
+	function createNewVictor(){
+		var data={
+			name:$("#name").val(),
+			time:$("#vi_time").val(),
+			phone :$("#phone").val(),
+			license:$("#license").val(),
+			events :$("#event").val(),
+			floor :$("#floor").val(),
+			followUp :$("#followUp").val(),
+			memberId :workNoMem
+		}
+		if(!data.name){
+			$("#errorMsg_add").text("来访人不能为空");
+			return;
+		}else if(!data.phone){
+			$("#errorMsg_add").text("联系电话不能为空");
+			return;
+		}else if(!data.events){
+			$("#errorMsg_add").text("来访原因不能为空");
+			return;
+		}else if(!data.memberId){
+			$("#errorMsg_add").text("请选择被访人");
+			return;
+		}
+		JQajaxo("post", "/api/Event/add_reservation", true,data, _success)
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_new').modal('hide');
+			if(dat==1){
+				$(".alert-success").show();
+				loadTodayVisitor();
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function visi_today_search(){
+		loadTodayVisitor(0)
+	}
+
+	function loadTodayVisitor(deal){
+		var date=new Date();
+		var year=date.getFullYear();
+		var mon=date.getMonth()+1;
+		var day=date.getDate();
+		var dateStr=year+"-"+mon+"-"+day;
+		var data,url;
+		if(deal==0){
+			data={
+				time:dateStr,
+				keyWord:$("#visi_today_search").val(),
+				workNo:window.localStorage.userName
+			}
+			url="/api/Event/get_today_reser_search";
+		}else{
+			data={
+				time:dateStr,
+				workNo:window.localStorage.userName
+			}
+			url="/api/Event/get_today_reser";
+		}
+		 
+		JQajaxo("post", url, "true",data, _success)
+		function _success(res){
+			$("#visitor_today .table_content").html("");
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($(".table_content"),$("#visitor_today .header_content"),lg)
+			for(var i=0;i<lg;i++){
+				var value=dat[i];var time="",txt=""
+				if(value.visitTime){
+					time=value.visitTime.replace("T"," ")
+				}
+				
+				if(!value.status){
+					txt='<span class="edict" onclick="changeVicttorStatus('+value.id+')">到访</span>'
+				}
+				var html= '<div class="table_line">'+
+							 ' <p>'+value.id+'</p>'+
+						      '<p >'+value.name+'</p>'+
+						      '<p style="width: 10%;">'+value.time.replace("T"," ")+'</p>'+
+						      '<p style="width: 12%;">'+value.phone+'</p>'+
+						      '<p style="width: 12%;">'+value.event+'</p>'+
+						      '<p>'+value.floor+'</p>'+
+						      '<p>'+value.followUp+'</p>'+
+						      '<p>'+value.bsname+'</p>'+
+						      '<p style="width: 10%;">'+time+'</p>'+
+						      '<p>'+returnVisSta(value.status)+'</p>'+
+						      '<p>'+txt+'</p>'+
+							'</div>';
+				$("#visitor_today .table_content").append(html)
+			}
+		}
+	}
+	function changeVicttorStatus(id){
+		$('#myModal_time').modal('show');
+		edictId=id;
+		
+	}
+	function updateVisitor(){
+		var data={
+			id:edictId,
+			status:1,
+			visitTime:$("#time").val()
+		}
+		JQajaxo("post","/api/Event/upd_visitor_status",true,data,_success)
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_time').modal('hide');
+			if(dat==1){
+				$(".alert-success").show();
+				loadTodayVisitor();
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	
+	function returnVisSta(bool){
+			var txt='';
+			if(bool){
+				txt='已到访';
+			}else{
+				txt='未到访';
+			}
+			return txt;
+		}
+	function paddingCount(dom,heiDom,lg){
+		var str=dom.css("height")
+		var hei=str.substring(0,str.length-2);
+		if(lg*48<hei){
+			heiDom.css({padding:"0px"})
+		}
+	}
+	
+</script>
+</html>

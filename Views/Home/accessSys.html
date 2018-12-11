@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<!-- 编码格式 -->
+    <meta charset="UTF-8">
+    <title>上海银行</title>
+    <!-- 作者 -->
+    <meta name="author" content="author">
+    <!-- 网页描述 -->
+    <meta name="description" content="hello">
+    <!-- 关键字使用","分隔 -->
+    <meta name="keywords" content="a,b,c">
+    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+    <meta name="robots" content="none">
+    <!-- 收藏图标 -->
+    <!--<link rel="Shortcut Icon" href="favicon.ico">-->
+    <!-- 网页不会被缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 页面按原比例显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Styles/Home/index.css">
+    <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+    
+ 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+ 	<script src="../../Scripts/home/public.js"></script>
+ 	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+      <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	<body>
+	<ul id="myTab" class="nav nav-tabs">
+		<li role="presentation" class="active">
+			<a href="#access_mem">人员权限</a>
+		</li>
+		<li role="presentation">
+			<a href="#access_group">门禁分组</a>
+		</li>
+		<li role="presentation">
+			<a href="#access_contrl">设备控制</a>
+		</li>
+		<li role="presentation">
+			<a href="#access_history">历史记录</a>
+		</li>
+	</ul>
+	<div id="inforWrap">
+		<div class="tab-content">
+			<div class="tab-pane fade  in active" id="access_mem">
+				<div id="myTabContent">
+					<div class="top_deal_item">
+						<div class="left_deal">
+							<input type="text" class="form-control" id="mj_autho_search_text" placeholder="请输入要搜索的内容">
+							<button type="button" class="btn btn-primary" id="search" data-complete-text="加载中..." onclick="mj_autho_search()">搜索
+								</button>
+						</div>
+						<div class="right_deal">
+							<button type="button" class="btn btn-primary" id="search" onclick="refresh()">刷新</button>
+						</div>
+					</div>
+					<div class="table_header">
+						<div class="header_content" id="acess_ysq_header">
+							<p>姓名</p>
+							<p>工号</p>
+							<p>卡号</p>
+							<p>部门</p>
+							<p style="width: 28%;">权限</p>
+							<p style="width: 10%;">操作</p>
+						</div>
+					</div>
+					<div class="table_content " id="acess_ysq"> 
+					</div>
+					<h4 style="font-weight: bold;margin-top: 20px;margin-bottom: 0;">门禁申请</h4>
+					<div class="table_header">
+						<div class="header_content " id="acess_app_header">
+							<p>姓名</p>
+							<p>工号</p>
+							<p>卡号</p>
+							<p>部门</p>
+							<p style="width: 20%;">详情</p>
+							<p>操作</p>
+						</div>
+					</div>
+					<div class="table_content" id="acess_app"> 
+						
+					</div>
+				</div>
+				<div id="inforList">
+					<div class="itemList">
+						<div class="itemOne">
+							<div class="panel panel-primary">
+								<div class="panel-heading">门禁系统(<span class="allNum">0</span>人)</div>
+								<div class="panel-body">
+									<div class="itemInfor">
+										<dl class="left">
+											<dt>已授权人数:</dt>
+											<dd class="ysq">0</dd>
+										</dl>
+										<dl class="right">
+											<dt>待授权人数:</dt>
+											<dd class="dsq">0</dd>
+										</dl>
+									</div>
+									<div class="itemInfor">
+										<dl class="left">
+											<dt>已撤权人数:</dt>
+											<dd class="ycq">0</dd>
+										</dl>
+										<dl class="right">
+											<dt>待撤权人数:</dt>
+											<dd class="dcq">0</dd>
+										</dl>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="itemOne" id="acess_dsq">
+							<div class="panel panel-primary">
+								<div class="panel-heading">待授权</div>
+								<div class="panel-body">
+									<div class="table_header">
+										<div class="header_content">
+											<p>姓名</p>
+											<p>工号</p>
+											<p>卡号</p>
+										</div>
+									</div>
+									<div class="table_content">
+				
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="itemOne" id="acess_dcq">
+							<div class="panel panel-primary">
+								<div class="panel-heading">待撤权</div>
+								<div class="panel-body">
+									<div class="table_header">
+										<div class="header_content">
+											<p>姓名</p>
+											<p>工号</p>
+											<p>卡号</p>
+										</div>
+									</div>
+									<div class="table_content">
+				
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="tab-pane fade " id="access_group">
+				<div id="myTabContent" style="float: right;width: 74%;">
+					<div class="top_deal_item">
+						<div class="right_deal">
+							<button type="button" class="btn btn-primary" id="search" onclick="addMjPoint()">添加子项</button>
+						</div>
+					</div>
+					<div class="table_header">
+						<div class="header_content">
+							<p>序列</p>
+							<p>门禁名称</p>
+							<p>门禁编码</p>
+							<p>所在楼层</p>
+							<p>操作</p>
+						</div>
+					</div>
+					<div class="table_content" id="group_ri">
+
+					</div>
+					
+
+				</div>
+				<div id="inforList" style="float: left;width: 25%;">
+					<div class="top_deal_item">
+						<div class="left_deal">
+							<button type="button" class="btn btn-primary" id="search" onclick="addMjGroup()">添加分组
+								</button>
+							<button type="button" class="btn btn-primary" id="search" onclick="edictMjGroup()">重命名分组
+								</button>
+							<button type="button" class="btn btn-primary" id="search" onclick="deletMjGroup()">删除分组
+							</button>
+						</div>
+
+					</div>
+					<div class="list-group mj_group" id="group_le">
+						<h4 class="first_group"></h4>
+					    
+					</div>
+				</div>
+
+			</div>
+			<div class="tab-pane fade " id="access_contrl">
+				<div class="top_deal_item">
+					<div class="left_deal">
+						<input type="text" class="form-control" id="eq_text_search" placeholder="请输入要搜索的内容" >
+						<button type="button" class="btn btn-primary" id="search" 
+						   	data-complete-text="加载中..." onclick="loadMjEuip(1)">搜索
+						</button>
+					</div>
+				</div>
+				<div class="table_header">
+					<div class="header_content">
+						<p>门禁名称</p>
+						<p>门禁编码</p>
+						<p>所在楼层</p>
+						<p>当前状态</p>
+						<p>操作</p>
+					</div>
+				</div>
+				<div class="table_content">
+					
+				</div>
+				
+
+			</div>
+			<div class="tab-pane fade " id="access_history">
+				<div class="top_deal_item">
+					<div class="left_deal">
+						<select class="form-control" style="width: 150px;float: left;margin-right: 15px;" onchange="searchChnage(this)">
+						  <option value="0">时间</option>
+						  <option value="1">卡号</option>
+						  <option value="2">姓名</option>
+						</select>
+					    <input type="text" class="form-control textpicker" placeholder="请输入要搜索的内容" style="display: none;">
+					    <input type="text" class="form-control timepicker" id="search_begin" style="width: 200px;" placeholder="开始时间">
+					    <input type="text" class="form-control timepicker" id="search_end"  style="width: 200px;" placeholder="结束时间">
+					    <button type="button" class="btn btn-primary" id="search" 
+						   	data-complete-text="加载中..." onclick="access_his_search()">搜索
+						</button>
+					</div>
+					<div class="right_deal">
+						<a id="dlink" href="#" style="display: none;"></a>
+						<button type="button" class="btn btn-primary" id="search" onclick="exportExls()">导出</button>
+					</div>
+				</div>
+				<div class="table_header">
+					<div class="header_content">
+						<p>姓名</p>
+						<p>刷卡时间</p>
+						<p>刷卡卡号</p>
+						<p>事件</p>
+						<p>门禁点</p>
+					</div>
+				</div>
+				<div class="table_content">
+
+				</div>
+
+			</div>
+
+		</div>
+		
+	</div>
+	<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        		操作成功。
+    </div>
+    <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        	操作失败。
+    </div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title">
+							<span class="txt">
+								人员权限编辑
+							</span>
+							<span id="errorMsg_author" style="font-size: 14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										 门禁权限<span style="color: red;">*</span>
+										</label>
+										<div class="col-md-10">
+									        <div class="mulWrap meet_server">
+									      	
+									      	</div>
+										    <div class="checkWrap meet_server_check">
+										      	
+										    </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="mjAuthorDeal(this)">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="modal fade" id="myModal_dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							人员权限撤权
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-4 control-label">
+										  确定进行人员门禁撤权？
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="mjMemDetele()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="modal fade" id="myModal_group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							
+							<span class="txt">添加分组</span>
+							<span class="errorMsg" style="font-size: 14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										 分组名称<span style="color: red;">*</span>
+										</label>
+										<div class="col-md-10">
+									        <input type="text" name="" placeholder="门禁名称" class="form-control" id="groupName" value="" />
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!--<div class="row groupItem">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										 门禁权限
+										</label>
+										<div class="col-md-10">
+									        <div class="mulWrap meet_server">
+									      	
+									      	</div>
+										    <div class="checkWrap meet_server_check">
+										      	
+										    </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>-->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="mjGroup(this)">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<div class="modal fade" id="myModal_group_dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							删除门禁分组
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-4 control-label">
+										  确定进行删除门禁分组？
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="mjGroupDele()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="modal fade" id="myModal_group_point" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" onclick="hideMulCheck(this)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							添加门禁分组子项
+							<span class="errorMsg" style="font-size: 14px;color: red;margin-left: 15px;">
+								
+							</span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row groupItem">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-2 control-label">
+										 门禁点<span style="color: red;">*</span>
+										</label>
+										<div class="col-md-10">
+									        <div class="mulWrap meet_server_point">
+									      	
+									      	</div>
+										    <div class="checkWrap meet_server_check_point">
+										      	
+										    </div>
+									    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="addMjGroupPonit(this)">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var groupId=[],groupName=[],oldGroupId=[],edictId=0,mjDealType=0,oldMj,appId=0,mjGroupEdict=0,mjGroupEdictId=0,mjGroupName="";
+	var mjPointId=[],mjPointName=[],oldmjPoint=[];
+	var nameNo,authorNo,phoneNo,mailNo;
+	
+	var searchType=0;
+	$(function(){
+		var locak= loadThisAdmin(1)
+		if(locak!=1){
+			return
+		}
+		var h=$(window).height();
+		$("#access_contrl .table_content").css({height:(h-170)+'px'});//设备控制高度
+		
+		$("#acess_ysq").css({height:(h-100)/2+'px'});//人员权限已授权高度
+		
+		$("#inforList").css({height:h-80+'px',overflow:"auto"});//右侧概况高度
+		$("#group_ri").css({height:h-180+'px',overflow:"auto"});//分组右侧
+		$("#group_le").css({height:h-155+'px',overflow:"auto"});//分组左侧
+		$("#access_history .table_content").css({height:h-170+'px',overflow:"auto"});//历史记录，
+		
+		var str=$("#acess_ysq").css("height");
+		
+		
+		var hei=str.substring(0,str.length-2);
+		$("#acess_app").css({height:h-hei-260+'px'});//人员权限申请
+		
+		$('#myTab a').click(function (e) {
+		   e.preventDefault();
+		   $(this).tab('show');
+		   var tabName=$(this).attr("href")
+		   if(tabName=="#access_mem"){
+		   		loadMemInfor(0);
+		   		loadSysNum(0,'mjStatus');
+		   		loadMjAppl();
+		   }
+		   
+		})
+		$('input, textarea').placeholder();
+		loadSysNum(0,'mjStatus');
+		loadMemInfor(0);
+		loadMjGroup();
+		loadMjAppl();
+		loadMjEuip(0);
+		$(".meet_server").click(function(){
+			stopEvent(event);
+			JQajaxo("get","/api/Event/get_mj_sce_group",true,{},_success)
+			function _success(res){
+				$(".meet_server_check").html("")
+				var dat=res.HttpData.data,lg=dat.length;
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+					var html='<div class="item" checkId="'+value.id+'" onclick="changeServer('+value.id+',\''+value.parentId+'\',\''+value.groupName+'\',this)">'+
+					      		 '<span>'+value.groupName+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      	 '</div>';
+					$(".meet_server_check").append(html)
+				}
+				$(".meet_server_check").show();
+				imgShowControl()
+			}
+		})
+		
+		$(".meet_server_point").click(function(){
+			stopEvent(event);
+			JQajaxo("get","/api/Event/get_mj_eq",true,{},_success)
+			function _success(res){
+				$(".meet_server_check_point").html("")
+				var dat=res.HttpData.data,lg=dat.length;
+				for(var i=0;i<lg;i++){
+					var value=dat[i];
+					returnLoad(value.id);
+					if(returnLoad(value.id)){
+						var html='<div class="item" checkId="'+value.id+'" onclick="changePonit('+value.id+',\''+value.name+'\',this)">'+
+					      		 '<span>'+value.name+'</span>'+
+					      		 '<img src="../../Image/bank/gou.png"/>'+
+					      	 '</div>';
+					$(".meet_server_check_point").append(html)
+					}
+					
+				}
+				$(".meet_server_check_point").show();
+//				imgShowControl()
+			}
+		})
+		$("#search_end").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_begin").datetimepicker({
+			format:"yyyy/mm/dd hh:ii",
+			autoclose:true,
+			language:  'zh-CN',
+			minView:0,
+			weekStart: 1,
+			todayBtn : false,
+		})
+		$("#search_end").val(getTime())
+		$("#search_begin").val(getTodayBegin())
+		$('#mj_autho_search_text').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadMemInfor(0);
+			}
+		})
+		$('.modal').on('show.bs.modal', function () {
+			   $(".errorMsg").text("");
+		})
+		
+	})
+	var tbodyData=[];
+	function exportExls(){
+		var  colName=[
+			{label:"姓名",key:"member",type:"string"},
+			{label:"刷卡时间",key:"time",type:"time"},
+			{label:"刷卡卡号",key:"cardNo",type:"string"},
+			{label:"事件",key:"event",type:"string"},
+			{label:"门禁点",key:"mjname",type:"string"}
+		]
+		var fileName="门禁历史记录"+getTime();
+		HtmlExportToExcel(tbodyData,colName,fileName)
+	}
+	function loadMjEuip(deal){
+		if(deal==0){
+			JQajaxo("get","/api/Event/get_mj_eq",true,{},_success);
+		}else{
+			var data={
+				keyTxt: $("#eq_text_search").val()
+			}
+			JQajaxo("post","/api/Event/get_mj_eq_search",true,data,_success);
+		}
+		
+		function _success(res){
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#access_contrl .table_content"),$("#access_contrl .header_content"),lg)
+			$("#access_contrl .table_content").html("")
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				var html='<div class="table_line" id="'+i+'">'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+value.code+'</p>'+
+							'<p>'+value.floor+'</p>'+
+							'<p class="sta">'+returnEquipS(value.status)+'</p>'+
+							'<p><span class="edict"  onclick="controlEquip(1,'+i+','+value.id+')">开门</span><span class="edict" onclick="controlEquip(2,'+i+','+value.id+')">关门</span><span class="edict" onclick="controlEquip(3,'+i+','+value.id+')">门常开</span><span class="edict" onclick="controlEquip(4,'+i+','+value.id+')">门常关</span></p>'+
+						'</div>';
+				$("#access_contrl .table_content").append(html)
+			}
+		}
+	}
+	function controlEquip(deal,ind,id){
+		var data={
+			id:id,
+			deal:deal
+		}
+		JQajaxo("post", "/api/Event/set_mj_eq", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			if(dat==1){
+			$(".alert-success").show()
+				$("#"+ind).find(".sta").text(returnEquipS(deal))
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+		
+		
+		
+	}
+	function refresh(){
+		loadSysNum(0,'mjStatus');
+		loadMemInfor(0);
+		loadMjGroup();
+		loadMjAppl();
+	}
+	function mj_autho_search(){
+		loadMemInfor(1);
+
+	}
+	function searchChnage(dom){
+		var val=$(dom).val();
+		searchType=val;
+		switch (val)
+		{
+			case "1":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			case "2":
+				$(".timepicker").hide();
+				$(".typepicker").hide();
+				$(".textpicker").show();
+			break;
+			
+			case "0":
+				$(".timepicker").show();
+				$(".typepicker").hide();
+				$(".textpicker").hide();
+			break;
+		}
+	}
+	function access_his_search(){
+		var data;
+        if(searchType==0){
+        	data={
+        		start:$("#search_begin").val(),
+        		end:$("#search_end").val(),
+        		type:0
+        	}
+        }
+        if(searchType==1){
+        	data={
+        		cardNo:$(".textpicker").val(),
+        		type:2
+        	}
+        }
+        if(searchType==2){
+        	data={
+        		name:$(".textpicker").val(),
+        		type:1
+        	}
+        }
+        JQajaxo("post","/api/Event/get_mj_his",true,data,_success)
+        function _success(res){
+        	var dat=res.HttpData.data,lg=dat.length;
+        	tbodyData=dat;
+        	paddingCount($(".table_content"),$("#access_history .header_content"),lg)
+        	$("#access_history .table_content").html("");
+        	for(var i=0;i<lg;i++){
+        		var value=dat[i];
+
+        		var html='<div class="table_line">'+
+							'<p>'+value.member+'</p>'+
+							'<p>'+value.time.replace("T"," ")+'</p>'+
+							'<p>'+value.cardNo+'</p>'+
+							'<p>'+value.event+'</p>'+
+							'<p>'+value.mjname+'</p>'+
+						'</div>';
+        		$("#access_history .table_content").append(html)
+        	}
+        }
+	}
+	function addMjGroupPonit(dom){
+		var data={
+			id:mjGroupEdictId,
+			mjCode:mjPointId.toString()
+		}
+//		errorMsg
+		if(!data.mjCode){
+			$(dom).parents(".modal-dialog").find(".errorMsg").text("请选择子项");
+			return;
+		}
+		JQajaxo("post", "/api/Event/add_group_item", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_group_point').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				getList(mjGroupEdictId)
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function returnLoad(id){
+		if(oldmjPoint.indexOf(id)==-1){
+			return true;
+		}
+		
+	}
+	function addMjPoint(){
+		$("#myModal_group_point").modal("show");
+		$("#groupPointName").val(mjGroupName);
+		hideMulCheck($(".modal-dialog"))
+		
+	}
+	function addMjGroup(){
+		$("#myModal_group").modal("show");
+		$("#myModal_group h4 .txt").text("新增门禁分组");
+		$("#myModal_group .groupItem").show();
+		$("#groupName").val("")
+		groupId=[];
+		groupName=[];
+		
+		$(".meet_server").html("")
+		mjGroupEdict=0;
+	}
+	function edictMjGroup(){
+		mjGroupEdict=1;
+		$("#myModal_group h4 .txts").text("编辑门禁分组")
+		$("#myModal_group").modal("show");
+		$("#myModal_group .groupItem").hide();
+		groupId=[];
+		groupName=[];
+		$(".meet_server").html("")
+		$("#groupName").val(mjGroupName)
+	}
+	function deletMjGroup(){
+		$("#myModal_group_dele").modal("show")
+		
+	}
+	function mjGroupDele(){
+		var data={
+			id:mjGroupEdictId
+		}
+		JQajaxo("post", "/api/Event/del_sec_item", true,data, _success);
+		function _success(res){
+			
+			var dat=res.HttpData.data;
+			$('#myModal_group_dele').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				loadMjGroup()
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function mjGroup(dom){
+		var data,url;
+		if(mjGroupEdict==0){
+			data={
+				name:$("#groupName").val()
+			}
+			url="/api/Event/set_mj_group";
+		}else{
+			data={
+				name:$("#groupName").val(),
+				id:mjGroupEdictId
+			}
+			url="/api/Event/upd_sec_name";
+		}
+		if(!data.name){
+			$(dom).parents(".modal-dialog").find(".errorMsg").text("名称不能为空");
+			return;
+		}
+		JQajaxo("post", url, true,data, _success);
+		function _success(res){
+			var dat;
+			if(mjGroupEdict==0){
+				 dat=res.HttpData.data;
+			}else{
+				 dat=res.HttpData.data;
+			}
+			
+			$('#myModal_group').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				loadMjGroup()
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function mjAthourApp(){
+		var val = $('input[name="agree"]:checked').val(); 
+	}
+	function mjMemDetele(){
+		var	data={
+					cardNo :edictId,
+					deal :2,
+					dyj :""
+				}
+		JQajaxo("post", "/api/Event/upd_mj_auth", true,data, _success)
+		function _success(res){
+			var dat=res.HttpData.data;
+			$('#myModal_dele').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				loadMemInfor(0);
+				loadSysNum(0,'mjStatus');
+//				loadMjAppl()
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function mjAuthorDeal(dom){
+		var data,url="/api/Event/upd_mj_auth";
+		if(mjDealType==0){
+			//授权
+			data={
+				deal:1,
+				cardNo:edictId,
+				mj:groupId.toString()
+			}
+		}else if(mjDealType==2){
+			//申请
+			data={
+				cardNo:edictId,
+				id:appId,
+				mj:groupId.toString()
+			}
+			url="/api/Event/upd_mj_app"
+		}else{
+			//编辑
+			data={
+				deal:0,
+				cardNo:edictId,
+				mj:groupId.toString()
+			}
+		}
+		if(!data.mj){
+			$("#errorMsg_author").text("请选择门禁权限");
+			return;
+		}
+		JQajaxo("post", url, true,data, _success)
+		function _success(res){
+			groupId=[];
+			var dat=res.HttpData.data;
+			$('#myModal').modal('hide');
+			if(dat==1){
+				$(".alert-success").show()
+				groupId=[];
+				groupName=[];
+				loadMemInfor(0);
+				loadMjAppl()
+				loadSysNum(0,'mjStatus');
+				//	var nameNo,authorNo,phoneNo,mailNo;
+				var content=nameNo+"，您的门禁权限已经变更为"+authorNo;
+				sms(phoneNo,content);
+				mail("",mailNo,"","","门禁权限变更通知",content)
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function changeServer(id,parentId,name,dom){
+		stopEvent(event)
+		var show=$(dom).find("img").css("display");
+		if(show=="none"){
+			$(dom).find("img").show();
+			groupId.push(id);
+			groupName.push(name);
+		}else{
+			$(dom).find("img").hide();
+			groupId.remove(id);
+			groupName.remove(name);
+		}
+		authorNo=groupName.toString();
+		loadServerItem(groupName,$(".meet_server"));//加部门item
+	}
+	function changePonit(id,name,dom){
+
+		stopEvent(event)
+		var show=$(dom).find("img").css("display");
+		if(show=="none"){
+			$(dom).find("img").show();
+			mjPointId.push(id);
+			mjPointName.push(name);
+		}else{
+			$(dom).find("img").hide();
+			mjPointId.remove(id);
+			mjPointName.remove(name);
+		}
+		loadServerItemPoint(mjPointName,$(".meet_server_point"));//加部门item
+	}
+	function loadServerItemPoint(data,targ){
+		var lg=data.length;
+		targ.html("");
+		for(var i=0;i<lg;i++){
+			var name=data[i];
+			var id=mjPointId[i];
+			var html='<p><span class="content">'+name+'</span><span class="closed" onclick="deleServerPoint(this,'+id+',\''+name+'\')">x</span></p>';
+			targ.append(html);
+		}
+	}
+	function deleServerPoint(dom,id,name,idArr,nameArr){
+		stopEvent(event)
+		$(dom).parent().remove();
+		mjPointId.remove(id);
+		mjPointName.remove(name);
+		$(".meet_server_check_point .item").each(function(){
+			var ids=$(this).attr("checkId")
+			if(mjPointId.indexOf(ids)==-1){
+				$(this).find("img").hide()
+			}
+		})
+	}
+	function loadServerItem(data,targ){
+		var lg=data.length;
+		targ.html("");
+		for(var i=0;i<lg;i++){
+			var name=data[i];
+			var id=groupId[i];
+			if(data[i]){
+				var html='<p><span class="content">'+name+'</span><span class="closed" onclick="deleServer(this,'+id+',\''+name+'\')">x</span></p>';
+			}
+			
+			targ.append(html);
+		}
+	}
+	function deleServer(dom,id,name,idArr,nameArr){
+		stopEvent(event)
+		$(dom).parent().remove();
+		groupId.remove(id);
+		groupName.remove(name);
+		authorNo=groupName.toString();
+		
+		$(".meet_server_check .item").each(function(){
+			var id=$(this).attr("checkId")
+			if(groupId.indexOf(id)==-1){
+				$(this).find("img").hide()
+			}
+		})
+	}
+	function hideMulCheck(dom){
+		$(dom).find('.checkWrap').hide()
+//		$("#").css({borderColor:"#66afe9",outline:"0"});
+	}
+	function loadMemInfor(deal){
+		if(deal==0){
+			JQajaxo("get", "/api/Event/get_mj_auth", true,{}, _success)
+		}else{
+			//		mj_autho_search_text
+			var data={
+				keyWord:$("#mj_autho_search_text").val()
+			}
+			JQajaxo("post", "/api/Event/get_mj_auth_search", true,data, _success)
+		}
+		function _success(res){
+			$("#acess_ysq").html("");
+			$("#acess_dcq .table_content").html("")
+			$("#acess_dsq .table_content").html("")
+			var dat=res.HttpData.data,lg=dat.length,ysq=0;
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				if(value.mjStatus==1){
+					var html='<div class="table_line">'+
+								'<p>'+value.name+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.cardNo+'</p>'+
+								'<p>'+value.department+'</p>'+
+								'<p title="'+ deleLast(value.mjtxt)+'"  style="width: 28%;">'+deleLast(value.mjtxt)+'</p>'+
+								'<p  style="width: 10%;"><span class="edict" onclick="edictMj(\''+value.cardNo+'\',\''+value.mj+'\',\''+value.mjtxt+'\',\''+value.mail+'\',\''+value.phone+'\',\''+value.name+'\')">编辑</span></p>'+
+							'</div>';
+					$("#acess_ysq").append(html);
+					ysq++;
+				}
+				if(value.mjStatus==2){
+					var html='<div class="table_line" onclick="deleMjAuthor(\''+value.cardNo+'\',\''+value.name+'\',\''+value.mj+'\')">'+
+								'<p>'+value.name+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.cardNo+'</p>';
+							'</div>';
+					$("#acess_dcq .table_content").append(html);
+				}
+				if(value.mjStatus==0){
+					var html='<div class="table_line" onclick="mjAuthor(\''+value.cardNo+'\',\''+value.name+'\',\''+value.mail+'\',\''+value.phone+'\')">'+
+								'<p>'+value.name+'</p>'+
+								'<p>'+value.workNo+'</p>'+
+								'<p>'+value.cardNo+'</p>';
+							'</div>';
+					$("#acess_dsq .table_content").append(html);
+				}
+			}
+			paddingCount($("#acess_ysq"),$("#acess_ysq_header"),ysq)
+		}
+	}
+	function deleMjAuthor(card,name,mj){
+		$("#myModal_dele").modal("show");
+		edictId=card;
+		oldMj=mj;
+	}
+	function mjAuthor(card,name,mail,phone){
+		nameNo=name;
+		mailNo=mail;
+		phoneNo=phone;
+		
+		mjDealType=0;//授权
+		$("#myModal h4 .txt").text("人员权限授权")
+		groupId=[];
+		edictId=card;
+		$(".meet_server").html("")
+		$("#myModal").modal("show");
+	}
+
+	function edictMj(card,mj,name,mail,phone,appName){
+		nameNo=appName;
+		mailNo=mail;
+		phoneNo=phone;
+		
+		mjDealType=1;//编辑
+		hideMulCheck($(".modal"));
+		$("#myModal h4  .txt").text("人员权限编辑")
+		oldGroupId=mj.split(",");
+		groupId=mj.split(",");
+		var arr=name.split(",");
+		authorNo=name;
+		edictId=card;
+		$(".meet_server").html("");
+		for(var i=0;i<arr.length;i++){
+			if(arr[i]){
+				groupName[i]=arr[i];
+				var html='<p><span class="content">'+arr[i]+'</span><span class="closed" onclick="deleServer(this,'+oldGroupId[i]+',\''+arr[i]+'\')">x</span></p>';
+				$(".meet_server").append(html)
+			}
+			
+		}
+		
+		$("#myModal").modal("show");
+	}
+	function loadMjGroup(){
+		JQajaxo("post", "/api/Event/get_fir_item", false,{parentId :0}, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			var id=dat[0].id;
+			$(".first_group").text(dat[0].groupName);
+			JQajaxo("post", "/api/Event/get_fir_item", true,{parentId :id}, _successSc);
+			function _successSc(res){
+				$(".mj_group").html("")
+				var resp=res.HttpData.data,lng=resp.length;
+				for(var m=0;m<lng;m++){
+					var obj=resp[m];
+					var html='<p  class="list-group-item" onclick="getList('+obj.id+',this,\''+obj.groupName+'\')">'+obj.groupName+'</p>';
+					$(".mj_group").append(html)
+				}
+			}
+		}
+	}
+	function loadMjAppl(){
+		JQajaxo("post", "/api/Event/get_sys_auth", true,{sys:"1"}, _success);
+		function _success(res){
+			$("#acess_app").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($("#acess_app"),$("#acess_app_header"),lg)
+			for(var i=0;i<lg;i++){
+				var value=dat[i]
+				var html='<div class="table_line">'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+value.workNo+'</p>'+
+							'<p>'+value.cardNo+'</p>'+
+							'<p>'+value.department+'</p>'+
+							'<p title="'+value.subAuth+'" style="width: 20%;">'+value.subAuth+'</p>'+
+							'<p><span class="edict" onclick="author_appli(\''+value.cardNo+'\','+value.id+',\''+value.name+'\',\''+value.mail+'\',\''+value.phone+'\')">审批</span></p>'+
+						'</div>';
+				$("#acess_app").append(html);
+			}
+		}
+		
+		
+		
+	}
+	function author_appli(cardNo,id,name,mail,phone){
+		mjDealType=2;//授权
+		$("#myModal h4 .txt").text("人员权限授权")
+		//	var nameNo,authorNo,phoneNo,mailNo;
+		nameNo=name;
+		mailNo=mail
+		phoneNo=phone;
+		groupId=[];
+		groupName=[];
+		appId=id;
+		edictId=cardNo;
+		$(".meet_server").html("")
+		$("#myModal").modal("show");
+//		$("#myModal_applicant").modal("show");
+	}
+	
+	function getList(id,dom,name){
+		mjPointId=[];
+		mjPointName=[];
+		$(".meet_server_point").html("")
+		$(".meet_server_check_point").html("")
+		
+		mjGroupName=name;
+		mjGroupEdictId=id;
+		$(dom).css({background:"#f5f5f5",color:"#337ab7"}).siblings().css({background:"#fff",color:"#333"});
+		JQajaxo("post", "/api/Event/get_third_item", true,{id :id}, _success);
+		function _success(res){
+			$("#access_group .table_content").html("")
+			var dat=res.HttpData.data,lg=dat.length;
+			paddingCount($(".table_content"),$("#access_group .header_content"),lg)
+			oldmjPoint=[];
+			for(var i=0;i<lg;i++){
+				var value=dat[i];
+				oldmjPoint.push(value.mjId);
+				var html='<div class="table_line">'+
+							'<p>'+value.id+'</p>'+
+							'<p>'+value.name+'</p>'+
+							'<p>'+value.code+'</p>'+
+							'<p >'+value.floor+'</p>'+
+							'<p><span class="delete" onclick="deleteMjPoint('+value.id+')">删除</span></p>'+
+						'</div>';
+				$("#access_group .table_content").append(html);
+			}
+		}
+	}
+	function deleteMjPoint(id){
+		var data={
+			id:id
+		}
+		JQajaxo("post", "/api/Event/del_thir_item", true,data, _success);
+		function _success(res){
+			var dat=res.HttpData.data;
+			if(dat==1){
+				$(".alert-success").show()
+				getList(mjGroupEdictId)
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	function imgShowControl(){
+		$(".meet_server_check .item").each(function(){
+			var checkId=$(this).attr("checkId");
+			if(groupId.indexOf(checkId)!=-1){
+				$(this).find("img").show();
+			}
+		})
+	}
+	function returnEquipS(sta){
+		if(sta==0){
+			return "未知"
+		}else if(sta==1){
+			return "开"
+		}else if(sta==2){
+			return "关"
+		}else if(sta==3){
+			return "常开"
+		}else{
+			return "常关"
+		}
+	}
+</script>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GWService.api.Service</name>
+    </assembly>
+    <members>
+        <member name="T:GWService.Api.Test.Controllers.ServiceController">
+            <summary>
+            服务器操作
+            </summary>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.ServiceController.get_file_struct(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取文件夹结构
+            </summary>
+            <param name="obj">
+            obj.filePath:文件地址（为空则使用默认地址）（值为u时，获取u盘或移动硬盘的数据）
+            obj.fileName:指定需要显示的文件名的后缀（多个例如.ppt|.pdf|.xlsx）（为空则使用默认值）
+            </param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.ServiceController.GetFileAll(System.String,System.String,System.String)">
+            <summary>
+            获取文件夹结构
+            </summary>
+            <param name="filePath">文件地址（为空则使用默认地址）（值为u时，获取u盘或移动硬盘的数据）</param>
+            <param name="fileName">定需要显示的文件名的后缀（多个例如.ppt|.pdf|.xlsx）（为空则使用默认值）</param>
+            <param name="fileType">指名类型：值为‘DirectoryInfo’返回文件夹，值为‘FileInfo’返回文件</param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.ServiceController.CompressImage(System.String,System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            无损压缩图片
+            </summary>
+            <param name="sFiles">原图片地址</param>
+            <param name="dFiles">压缩后保存图片地址</param>
+            <param name="nameFile">图片名称</param>
+            <param name="flag">压缩质量（数字越小压缩率越高）1-100</param>
+            <param name="size">压缩后图片的最大大小</param>
+            <param name="sfsc">是否是第一次调用</param>
+            <param name="mult">压缩比率</param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.ServiceController.compress_pic(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            压缩单个图片
+            </summary>
+            <param name="obj">
+            obj.filePath:文件地址
+            obj.fileName:文件名（带后缀名）
+            obj.minFilePath:压缩后存放地址
+            </param>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.ServiceController.capture_screen(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            屏幕截图方法（支持多屏幕）
+            </summary>
+            <param name="obj">
+            obj.x:起点x坐标
+            obj.y:起点y坐标
+            obj.width:截图的宽度
+            obj.height:截图的长度
+            </param>
+        </member>
+    </members>
+</doc>

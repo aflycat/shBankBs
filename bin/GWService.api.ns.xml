@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GWService.api.ns</name>
+    </assembly>
+    <members>
+        <member name="T:GWService.Api.Test.Controllers.DatasController">
+            <summary>
+            自定义数据库接口，控制器名为Db,请求时不区分大小写
+            </summary>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.getLinkageList(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取设备联动配置列表
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.addLinkage(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            新增联动设置
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.deleteLinkage(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            删除联动设置
+            </summary>
+            <param name="req">req.id:ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.updateLinkage(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            修改联动设置
+            </summary>
+            <param name="req">req.id:ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.addScene(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            新增场景
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.deleteScene(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            删除场景
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.updateScene(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            修改场景设置
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.getYcpList(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取ycp表数据
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.getYcp(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取ycp表数据
+            </summary>
+            <param name="req">req.equip_nos:设备号</param>
+            <returns></returns>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.getYxpList(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取ycp表数据
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:GWService.Api.Test.Controllers.DatasController.getYxp(Newtonsoft.Json.Linq.JObject)”忽略有格式错误的 XML 注释 -->
+        <member name="M:GWService.Api.Test.Controllers.DatasController.getSetparmList(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取setParm数据
+            </summary>
+        </member>
+        <member name="M:GWService.Api.Test.Controllers.DatasController.getEquipList(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            获取Equip所有设备数据
+            </summary>
+        </member>
+    </members>
+</doc>

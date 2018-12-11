@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <!-- 编码格式 -->
+	    <meta charset="UTF-8">
+	    <title>上海银行</title>
+	    <!-- 作者 -->
+	    <meta name="author" content="author">
+	    <!-- 网页描述 -->
+	    <meta name="description" content="hello">
+	    <!-- 关键字使用","分隔 -->
+	    <meta name="keywords" content="a,b,c">
+	    <!-- 禁止浏览器从本地机的缓存中调阅页面内容 -->
+	    <!--<meta http-equiv="Pragma" content="no-cache">-->
+	    <!-- content的参数有all，none，index，noindex，follow，nofollow，默认是all -->
+	    <meta name="robots" content="none">
+	    <!-- 收藏图标 -->
+	    <!--<link rel="Shortcut Icon" href="favicon.ico">-->
+	    <!-- 网页不会被缓存 -->
+	    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	    <!-- 解决部分兼容性问题，如果安装了GCF，则使用GCF来渲染页面，如果未安装GCF，则使用最高版本的IE内核进行渲染。 -->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <!-- 页面按原比例显示 -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="../../Styles/Plugin/bootstrap.min.css">
+	    <!--<link rel="stylesheet" href="//at.alicdn.com/t/font_765234_tteodb5xeg.css">-->
+	    <link rel="stylesheet" href="../../Styles/Home/index.css">
+	    <link rel="stylesheet" type="text/css" href="../../Styles/Plugin/bootstrap-datetimepicker.min.css"/>
+	    <script src="../../Scripts/plug/jquery-1.11.3.min.js"></script>
+	 	<script src="../../Scripts/plug/bootstrap.min.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/jquery.placeholder.min.js"></script>
+	 	<script src="../../Scripts/home/public.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.min.js"></script>
+	 	<script type="text/javascript" src="../../Scripts/home/bootstrap-datetimepicker.zh-CN.js"></script>
+	 	<!--<script type="text/javascript" src="../../Scripts/home/Common.js"></script>-->
+	    <!--[if lt IE 9]>
+	       <script src="../../Scripts/home/html5shiv.min.js"></script>
+	       <script src="../../Scripts/home/respond.js"></script>
+	    <![endif]-->
+	</head>
+	<body>
+		<ul id="myTab" class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#meeting_plan">会议安排</a></li>
+			
+		</ul>
+		<div id="inforWrap">
+			<div  class="tab-content">
+				<div class="tab-pane fade  in active" id="meeting_plan" style="overflow: auto;">
+					<div class="top_deal_item">
+						<div class="left_deal">
+						    <input type="text" class="form-control" id="search_plan_txt"   placeholder="请输入要搜索的内容" />
+						    <button type="button" class="btn btn-primary" id="search" onclick="search_plan_txt()">搜索</button>
+						</div>
+					</div>
+					<div class="meetting_list"  style="border-bottom: 1px dashed #eee;">
+						<div class="table_header">
+							<div class="nolist header_content ">
+							  <p>申请人</p>
+						      <p>会议主题</p>
+						      <p>会议类型</p>
+						      <p style="width: 16%;">会议内容</p>
+						      <p style="width: 14%;">开始时间</p>
+						      <p style="width: 14%;">结束时间</p>
+						      <p>联系人</p>
+						      <p>会议室</p>
+						      <p>会议状态</p>
+						      <p>操作</p>
+							</div>
+						</div>
+						<div class="table_content" id="meeting_plan_data"></div>
+					</div>
+					
+				</div>
+
+				
+				
+				
+				
+				
+			</div>
+		</div>
+		<div class="alert alert-success alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            		操作成功。
+        </div>
+        <div class="alert alert-danger alert-dismissable" style="width:400px;position: fixed;top: 50px;z-index: 99;left: 50%;margin-left: -200px;display: none;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            	操作失败。
+        </div>
+		<div class="modal fade" id="myModal_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							会议详情
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12 reason_de" style="display: none;">
+								<div class="form-group " >
+										<label class=" col-md-3 control-label">
+										  未通过原因
+										</label>
+										<div class="col-md-9" id="reason_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  申请人
+										</label>
+										<div class="col-md-9" id="app_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议主题
+										</label>
+										<div class="col-md-9" id="topic_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议类型
+										</label>
+										<div class="col-md-9" id="type_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议内容
+										</label>
+										<div class="col-md-9" id="content_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  开始时间
+										</label>
+										<div class="col-md-9" id="start_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  结束时间
+										</label>
+										<div class="col-md-9" id="end_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  联系人
+										</label>
+										<div class="col-md-9" id="cont_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  联系方式
+										</label>
+										<div class="col-md-9" id="tel">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议室
+										</label>
+										<div class="col-md-9" id="room_de">
+									      
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  参会人员
+										</label>
+										<div class="col-md-9" id="oname">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  其他人员
+										</label>
+										<div class="col-md-9" id="othermem">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  行领导
+										</label>
+										<div class="col-md-9" id="vname">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议服务
+										</label>
+										<div class="col-md-9" id="sertxt">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  通知方式
+										</label>
+										<div class="col-md-9" id="notify">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  会议备注
+										</label>
+										<div class="col-md-9" id="remarks">
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  技术支持
+										</label>
+										<div class="col-md-9" id="techMan">
+										无
+									    </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" >
+										<label class=" col-md-3 control-label">
+										  物业支持
+										</label>
+										<div class="col-md-9" id="propMan">
+										无
+									    </div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"><!---->
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		<div class="modal fade" id="myModal_finished" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" >
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							结束会议
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class=" col-md-4 control-label">
+										  确定结束会议？
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="meetingOver()">
+							确定
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+
+
+<script type="text/javascript">
+	//		JQajaxo(_type, _url, _asycn, _data, _success);
+	var edictId=0;
+	$(function(){
+		
+		var h=$(window).height();
+		$(".table_content").css({height:(h-170)+'px'})
+		$('#search_plan_txt').bind('input propertychange', function() {
+			if($(this).val()==""){
+				loadMeetingPlan(1);
+			}
+		})
+		loadMeetingPlan(1);
+
+	})
+	function search_plan_txt(){
+		var data={
+			keyWord:$("#search_plan_txt").val()
+		}
+		loadMeetingPlan(0,data,"/api/Event/get_meeting_out_search")
+
+	}
+	
+
+	function loadMeetingPlan(deal,datas,urls){
+	
+		
+		if(deal==0){
+			JQajaxo("post",urls,true,datas,_success)
+		}else{
+			var url="/api/Event/get_meeting_out";
+			JQajaxo("get",url,true,{},_success)
+		}
+		
+		
+		function _success(res){
+		
+			var dat=res.HttpData.data,lg=dat.length;
+			console.log(dat);
+			paddingCount($("#meeting_plan_data"),$("#meeting_plan .nolist.header_content"),lg)
+			$("#meeting_plan_data").html("");
+			
+			for(var i=0;i<lg;i++){
+				var arr=dat[i];
+				var sta="";
+				var now=getTime();
+				var ret= CompareDate(now,arr.begintime.replace("T"," "));
+				if(ret){
+					sta="进行中";
+				}else{
+					sta="未开始";
+				}
+				var html='<div class="table_line">'+
+					     '<p>'+arr.name+' </p>'+
+					     '<p>'+arr.topic+' </p>'+
+					     '<p >'+returnMeetingType(arr.type)+' </p>'+
+					     '<p style="width: 16%;" title="'+arr.meetingContent+'"><span>'+arr.meetingContent+'</span> </p>'+
+					     '<p style="width: 14%;">'+arr.begintime.replace("T"," ")+' </p>'+
+					     '<p style="width: 14%;">'+arr.endTime.replace("T"," ")+' </p>'+
+					     '<p>'+arr.contact+' </p>'+
+					     '<p>'+arr.roomname+' </p>'+
+					     '<p class="agree">'+sta+' </p>'+
+					     '<p><span class="edict" onclick="lookMore(\''+arr.name+'\',\''+arr.topic+'\',\''+arr.type+'\',\''+arr.meetingContent+'\',\''+arr.begintime+'\',\''+arr.endTime+'\',\''+arr.contact+'\',\''+arr.contactPhone+'\',\''+arr.roomname+'\',\''+arr.oName+'\',\''+arr.otherMem+'\',\''+arr.vName+'\',\''+arr.sertxt+'\',\''+arr.notify+'\',\''+arr.remark+'\',\''+arr.result+'\',\''+arr.reason+'\',\''+arr.hasVip+'\',\''+arr.propPop+'\',\''+arr.propPopPh+'\',\''+arr.techPop+'\',\''+arr.techPopPh+'\')">详情</span> <span class="noagree" onclick="finishMeet('+arr.id+',\''+arr.phone+'\',\''+arr.mail+'\',\''+arr.roomname+'\')">结束</span></p>'+
+				     '</div>';
+				$("#meeting_plan_data").append(html);
+
+				
+				
+			}
+			
+		
+		}
+	}
+	function lookMore(app_de,topic_de,type_de,content_de,start_de,end_de,cont_de,tel,room,oname,othermem,vname,sertxt,notify,remark,res,reason,hasV,prop,propPh,tech,techPh){
+		var nArr="";
+		if(notify.indexOf("1")!=-1){
+			nArr+="邮件"
+		}
+		if(notify.indexOf("0")!=-1){
+			nArr+="短信"
+		}
+		if(res==1){
+			$(".reason_de").show()
+			$("#reason_de").text(reason)
+		}else{
+			$(".reason_de").hide()
+		}
+		$("#app_de").text(app_de);
+		$("#topic_de").text(topic_de);
+		$("#type_de").text(returnMeetingType(type_de));
+		$("#content_de").text(content_de);
+		$("#start_de").text(start_de.replace("T"," "));
+		$("#end_de").text(end_de.replace("T"," "));
+		$("#cont_de").text(cont_de);
+		$("#tel").text(tel);
+		$("#room_de").text(room);
+		$("#oname").text(deleLast(oname));
+		$("#othermem").text(othermem);
+		if(tech!="null"&&techPh!="null"){
+			$("#techMan").text(tech+"--"+techPh);
+		}else{
+			$("#techMan").text("无");
+		}
+		if(prop!="null"&&propPh!="null"){
+			$("#propMan").text(prop+"--"+propPh);
+		}else{
+			$("#propMan").text("无");
+		}
+		
+		
+		if(vname=="null"||!hasV){
+			$("#vname").text("无")
+		}else{
+			$("#vname").text(deleLast(vname));
+		}
+		$("#sertxt").text(deleLast(sertxt));
+		$("#notify").text(nArr);
+		$("#remarks").text(remark);
+		$("#myModal_detail").modal("show")
+	}
+	var phoneNo,mailNo,roomNo;
+	function finishMeet(id,phone,mail,room){
+		edictId=id;
+		$("#myModal_finished").modal("show");
+		phoneNo=phone;
+		mailNo=mail;
+		roomNo=room;
+	}
+	function meetingOver(){
+		var data={
+			id:edictId
+		}
+		JQajaxo("post", "/api/Event/set_meet_finished", true,data, _success)
+		function _success(res){
+			var dat=res.HttpData.data;
+			$("#myModal_finished").modal("hide")
+			if(dat==1){
+				$(".alert-success").show()
+				var content="您在会议室："+roomNo+"的会议已经由会议管理结束，请尽快上传会议纪要等其他资料";
+				sms(phoneNo,content);
+				mail("",mailNo,"","","会议管理系统通知","会议结束通知:"+content);
+				loadMeetingPlan(1);
+				
+
+			}else{
+				$(".alert-danger").show()
+			}
+			setTimeout(function(){
+				$(".alert").hide()
+			},2000)
+		}
+	}
+	
+	
+
+
+	function returnMeetingType(id){
+		txt=""
+		var ind=parseInt(id);
+		switch (ind)
+		{
+			case 0:
+				txt="培训"
+			break;
+			case 1:
+				txt="一级"
+			break;
+			case 2:
+				txt="二级"
+			break;
+			case 3:
+				txt="其他"
+			break;
+			case 4:
+				txt="三级"
+			break;
+		}
+		return txt
+	}
+
+	
+
+	
+</script>
+
+</html>
